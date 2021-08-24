@@ -12,7 +12,8 @@ class DashboardController extends Controller
         return view('admin.dashboard', [
             'pageInfo' => [
                 'title' => 'Dashboard',
-                'name' => 'dashboard'
+                'id' => 'dashboard',
+                'group' => null
             ]
         ]);
     }

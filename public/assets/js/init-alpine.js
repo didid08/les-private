@@ -44,20 +44,10 @@ function data() {
       this.isProfileMenuOpen = false
     },
 
-    /* Page Menu */
-    isPendidikMenuOpen: false,
-    togglePendidikMenu() {
-      this.isPendidikMenuOpen = !this.isPendidikMenuOpen
+    isPagesMenuOpen: false,
+    togglePagesMenu() {
+      this.isPagesMenuOpen = !this.isPagesMenuOpen
     },
-    isPesertaDidikMenuOpen: false,
-    togglePesertaDidikMenu() {
-      this.isPesertaDidikMenuOpen = !this.isPesertaDidikMenuOpen
-    },
-    isPaketPembelajaranMenuOpen: false,
-    togglePaketPembelajaranMenu() {
-      this.isPaketPembelajaranMenuOpen = !this.isPaketPembelajaranMenuOpen
-    },
-    /* End Page Menu */
 
     // Modal
     isModalOpen: false,
