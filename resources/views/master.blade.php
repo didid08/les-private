@@ -30,6 +30,21 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    @if ($errors->any())
+        @php
+            $toastrTimeout = 0;
+        @endphp
+        @foreach ($errors->all() as $message)
+            <script type="module">
+                setTimeout(function () {
+                    toastr.error('{{ $message }}');
+                }, {{ $toastrTimeout }});
+            </script>
+            @php
+                $toastrTimeout += 300;
+            @endphp
+        @endforeach
+    @endif
 
     @yield('more-script')
 </head>

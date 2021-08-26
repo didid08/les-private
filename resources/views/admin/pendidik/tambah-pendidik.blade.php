@@ -10,13 +10,13 @@
                     @csrf
                     <label class="block text-sm mb-4">
                         <span class="text-gray-700 dark:text-gray-400">Nama</span>
-                        <input type="text"
+                        <input type="text" name="nama"
                             class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                             placeholder="Masukkan Nama">
                     </label>
                     <label class="block text-sm mb-4">
                         <span class="text-gray-700 dark:text-gray-400">Email</span>
-                        <input type="email"
+                        <input type="email" name="email"
                             class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                             placeholder="Masukkan Email">
                     </label>
@@ -30,11 +30,5 @@
     </main>
 @endsection
 @section('more-script')
-    @if ($errors->any())
-        @foreach ($errors->all as $message)
-            <script type="module">
-                toastr.error('{{ $message }}');
-            </script>
-        @endforeach
-    @endif
+
 @endsection

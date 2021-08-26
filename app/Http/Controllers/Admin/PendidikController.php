@@ -37,11 +37,12 @@ class PendidikController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required|max:100',
-            'email' => 'required|unique:users',
+            'email' => 'required|email|unique:users',
         ], [
-            'required' => ':attribute tidak boleh kosong',
+            'required' => 'Harap masukkan :attribute',
             'max' => 'Jumlah karakter :attribute tidak boleh melebihi 100',
-            'unique' => ':attribute sudah ada yang pakai'
+            'email' => 'Format email yang anda masukkan salah',
+            'unique' => ':attribute yang anda masukkan sudah ada yang pakai'
         ], [
             'nama' => 'Nama',
             'email' => 'Email'
