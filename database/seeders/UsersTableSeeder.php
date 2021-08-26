@@ -21,5 +21,33 @@ class UsersTableSeeder extends Seeder
             'email' => 'admin@localhost',
             'password' => Hash::make('admin')
         ]);
+
+        DB::table('users')->insert([
+            'role' => 'pendidik',
+            'nama' => 'Ammar',
+            'email' => 'ammar@localhost',
+            'password' => Hash::make('ammar')
+        ]);
+
+        DB::table('users')->insert([
+            'role' => 'pendidik',
+            'nama' => 'Didid',
+            'email' => 'didid@localhost',
+            'password' => Hash::make('didid')
+        ]);
+
+        DB::table('users')->insert([
+            'role' => 'pendidik',
+            'nama' => 'Satria',
+            'email' => 'satria@localhost',
+            'password' => Hash::make('satria')
+        ]);
+
+        DB::table('users')->insert([
+            'role' => 'pendidik',
+            'nama' => 'Raju',
+            'email' => 'raju@localhost',
+            'password' => Hash::make('raju')
+        ]);
     }
 }

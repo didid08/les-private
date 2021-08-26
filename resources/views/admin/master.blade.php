@@ -48,11 +48,11 @@
                     </li>
                     <li
                         class="px-2 py-1 transition-colors duration-150 {{ $pageInfo['id'] == 'tambah-pendidik' ? 'text-gray-800 dark:text-gray-200 ' : '' }}hover:text-gray-800 dark:hover:text-gray-200">
-                        <a class="w-full" href="requestpendidik.php">Tambah Pendidik</a>
+                        <a class="w-full" href="{{ route('admin.pendidik.tambah-pendidik') }}">Tambah Pendidik</a>
                     </li>
                     <li
                         class="px-2 py-1 transition-colors duration-150 {{ $pageInfo['id'] == 'roster-pendidik' ? 'text-gray-800 dark:text-gray-200 ' : '' }}hover:text-gray-800 dark:hover:text-gray-200">
-                        <a class="w-full" href="requestpendidik.php">Roster Pendidik</a>
+                        <a class="w-full" href="{{ route('admin.pendidik.roster-pendidik') }}">Roster Pendidik</a>
                     </li>
                 </ul>
             </template>

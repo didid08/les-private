@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
-use App\Http\Controllers\Admin\PendidikController;
+use App\Http\Controllers\Admin\PendidikController as AdminPendidikController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,6 +27,8 @@ Route::get('/admin/dashboard', AdminDashboardController::class)->middleware(['au
 Route::get('/admin/pendidik', function () {
     return redirect()->route('admin.pendidik.daftar-pendidik');
 });
-Route::get('/admin/pendidik/daftar-pendidik', [PendidikController::class, 'daftarPendidik'])->middleware(['auth'])->name('admin.pendidik.daftar-pendidik');
+Route::get('/admin/pendidik/daftar-pendidik', [AdminPendidikController::class, 'daftarPendidik'])->middleware(['auth'])->name('admin.pendidik.daftar-pendidik');
+Route::get('/admin/pendidik/tambah-pendidik', [AdminPendidikController::class, 'tambahPendidik'])->middleware(['auth'])->name('admin.pendidik.tambah-pendidik');
+Route::get('/admin/pendidik/roster-pendidik', [AdminPendidikController::class, 'rosterPendidik'])->middleware(['auth'])->name('admin.pendidik.roster-pendidik');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
