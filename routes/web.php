@@ -28,7 +28,10 @@ Route::get('/admin/pendidik', function () {
     return redirect()->route('admin.pendidik.daftar-pendidik');
 });
 Route::get('/admin/pendidik/daftar-pendidik', [AdminPendidikController::class, 'daftarPendidik'])->middleware(['auth'])->name('admin.pendidik.daftar-pendidik');
+
 Route::get('/admin/pendidik/tambah-pendidik', [AdminPendidikController::class, 'tambahPendidik'])->middleware(['auth'])->name('admin.pendidik.tambah-pendidik');
-Route::get('/admin/pendidik/roster-pendidik', [AdminPendidikController::class, 'rosterPendidik'])->middleware(['auth'])->name('admin.pendidik.roster-pendidik');
+Route::post('/admin/pendidik/tambah-pendidik', [AdminPendidikController::class, 'tambahPendidikProcess'])->middleware(['auth'])->name('admin.pendidik.tambah-pendidik@process');
+
+Route::get('/admin/pendidik/edit-pendidik', [AdminPendidikController::class, 'editPendidik'])->middleware(['auth'])->name('admin.pendidik.edit-pendidik');
 
 require __DIR__ . '/auth.php';

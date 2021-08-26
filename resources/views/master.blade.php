@@ -8,11 +8,29 @@
     <!-- CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('assets/css/tailwind.output.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     @yield('more-css')
     <!-- Script -->
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="{{ asset('assets/js/init-alpine.js') }}"></script>
     <script src="https://kit.fontawesome.com/36ff3a5251.js" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if(session()->has('success'))
+        <script type="module">
+            Swal.fire('', '{{ session()->get('success') }}', 'success');
+        </script>
+    @endif
+    @if(session()->has('error'))
+        <script type="module">
+            Swal.fire('', '{{ session()->get('error') }}', 'error');
+        </script>
+    @endif
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
     @yield('more-script')
 </head>
 
