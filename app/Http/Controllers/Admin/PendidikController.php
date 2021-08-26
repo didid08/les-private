@@ -55,7 +55,7 @@ class PendidikController extends Controller
                         ->withInput();
         }
 
-        $validated = $request->safe();
+        $validated = $validator->validated();
 
         User::insert([
             'role' => 'pendidik',
