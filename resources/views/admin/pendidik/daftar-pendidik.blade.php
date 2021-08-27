@@ -14,8 +14,10 @@
             <div class="w-full overflow-hidden rounded-lg shadow-xs mb-4" id="daftar-pendidik">
                 <div class="w-full overflow-x-auto">
                     <input
-                        class="search w-auto ml-2 mr-2 mt-2 mb-2 block mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
+                        class="search w-auto ml-4 mt-4 mb-2 block mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
+                        style="display: inline-block"
                         placeholder="Cari Pendidik">
+
                     <table class="w-full whitespace-no-wrap" id="daftar-pendidik-table">
                         <thead>
                             <tr
@@ -71,7 +73,7 @@
                                             @csrf
                                             <button type="submit"
                                                 class="items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-red-600 rounded-lg dark:text-red-400 focus:outline-none focus:shadow-outline-gray"
-                                                aria-label="Hapus">
+                                                aria-label="Hapus" onclick="return confirm('Apakah anda yakin ingin menghapus pendidik ini?')">
                                                 <i class="fa fa-trash mr-2"></i>Hapus
                                             </button>
                                         </form>
