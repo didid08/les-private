@@ -5,28 +5,28 @@
             <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
                 Daftar Pendidik
             </h2>
-            <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
+            <h4 class="mb-6 text-lg font-semibold text-gray-600 dark:text-gray-300">
                 <a href="{{ route('admin.pendidik.tambah-pendidik') }}"
                     class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                     Tambah Pendidik
                 </a>
             </h4>
             <div class="w-full overflow-hidden rounded-lg shadow-xs">
-                <div class="w-full overflow-x-auto">
+                <div class="w-full overflow-x-auto" id="daftar-pendidik">
+                    <input class="search w-auto ml-2 mr-2 mt-2 mb-2 block mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input" placeholder="Cari Pendidik">
                     <table class="w-full whitespace-no-wrap" id="daftar-pendidik-table">
                         <thead>
                             <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                                 <th class="px-4 py-3">Nama</th>
                                 <th class="px-4 py-3 text-center">Status</th>
-                                <th class="px-4 py-3 text-center">Roster</th>
                                 <th class="px-4 py-3 text-center">Opsi</th>
                             </tr>
                         </thead>
-                        <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                            @foreach ($semua_pendidik->sortBy('nama') as $index => $pendidik)
+                        <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800 list">
+                            @foreach ($semua_pendidik as $index => $pendidik)
 
                                     <tr class="text-gray-700 dark:text-gray-400">
-                                        <td class="px-4 py-3">
+                                        <td class="px-4 py-3 nama">
                                             <div class="flex items-center text-sm">
                                                 <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                                                     <img class="object-cover w-full h-full rounded-full"
@@ -43,30 +43,33 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="px-4 py-3 text-xs text-center">
+                                        <td class="px-4 py-3 text-xs text-center status">
                                             <span
                                                 class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:bg-orange-100 dark:text-orange-700">
                                                 Sedang Mengajar
                                             </span>
                                         </td>
+
                                         <td class="px-4 py-3 text-sm text-center">
-                                            <button
-                                                class="items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                                aria-label="Lihat Roster">
-                                                <i class="fas fa-calendar-alt mr-2"></i>Lihat Roster
-                                            </button>
-                                        </td>
-                                        <td class="px-4 py-3 text-sm text-center">
-                                            <button
+                                            <a href="{{ route('admin.pendidik.edit-pendidik', ['id' => $pendidik->id]) }}"
                                                 class="items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-green-600 rounded-lg dark:text-green-400 focus:outline-none focus:shadow-outline-gray"
-                                                aria-label="Hapus">
-                                                Edit
-                                            </button>
+                                                aria-label="Edit">
+                                                <i class="fa fa-edit mr-2"></i>Edit
+                                            </a>
                                             <button
-                                                class="items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-red-600 rounded-lg dark:text-red-400 focus:outline-none focus:shadow-outline-gray"
-                                                aria-label="Hapus">
-                                                Hapus
+                                                class="items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-orange-500 rounded-lg dark:text-yellow-400 focus:outline-none focus:shadow-outline-gray"
+                                                aria-label="Reset Password">
+                                                <i class="fa fa-history mr-2"></i>Reset Pass
                                             </button>
+                                            <form action="{{ route('admin.pendidik.hapus-pendidik', ['id' => $pendidik->id]) }}" method="POST" style="display: inline">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit"
+                                                    class="items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-red-600 rounded-lg dark:text-red-400 focus:outline-none focus:shadow-outline-gray"
+                                                    aria-label="Hapus">
+                                                    <i class="fa fa-trash mr-2"></i>Hapus
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
 
@@ -148,76 +151,13 @@
         </div>
     </main>
 @endsection
-@section('more-css')
-    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css"> --}}
-    {{-- <style>
-		.dataTables_wrapper select,
-		.dataTables_wrapper .dataTables_filter input {
-			color: #4a5568; 			/*text-gray-700*/
-			padding-left: 1rem; 		/*pl-4*/
-			padding-right: 1rem; 		/*pl-4*/
-			padding-top: .5rem; 		/*pl-2*/
-			padding-bottom: .5rem; 		/*pl-2*/
-			line-height: 1.25; 			/*leading-tight*/
-			border-width: 2px; 			/*border-2*/
-			border-radius: .25rem;
-			border-color: #edf2f7; 		/*border-gray-200*/
-			background-color: #edf2f7; 	/*bg-gray-200*/
-		}
-
-		/*Row Hover*/
-		table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
-			background-color: #ebf4ff;
-		}
-
-		/*Pagination Buttons*/
-		.dataTables_wrapper .dataTables_paginate .paginate_button		{
-			font-weight: 700;
-			border-radius: .25rem;
-			border: 1px solid transparent;
-            font-size: 0.9em;
-		}
-
-		/*Pagination Buttons - Current selected */
-		.dataTables_wrapper .dataTables_paginate .paginate_button.current	{
-			color: #fff !important;				/*text-white*/
-			box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06); 	/*shadow*/
-			font-weight: 700;					/*font-bold*/
-			border-radius: .25rem;				/*rounded*/
-			background: #7e3af2 !important;
-			border: 1px solid transparent;		/*border border-transparent*/
-		}
-
-		/*Pagination Buttons - Hover */
-		.dataTables_wrapper .dataTables_paginate .paginate_button:hover		{
-			color: #fff !important;				/*text-white*/
-			box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);	 /*shadow*/
-			font-weight: 700;					/*font-bold*/
-			border-radius: .25rem;				/*rounded*/
-			background: #6c2bd9 !important;
-			border: 1px solid transparent;		/*border border-transparent*/
-		}
-
-		/*Add padding to bottom border */
-		table.dataTable.no-footer {
-			border-bottom: 1px solid #e2e8f0;	/*border-b-1 border-gray-300*/
-			margin-top: 0.75em;
-			margin-bottom: 0.75em;
-		}
-
-		/*Change colour of responsive icon*/
-		table.dataTable.dtr-inline.collapsed>tbody>tr>td:first-child:before, table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before {
-			background-color: #7e3af2 !important;
-		}
-
-    </style> --}}
-@endsection
 @section('more-script')
-    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script> --}}
-    <script>
-        // $(document).ready(function() {
-        //     $("#daftar-pendidik-table").DataTable();
-        // });
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+    <script type="module">
+        var options = {
+            valueNames: [ 'nama', 'status' ]
+        };
+
+        var daftarPendidikList = new List('daftar-pendidik', options);
     </script>
 @endsection

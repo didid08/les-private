@@ -28,10 +28,10 @@ Route::get('/admin/pendidik', function () {
     return redirect()->route('admin.pendidik.daftar-pendidik');
 });
 Route::get('/admin/pendidik/daftar-pendidik', [AdminPendidikController::class, 'daftarPendidik'])->middleware(['auth'])->name('admin.pendidik.daftar-pendidik');
-
 Route::get('/admin/pendidik/tambah-pendidik', [AdminPendidikController::class, 'tambahPendidik'])->middleware(['auth'])->name('admin.pendidik.tambah-pendidik');
 Route::post('/admin/pendidik/tambah-pendidik', [AdminPendidikController::class, 'tambahPendidikProcess'])->middleware(['auth'])->name('admin.pendidik.tambah-pendidik@process');
-
-Route::get('/admin/pendidik/edit-pendidik', [AdminPendidikController::class, 'editPendidik'])->middleware(['auth'])->name('admin.pendidik.edit-pendidik');
+Route::get('/admin/pendidik/edit-pendidik/{id}', [AdminPendidikController::class, 'editPendidik'])->middleware(['auth'])->name('admin.pendidik.edit-pendidik');
+Route::put('/admin/pendidik/edit-pendidik/{id}', [AdminPendidikController::class, 'editPendidikProcess'])->middleware(['auth'])->name('admin.pendidik.edit-pendidik@process');
+Route::delete('/admin/pendidik/hapus-pendidik/{id}', [AdminPendidikController::class, 'hapusPendidik'])->middleware(['auth'])->name('admin.pendidik.hapus-pendidik');
 
 require __DIR__ . '/auth.php';

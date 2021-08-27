@@ -46,6 +46,12 @@
                         class="px-2 py-1 transition-colors duration-150 {{ $pageInfo['id'] == 'daftar-pendidik' ? 'text-gray-800 dark:text-gray-200 ' : '' }}hover:text-gray-800 dark:hover:text-gray-200">
                         <a class="w-full" href="{{ route('admin.pendidik.daftar-pendidik') }}">Daftar Pendidik</a>
                     </li>
+                    @if ($pageInfo['id'] == 'edit-pendidik')
+                        <li
+                            class="px-2 py-1 transition-colors duration-150 {{ $pageInfo['id'] == 'edit-pendidik' ? 'text-gray-800 dark:text-gray-200 ' : '' }}hover:text-gray-800 dark:hover:text-gray-200">
+                            <a class="w-full" href="{{ route('admin.pendidik.edit-pendidik', ['id' => $id]) }}">Edit Pendidik</a>
+                        </li>
+                    @endif
                     <li
                         class="px-2 py-1 transition-colors duration-150 {{ $pageInfo['id'] == 'tambah-pendidik' ? 'text-gray-800 dark:text-gray-200 ' : '' }}hover:text-gray-800 dark:hover:text-gray-200">
                         <a class="w-full" href="{{ route('admin.pendidik.tambah-pendidik') }}">Tambah Pendidik</a>
