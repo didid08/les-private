@@ -6,7 +6,7 @@
                 Daftar Peserta Didik
             </h2>
             <h4 class="mb-6 text-lg font-semibold text-gray-600 dark:text-gray-300">
-                <a href="{{ route('admin.pendidik.tambah-pendidik') }}"
+                <a href="{{ route('admin.peserta-didik.tambah-peserta-didik') }}"
                     class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                     Tambah Peserta Didik
                 </a>
@@ -28,7 +28,7 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800 list">
-                            @foreach ($semuaPesertaDidik as $index => $pesertaDidik)
+                            @foreach ($semuaPesertaDidik->sortBy('nama') as $index => $pesertaDidik)
 
                                 <tr class="text-gray-700 dark:text-gray-400">
                                     <td class="px-4 py-3 nama">
@@ -149,7 +149,7 @@
             pagination: true
         };
 
-        var daftarPendidikList = new List('daftar-peserta-didik', options);
+        var daftarPesertaDidikList = new List('daftar-peserta-didik', options);
 
         let pageActive = 1
 

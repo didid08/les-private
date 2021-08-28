@@ -28,7 +28,7 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800 list">
-                            @foreach ($semuaPendidik as $index => $pendidik)
+                            @foreach ($semuaPendidik->sortBy('nama') as $index => $pendidik)
 
                                 <tr class="text-gray-700 dark:text-gray-400">
                                     <td class="px-4 py-3 nama">
