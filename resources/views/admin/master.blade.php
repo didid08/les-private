@@ -86,11 +86,17 @@
                     aria-label="submenu">
                     <li
                         class="px-2 py-1 transition-colors duration-150 {{ $pageInfo['id'] == 'daftar-peserta-didik' ? 'text-gray-800 dark:text-gray-200 ' : '' }}hover:text-gray-800 dark:hover:text-gray-200">
-                        <a class="w-full" href="daftarpesertadidik.php">Daftar Peserta Didik</a>
+                        <a class="w-full" href="{{ route('admin.peserta-didik.daftar-peserta-didik') }}">Daftar Peserta Didik</a>
                     </li>
+                    @if ($pageInfo['id'] == 'edit-peserta-didik')
+                        <li
+                            class="px-2 py-1 transition-colors duration-150 {{ $pageInfo['id'] == 'edit-peserta-didik' ? 'text-gray-800 dark:text-gray-200 ' : '' }}hover:text-gray-800 dark:hover:text-gray-200">
+                            <a class="w-full" href="{{ route('admin.peserta-didik.edit-peserta-didik', ['id' => $id]) }}">Edit Peserta Didik</a>
+                        </li>
+                    @endif
                     <li
                         class="px-2 py-1 transition-colors duration-150 {{ $pageInfo['id'] == 'tambah-peserta-didik' ? 'text-gray-800 dark:text-gray-200 ' : '' }}hover:text-gray-800 dark:hover:text-gray-200">
-                        <a class="w-full" href="requestpesertadidik.php">Tambah Peserta Didik</a>
+                        <a class="w-full" href="{{ route('admin.peserta-didik.tambah-peserta-didik') }}">Tambah Peserta Didik</a>
                     </li>
                 </ul>
             </template>

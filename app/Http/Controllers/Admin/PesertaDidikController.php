@@ -8,32 +8,32 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class PendidikController extends Controller
+class PesertaDidikController extends Controller
 {
-    public function daftarPendidik()
+    public function daftarPesertaDidik()
     {
-        return view('admin.pendidik.daftar-pendidik', [
+        return view('admin.peserta-didik.daftar-peserta-didik', [
             'pageInfo' => [
                 'title' => 'Pendidik - Daftar Pendidik',
-                'id' => 'daftar-pendidik',
-                'group' => 'pendidik'
+                'id' => 'daftar-peserta-didik',
+                'group' => 'peserta-didik'
             ],
-            'semuaPendidik' => User::where('role', 'pendidik')->get()
+            'semuaPesertaDidik' => User::where('role', 'peserta_didik')->get()
         ]);
     }
 
-    public function tambahPendidik()
+    public function tambahPesertaDidik()
     {
-        return view('admin.pendidik.tambah-pendidik', [
+        return view('admin.peserta-didik.tambah-peserta-didik', [
             'pageInfo' => [
                 'title' => 'Pendidik - Tambah Pendidik',
-                'id' => 'tambah-pendidik',
-                'group' => 'pendidik'
+                'id' => 'tambah-peserta-didik',
+                'group' => 'peserta-didik'
             ]
         ]);
     }
 
-    public function tambahPendidikProcess(Request $request)
+    public function tambahPesertaDidikProcess(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required|max:100',
@@ -50,7 +50,7 @@ class PendidikController extends Controller
 
         if ($validator->fails()) {
             return redirect()
-                ->route('admin.pendidik.tambah-pendidik')
+                ->route('admin.peserta-didik.tambah-peserta-didik')
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -58,38 +58,38 @@ class PendidikController extends Controller
         $validated = $validator->validated();
 
         User::insert([
-            'role' => 'pendidik',
+            'role' => 'peserta_didik',
             'nama' => $validated['nama'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['email']),
         ]);
 
-        return redirect()->route('admin.pendidik.daftar-pendidik')->with('success', 'Berhasil menambah pendidik');
+        return redirect()->route('admin.peserta-didik.daftar-peserta-didik')->with('success', 'Berhasil menambah peserta didik');
     }
 
-    public function editPendidik($id)
+    public function editPesertaDidik($id)
     {
-        $pendidik = User::where([['id', '=', $id], ['role', '=', 'pendidik']]);
+        $pendidik = User::where([['id', '=', $id], ['role', '=', 'peserta_didik']]);
 
         if ($pendidik->exists()) {
-            return view('admin.pendidik.edit-pendidik', [
+            return view('admin.peserta-didik.edit-peserta-didik', [
                 'pageInfo' => [
                     'title' => 'Pendidik - Edit Pendidik',
-                    'id' => 'edit-pendidik',
-                    'group' => 'pendidik',
+                    'id' => 'edit-peserta-didik',
+                    'group' => 'peserta-didik',
                 ],
                 'id' => $id,
                 'nama' => $pendidik->first()->nama,
                 'email' => $pendidik->first()->email
             ]);
         } else {
-            return redirect()->route('admin.pendidik.daftar-pendidik')->with('error', 'Pendidik tidak ditemukan');
+            return redirect()->route('admin.peserta-didik.daftar-peserta-didik')->with('error', 'Peserta didik tidak ditemukan');
         }
     }
 
-    public function editPendidikProcess($id, Request $request)
+    public function editPesertaDidikProcess($id, Request $request)
     {
-        $pendidik = User::where([['id', '=', $id], ['role', '=', 'pendidik']]);
+        $pendidik = User::where([['id', '=', $id], ['role', '=', 'peserta_didik']]);
 
         if ($pendidik->exists()) {
 
@@ -108,7 +108,7 @@ class PendidikController extends Controller
 
             if ($validator->fails()) {
                 return redirect()
-                    ->route('admin.pendidik.edit-pendidik', ['id' => $id])
+                    ->route('admin.peserta-didik.edit-peserta-didik', ['id' => $id])
                     ->withErrors($validator)
                     ->withInput();
             }
@@ -120,29 +120,29 @@ class PendidikController extends Controller
                 'email' => $validated['email'],
             ]);
 
-            return redirect()->route('admin.pendidik.daftar-pendidik')->with('success', 'Berhasil mengedit pendidik');
+            return redirect()->route('admin.peserta-didik.daftar-peserta-didik')->with('success', 'Berhasil mengedit peserta didik');
         } else {
-            return redirect()->route('admin.pendidik.daftar-pendidik')->with('error', 'Pendidik tidak ditemukan');
+            return redirect()->route('admin.peserta-didik.daftar-peserta-didik')->with('error', 'Peserta didik tidak ditemukan');
         }
     }
 
-    public function hapusPendidik($id)
+    public function hapusPesertaDidik($id)
     {
-        $pendidik = User::where([['id', '=', $id], ['role', '=', 'pendidik']]);
+        $pendidik = User::where([['id', '=', $id], ['role', '=', 'peserta_didik']]);
         if ($pendidik->exists()) {
             $pendidik->delete();
         }
 
-        return redirect()->route('admin.pendidik.daftar-pendidik')->with('success', 'Berhasil menghapus pendidik');
+        return redirect()->route('admin.peserta-didik.daftar-peserta-didik')->with('success', 'Berhasil menghapus peserta didik');
     }
 
-    public function rosterPendidik()
+    public function rosterPesertaDidik()
     {
-        return view('admin.pendidik.roster-pendidik', [
+        return view('admin.peserta-didik.roster-peserta-didik', [
             'pageInfo' => [
                 'title' => 'Pendidik - Roster Pendidik',
-                'id' => 'roster-pendidik',
-                'group' => 'pendidik'
+                'id' => 'roster-peserta-didik',
+                'group' => 'peserta-didik'
             ]
         ]);
     }

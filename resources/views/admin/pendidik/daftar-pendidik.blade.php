@@ -14,8 +14,8 @@
             <div class="w-full overflow-hidden rounded-lg shadow-xs mb-4" id="daftar-pendidik">
                 <div class="w-full overflow-x-auto">
                     <input
-                        class="search w-auto ml-4 mt-4 mb-2 block mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
-                        style="display: inline-block"
+                        class="search ml-2 mt-4 mb-4 block mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
+                        style="display: inline-block;"
                         placeholder="Cari Pendidik">
 
                     <table class="w-full whitespace-no-wrap" id="daftar-pendidik-table">
@@ -28,7 +28,7 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800 list">
-                            @foreach ($semua_pendidik as $index => $pendidik)
+                            @foreach ($semuaPendidik as $index => $pendidik)
 
                                 <tr class="text-gray-700 dark:text-gray-400">
                                     <td class="px-4 py-3 nama">
@@ -145,7 +145,7 @@
     <script type="module">
         var options = {
             valueNames: ['nama', 'status'],
-            page: 10,
+            page: 5,
             pagination: true
         };
 
@@ -165,6 +165,7 @@
                 });
             });
         }
+
         handlePaginationStyle()
 
         MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
