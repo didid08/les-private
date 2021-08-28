@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\PendidikController as AdminPendidikController;
 use App\Http\Controllers\Admin\PesertaDidikController as AdminPesertaDidikController;
+use App\Http\Controllers\Admin\PaketPembelajaranController as AdminPaketPembelajaranController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,5 +46,10 @@ Route::get('/admin/peserta-didik', function () {
     Route::get('/admin/peserta-didik/edit-peserta-didik/{id}', [AdminPesertaDidikController::class, 'editPesertaDidik'])->middleware(['auth'])->name('admin.peserta-didik.edit-peserta-didik');
     Route::put('/admin/peserta-didik/edit-peserta-didik/{id}', [AdminPesertaDidikController::class, 'editPesertaDidikProcess'])->middleware(['auth'])->name('admin.peserta-didik.edit-peserta-didik@process');
     Route::delete('/admin/peserta-didik/hapus-peserta-didik/{id}', [AdminPesertaDidikController::class, 'hapusPesertaDidik'])->middleware(['auth'])->name('admin.peserta-didik.hapus-peserta-didik');
+
+Route::get('/admin/paket-pembelajaran', function () {
+    return redirect()->route('admin.paket-pembelajaran.daftar-paket-pembelajaran');
+});
+    Route::get('/admin/paket-pembelajaran/daftar-paket-pembelajaran', [AdminPaketPembelajaranController::class, 'daftarPaketPembelajaran'])->middleware(['auth'])->name('admin.paket-pembelajaran.daftar-paket-pembelajaran');
 
 require __DIR__ . '/auth.php';

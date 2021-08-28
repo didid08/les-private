@@ -127,11 +127,11 @@
                     class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900"
                     aria-label="submenu">
                     <li
-                        class="px-2 py-1 transition-colors duration-150 {{ $pageInfo['id'] == 'daftar-paket' ? 'text-gray-800 dark:text-gray-200 ' : '' }}hover:text-gray-800 dark:hover:text-gray-200">
-                        <a class="w-full" href="daftarpendidik.php">Daftar Paket</a>
+                        class="px-2 py-1 transition-colors duration-150 {{ $pageInfo['id'] == 'daftar-paket-pembelajaran' ? 'text-gray-800 dark:text-gray-200 ' : '' }}hover:text-gray-800 dark:hover:text-gray-200">
+                        <a class="w-full" href="{{ route('admin.paket-pembelajaran.daftar-paket-pembelajaran') }}">Daftar Paket</a>
                     </li>
                     <li
-                        class="px-2 py-1 transition-colors duration-150 {{ $pageInfo['id'] == 'tambah-paket' ? 'text-gray-800 dark:text-gray-200 ' : '' }}hover:text-gray-800 dark:hover:text-gray-200">
+                        class="px-2 py-1 transition-colors duration-150 {{ $pageInfo['id'] == 'tambah-paket-pembelajaran' ? 'text-gray-800 dark:text-gray-200 ' : '' }}hover:text-gray-800 dark:hover:text-gray-200">
                         <a class="w-full" href="requestpendidik.php">Tambah Paket</a>
                     </li>
                 </ul>
