@@ -16,7 +16,8 @@ class PaketPembelajaranController extends Controller
                 'title' => 'Pendidik - Daftar Paket Pembelajaran',
                 'id' => 'daftar-paket-pembelajaran',
                 'group' => 'paket-pembelajaran'
-            ]
+            ],
+            'semuaPaketPembelajaran' => PaketPembelajaran::get()
         ]);
     }
 }
