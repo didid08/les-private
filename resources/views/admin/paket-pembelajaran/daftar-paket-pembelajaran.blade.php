@@ -13,8 +13,8 @@
             </h4>
             <div class="grid gap-6 mb-8 md:grid-cols-2">
                 @foreach ($semuaPaketPembelajaran as $paketPembelajaran)
-                    <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800" style="padding-left: 2em;">
-                        <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300" id="paket-{{ $paketPembelajaran->kode }}">
+                    <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800" style="padding-left: 2em" id="paket-{{ $paketPembelajaran->kode }}">
+                        <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300">
                             {{ $paketPembelajaran->kode }} ({{ $paketPembelajaran->nama }})
                         </h4>
                         <p class="text-gray-600 dark:text-gray-400 mb-4">
@@ -29,7 +29,7 @@
                             <ul class="paket-detail-2 text-gray-600 dark:text-gray-400">
                                 @foreach ($paketPembelajaran->paketPembelajaranRelationships as $paketPembelajaranRelationship)
                                     <li>
-                                        <a class="jump-to" href="#paket-{{ $paketPembelajaranRelationship->paketPembelajaran->kode }}">{{ $paketPembelajaranRelationship->paketPembelajaran->kode }} ({{ $paketPembelajaranRelationship->paketPembelajaran->nama }})</a>
+                                        <a class="jump-to" href="#paket-{{ $paketPembelajaranRelationship->paketPembelajaran->kode }}" onclick="jumpTo('#paket-{{ $paketPembelajaranRelationship->paketPembelajaran->kode }}')">{{ $paketPembelajaranRelationship->paketPembelajaran->kode }} ({{ $paketPembelajaranRelationship->paketPembelajaran->nama }})</a>
                                     </li>
                                 @endforeach
                             </ul>
@@ -78,6 +78,12 @@
             padding-left: 1em;
         }
 
+        .jump-from {
+            -webkit-transition : border 500ms ease-in-out;
+            -moz-transition : border 500ms ease-in-out;
+            -o-transition : border 500ms ease-in-out;
+        }
+
         .jump-to:hover {
             color: #1a56db;
         }
@@ -86,5 +92,12 @@
 @endsection
 
 @section('more-script')
-
+    <script>
+        let jumpTo = (paketId) => {
+            $(paketId).addClass('jump-from shadow-xl');
+            setTimeout(function () {
+                $(paketId).removeClass('jump-from shadow-xl');
+            }, 500);
+        };
+    </script>
 @endsection
