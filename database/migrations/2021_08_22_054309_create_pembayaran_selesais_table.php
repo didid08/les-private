@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePembayaransTable extends Migration
+class CreatePembayaranSelesaisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreatePembayaransTable extends Migration
      */
     public function up()
     {
-        Schema::create('pembayaran', function (Blueprint $table) {
+        Schema::create('pembayaran_selesai', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->unsignedBigInteger('paket_pembelajaran_id');
-            $table->foreign('paket_pembelajaran_id')->references('id')->on('paket_pembelajaran');
+            $table->unsignedBigInteger('pembayaran_id');
+            $table->foreign('pembayaran_id')->references('id')->on('pembayaran');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreatePembayaransTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pembayaran');
+        Schema::dropIfExists('pembayaran_selesai');
     }
 }

@@ -15,9 +15,8 @@ class CreatePembelajaransTable extends Migration
     {
         Schema::create('pembelajaran', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->unsignedBigInteger('paket_pembelajaran_id');
-            $table->foreign('paket_pembelajaran_id')->references('id')->on('paket_pembelajaran');
+            $table->unsignedBigInteger('pembayaran_selesai_id');
+            $table->foreign('pembayaran_selesai_id')->references('id')->on('pembayaran_selesai');
             $table->unsignedBigInteger('pendidik_id');
             $table->foreign('pendidik_id')->references('id')->on('users');
             $table->date('waktu_mulai');

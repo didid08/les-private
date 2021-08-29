@@ -19,7 +19,6 @@ class CreatePaketPembelajaransTable extends Migration
             $table->string('nama');
             $table->longText('keterangan');
             $table->bigInteger('harga');
-            $table->string('bisa_diambil_dengan');
             $table->timestamps();
         });
     }

@@ -21,8 +21,7 @@ class User extends Authenticatable
         'role',
         'nama',
         'email',
-        'password',
-        'paket_pembelajaran'
+        'password'
     ];
 
     /**
