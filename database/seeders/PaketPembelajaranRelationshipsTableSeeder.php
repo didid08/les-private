@@ -14,45 +14,89 @@ class PaketPembelajaranRelationshipsTableSeeder extends Seeder
      */
     public function run()
     {
-        // 1A dan 3A
+        // 1A ke 3A
         DB::table('paket_pembelajaran_relationships')->insert([
-            'paket_pembelajaran_id_1' => 1,
-            'paket_pembelajaran_id_2' => 8
+            'dari' => 1,
+            'ke' => 8
         ]);
-        // 1A dan 3B
+        // 1A ke 3B
         DB::table('paket_pembelajaran_relationships')->insert([
-            'paket_pembelajaran_id_1' => 1,
-            'paket_pembelajaran_id_2' => 9
+            'dari' => 1,
+            'ke' => 9
         ]);
-        // 1B dan 3A
+        // 1B ke 3A
         DB::table('paket_pembelajaran_relationships')->insert([
-            'paket_pembelajaran_id_1' => 2,
-            'paket_pembelajaran_id_2' => 8
+            'dari' => 2,
+            'ke' => 8
         ]);
-        // 1B dan 3B
+        // 1B ke 3B
         DB::table('paket_pembelajaran_relationships')->insert([
-            'paket_pembelajaran_id_1' => 2,
-            'paket_pembelajaran_id_2' => 9
+            'dari' => 2,
+            'ke' => 9
         ]);
-        // 1C dan 3A
+        // 1C ke 3A
         DB::table('paket_pembelajaran_relationships')->insert([
-            'paket_pembelajaran_id_1' => 3,
-            'paket_pembelajaran_id_2' => 8
+            'dari' => 3,
+            'ke' => 8
         ]);
-        // 1C dan 3B
+        // 1C ke 3B
         DB::table('paket_pembelajaran_relationships')->insert([
-            'paket_pembelajaran_id_1' => 3,
-            'paket_pembelajaran_id_2' => 9
+            'dari' => 3,
+            'ke' => 9
         ]);
-        // 2A dan 2C
+
+
+        // 2A ke 2C
         DB::table('paket_pembelajaran_relationships')->insert([
-            'paket_pembelajaran_id_1' => 4,
-            'paket_pembelajaran_id_2' => 6
+            'dari' => 4,
+            'ke' => 6
         ]);
-        // 2B dan 2D
+        // 2B ke 2D
         DB::table('paket_pembelajaran_relationships')->insert([
-            'paket_pembelajaran_id_1' => 5,
-            'paket_pembelajaran_id_2' => 7
+            'dari' => 5,
+            'ke' => 7
+        ]);
+        // 2C ke 2A
+        DB::table('paket_pembelajaran_relationships')->insert([
+            'dari' => 6,
+            'ke' => 4
+        ]);
+        // 2D ke 2B
+        DB::table('paket_pembelajaran_relationships')->insert([
+            'dari' => 7,
+            'ke' => 5
+        ]);
+
+
+        // 3A ke 1A
+        DB::table('paket_pembelajaran_relationships')->insert([
+            'dari' => 8,
+            'ke' => 1
+        ]);
+        // 3A ke 1B
+        DB::table('paket_pembelajaran_relationships')->insert([
+            'dari' => 8,
+            'ke' => 2
+        ]);
+        // 3A ke 1C
+        DB::table('paket_pembelajaran_relationships')->insert([
+            'dari' => 8,
+            'ke' => 3
+        ]);
+        // 3B ke 1A
+        DB::table('paket_pembelajaran_relationships')->insert([
+            'dari' => 9,
+            'ke' => 1
+        ]);
+        // 3B ke 1B
+        DB::table('paket_pembelajaran_relationships')->insert([
+            'dari' => 9,
+            'ke' => 2
+        ]);
+        // 3B ke 1C
+        DB::table('paket_pembelajaran_relationships')->insert([
+            'dari' => 9,
+            'ke' => 3
         ]);
     }
 }

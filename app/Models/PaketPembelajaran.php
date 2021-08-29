@@ -10,4 +10,9 @@ class PaketPembelajaran extends Model
     use HasFactory;
 
     protected $table = 'paket_pembelajaran';
+
+    public function paketPembelajaranRelationships()
+    {
+        return $this->hasMany(PaketPembelajaranRelationship::class, 'dari');
+    }
 }

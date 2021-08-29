@@ -15,7 +15,7 @@ class CreatePaketPembelajaransTable extends Migration
     {
         Schema::create('paket_pembelajaran', function (Blueprint $table) {
             $table->id();
-            $table->string('kode');
+            $table->string('kode')->unique();
             $table->string('nama');
             $table->longText('keterangan');
             $table->bigInteger('harga');

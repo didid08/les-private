@@ -15,10 +15,10 @@ class CreatePaketPembelajaranRelationshipsTable extends Migration
     {
         Schema::create('paket_pembelajaran_relationships', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('paket_pembelajaran_id_1');
-            $table->foreign('paket_pembelajaran_id_1')->references('id')->on('paket_pembelajaran');
-            $table->unsignedBigInteger('paket_pembelajaran_id_2');
-            $table->foreign('paket_pembelajaran_id_2')->references('id')->on('paket_pembelajaran');
+            $table->unsignedBigInteger('dari');
+            $table->foreign('dari')->references('id')->on('paket_pembelajaran');
+            $table->unsignedBigInteger('ke');
+            $table->foreign('ke')->references('id')->on('paket_pembelajaran');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

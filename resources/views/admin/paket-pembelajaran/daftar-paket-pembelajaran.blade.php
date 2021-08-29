@@ -14,7 +14,7 @@
             <div class="grid gap-6 mb-8 md:grid-cols-2">
                 @foreach ($semuaPaketPembelajaran as $paketPembelajaran)
                     <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800" style="padding-left: 2em;">
-                        <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300">
+                        <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300" id="paket-{{ $paketPembelajaran->kode }}">
                             {{ $paketPembelajaran->kode }} ({{ $paketPembelajaran->nama }})
                         </h4>
                         <p class="text-gray-600 dark:text-gray-400 mb-4">
@@ -27,9 +27,10 @@
                             </ul>
                             <span class="text-gray-600 dark:text-gray-400">Dapat dibeli bersamaan dengan paket:</span>
                             <ul class="paket-detail-2 text-gray-600 dark:text-gray-400">
-                                @foreach (explode(',', $paketPembelajaran->bisa_diambil_dengan) as $list)
-                                    <li>{{ $list }}
-                                        ({{ \App\Models\PaketPembelajaran::firstWhere('kode', $list)->nama }})</li>
+                                @foreach ($paketPembelajaran->paketPembelajaranRelationships as $paketPembelajaranRelationship)
+                                    <li>
+                                        <a class="jump-to" href="#paket-{{ $paketPembelajaranRelationship->paketPembelajaran->kode }}">{{ $paketPembelajaranRelationship->paketPembelajaran->kode }} ({{ $paketPembelajaranRelationship->paketPembelajaran->nama }})</a>
+                                    </li>
                                 @endforeach
                             </ul>
                         </div>
@@ -75,6 +76,10 @@
             margin-bottom: 0.8em;
             list-style-type: circle;
             padding-left: 1em;
+        }
+
+        .jump-to:hover {
+            color: #1a56db;
         }
 
     </style>
