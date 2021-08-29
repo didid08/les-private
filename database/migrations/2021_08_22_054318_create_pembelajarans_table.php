@@ -22,7 +22,8 @@ class CreatePembelajaransTable extends Migration
             $table->date('waktu_mulai');
             $table->date('waktu_selesai');
             $table->date('absensi');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
     }
 

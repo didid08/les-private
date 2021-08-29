@@ -17,7 +17,8 @@ class CreatePembayaranSelesaisTable extends Migration
             $table->id();
             $table->unsignedBigInteger('pembayaran_id');
             $table->foreign('pembayaran_id')->references('id')->on('pembayaran');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
     }
 

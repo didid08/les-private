@@ -19,7 +19,8 @@ class CreatePaketPembelajaranRelationshipsTable extends Migration
             $table->foreign('paket_pembelajaran_id_1')->references('id')->on('paket_pembelajaran');
             $table->unsignedBigInteger('paket_pembelajaran_id_2');
             $table->foreign('paket_pembelajaran_id_2')->references('id')->on('paket_pembelajaran');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
     }
 

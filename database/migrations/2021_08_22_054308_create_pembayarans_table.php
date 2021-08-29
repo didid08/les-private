@@ -18,7 +18,8 @@ class CreatePembayaransTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->unsignedBigInteger('paket_pembelajaran_id');
             $table->foreign('paket_pembelajaran_id')->references('id')->on('paket_pembelajaran');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
     }
 
