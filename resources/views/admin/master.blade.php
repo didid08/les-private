@@ -132,7 +132,7 @@
                     </li>
                     <li
                         class="px-2 py-1 transition-colors duration-150 {{ $pageInfo['id'] == 'tambah-paket-pembelajaran' ? 'text-gray-800 dark:text-gray-200 ' : '' }}hover:text-gray-800 dark:hover:text-gray-200">
-                        <a class="w-full" href="requestpendidik.php">Tambah Paket</a>
+                        <a class="w-full" href="{{ route('admin.paket-pembelajaran.tambah-paket-pembelajaran') }}">Tambah Paket</a>
                     </li>
                 </ul>
             </template>

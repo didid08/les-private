@@ -51,5 +51,7 @@ Route::get('/admin/paket-pembelajaran', function () {
     return redirect()->route('admin.paket-pembelajaran.daftar-paket-pembelajaran');
 });
     Route::get('/admin/paket-pembelajaran/daftar-paket-pembelajaran', [AdminPaketPembelajaranController::class, 'daftarPaketPembelajaran'])->middleware(['auth'])->name('admin.paket-pembelajaran.daftar-paket-pembelajaran');
+    Route::get('/admin/paket-pembelajaran/tambah-paket-pembelajaran', [AdminPaketPembelajaranController::class, 'tambahPaketPembelajaran'])->middleware(['auth'])->name('admin.paket-pembelajaran.tambah-paket-pembelajaran');
+    Route::post('/admin/paket-pembelajaran/tambah-paket-pembelajaran', [AdminPaketPembelajaranController::class, 'tambahPaketPembelajaranProcess'])->middleware(['auth'])->name('admin.paket-pembelajaran.tambah-paket-pembelajaran@process');
 
 require __DIR__ . '/auth.php';
