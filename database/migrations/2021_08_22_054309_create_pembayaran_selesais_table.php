@@ -16,7 +16,7 @@ class CreatePembayaranSelesaisTable extends Migration
         Schema::create('pembayaran_selesai', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('pembayaran_id');
-            $table->foreign('pembayaran_id')->references('id')->on('pembayaran');
+            $table->foreign('pembayaran_id')->references('id')->on('pembayaran')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

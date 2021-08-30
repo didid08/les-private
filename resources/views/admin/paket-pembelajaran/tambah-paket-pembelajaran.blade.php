@@ -24,17 +24,18 @@
                         <span class="text-gray-700 dark:text-gray-400">Keterangan ( Pisahkan dengan tanda ; )</span>
                         <textarea name="keterangan"
                             class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                            rows="3" placeholder="Cth: 12x pertemuan;Layanan Konsultasi;dll"></textarea>
+                            rows="3" placeholder="Cth: 12x pertemuan;Layanan konsultasi;dll">12x pertemuan;Layanan konsultasi</textarea>
                     </label>
                     <label class="block text-sm">
-                        <span class="text-gray-700 dark:text-gray-400">Harga Paket (Rp)</span>
+                        <span class="text-gray-700 dark:text-gray-400">Harga Paket / 12x Pertemuan</span>
                         <!-- focus-within sets the color for the icon when input is focused -->
                         <div class="relative text-gray-500 focus-within:text-purple-600 dark:focus-within:text-purple-400">
-                            <input name="harga-paket" type="number"
+                            <input name="harga" type="number"
                                 class="block w-full pl-10 mt-1 text-sm text-black dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
-                                placeholder="Cth: 50000">
+                                placeholder="Cth: 600000">
                             <div class="absolute inset-y-0 flex items-center ml-3 pointer-events-none">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                                {{-- <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg> --}}
+                                Rp
                             </div>
                         </div>
                     </label>
@@ -44,19 +45,28 @@
                         </span>
                         <div class="mt-2 mb-4 min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 dark:border-gray-600"
                             style="max-height: 20em; overflow-y: auto">
+                            <input type="hidden" name="daftar_relationship" id="daftar-relationship">
                             @foreach ($semuaPaketPembelajaran->sortBy('kode') as $paketPembelajaran)
                                 <label class="mb-2 inline-flex items-center text-gray-600 dark:text-gray-400"
                                     style="display: block;">
-                                    <input type="checkbox" class="form-checkbox" value="{{ $paketPembelajaran->id }}">
+                                    <input type="checkbox" class="form-checkbox relationship" value="{{ $paketPembelajaran->id }}">
                                     <span
                                         class="ml-2 mr-6">{{ $paketPembelajaran->kode }}&nbsp;&nbsp;({{ $paketPembelajaran->nama }})</span>
                                 </label>
                             @endforeach
                         </div>
                     </div>
+                    <div class="flex mt-4 text-sm">
+                        <label class="flex items-center dark:text-gray-400">
+                            <input type="checkbox" name="aktif" value="aktif" checked
+                                class="text-purple-600 form-checkbox focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                            <span class="ml-2" title="Memungkinkan paket bisa dibeli">Aktifkan Paket (Memungkinkan paket
+                                bisa dibeli)</span>
+                        </label>
+                    </div>
                     <button type="submit"
-                        class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                        Kirim
+                        class="px-6 py-2 mt-4 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                        Tambah Paket
                     </button>
                 </form>
             </div>
@@ -64,5 +74,15 @@
     </main>
 @endsection
 @section('more-script')
-
+    <script type="module">
+        $(".relationship").each(function () {
+            $(this).change(function () {
+                if ($(this).is(':checked')) {
+                    $("#daftar-relationship").val($("#daftar-relationship").val()+","+$(this).val())
+                } else {
+                    $("#daftar-relationship").val($("#daftar-relationship").val().replace(","+$(this).val(), ""));
+                }
+            });
+        });
+    </script>
 @endsection

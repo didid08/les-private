@@ -53,5 +53,6 @@ Route::get('/admin/paket-pembelajaran', function () {
     Route::get('/admin/paket-pembelajaran/daftar-paket-pembelajaran', [AdminPaketPembelajaranController::class, 'daftarPaketPembelajaran'])->middleware(['auth'])->name('admin.paket-pembelajaran.daftar-paket-pembelajaran');
     Route::get('/admin/paket-pembelajaran/tambah-paket-pembelajaran', [AdminPaketPembelajaranController::class, 'tambahPaketPembelajaran'])->middleware(['auth'])->name('admin.paket-pembelajaran.tambah-paket-pembelajaran');
     Route::post('/admin/paket-pembelajaran/tambah-paket-pembelajaran', [AdminPaketPembelajaranController::class, 'tambahPaketPembelajaranProcess'])->middleware(['auth'])->name('admin.paket-pembelajaran.tambah-paket-pembelajaran@process');
+    Route::delete('/admin/paket-pembelajaran/hapus-paket-pembelajaran/{id}', [AdminPaketPembelajaranController::class, 'hapusPaketPembelajaran'])->middleware(['auth'])->name('admin.paket-pembelajaran.hapus-paket-pembelajaran');
 
 require __DIR__ . '/auth.php';

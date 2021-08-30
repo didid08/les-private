@@ -12,8 +12,9 @@
                 </a>
             </h4>
             <div class="grid gap-6 mb-8 md:grid-cols-2">
-                @foreach ($semuaPaketPembelajaran as $paketPembelajaran)
-                    <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800" style="padding-left: 2em" id="paket-{{ $paketPembelajaran->kode }}">
+                @foreach ($semuaPaketPembelajaran->sortBy('kode') as $paketPembelajaran)
+                    <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800" style="padding-left: 2em"
+                        id="paket-{{ $paketPembelajaran->kode }}">
                         <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300">
                             {{ $paketPembelajaran->kode }} ({{ $paketPembelajaran->nama }})
                         </h4>
@@ -25,24 +26,47 @@
                                     <li>{{ $keterangan }}</li>
                                 @endforeach
                             </ul>
-                            <span class="text-gray-600 dark:text-gray-400">Dapat dibeli bersamaan dengan paket:</span>
-                            <ul class="paket-detail-2 text-gray-600 dark:text-gray-400">
-                                @foreach ($paketPembelajaran->paketPembelajaranRelationships as $paketPembelajaranRelationship)
-                                    <li>
-                                        <a class="jump-to" href="#paket-{{ $paketPembelajaranRelationship->paketPembelajaran->kode }}" onclick="jumpTo('#paket-{{ $paketPembelajaranRelationship->paketPembelajaran->kode }}')">{{ $paketPembelajaranRelationship->paketPembelajaran->kode }} ({{ $paketPembelajaranRelationship->paketPembelajaran->nama }})</a>
-                                    </li>
-                                @endforeach
-                            </ul>
+                            @if ($paketPembelajaran->paketPembelajaranRelationships->count() > 0)
+                                <span class="text-gray-600 dark:text-gray-400">Dapat dibeli bersamaan dengan paket:</span>
+                                <ul class="paket-detail-2 text-gray-600 dark:text-gray-400">
+                                    @foreach ($paketPembelajaran->paketPembelajaranRelationships as $paketPembelajaranRelationship)
+                                        <li>
+                                            <a class="jump-to"
+                                                href="#paket-{{ $paketPembelajaranRelationship->paketPembelajaran->kode }}"
+                                                onclick="jumpTo('#paket-{{ $paketPembelajaranRelationship->paketPembelajaran->kode }}')">{{ $paketPembelajaranRelationship->paketPembelajaran->kode }}
+                                                ({{ $paketPembelajaranRelationship->paketPembelajaran->nama }})</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                            <div class="mt-2 mb-4">
+                                <span class="text-gray-600 dark:text-gray-400">Harga:
+                                    Rp{{ number_format($paketPembelajaran->harga, 2, ',', '.') }} / 12x Pertemuan</span>
+                            </div>
+                            <div class="mb-4">
+                                <span class="text-gray-600 dark:text-gray-400 font-medium">Status Paket: </span>
+                                @if ($paketPembelajaran->aktif == true)
+                                    <span class="text-green-500 dark:text-green-400">Aktif</span>
+                                @else
+                                    <span class="text-orange-500 dark:text-orange-400">Tidak Aktif</span>
+                                @endif
+                            </div>
                         </div>
                         </p>
                         <button
                             class="px-4 py-2 mr-1 mb-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                             Edit Paket
                         </button>
-                        <button
-                            class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
-                            Hapus Paket
-                        </button>
+                        <form
+                            action="{{ route('admin.paket-pembelajaran.hapus-paket-pembelajaran', ['id' => $paketPembelajaran->id]) }}"
+                            method="POST" style="display: inline;">
+                            @method('DELETE')
+                            @csrf
+                            <button type="submit" onclick="return confirm('Apakah anda yakin?')"
+                                class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
+                                Hapus Paket
+                            </button>
+                        </form>
                     </div>
                 @endforeach
 
@@ -79,9 +103,9 @@
         }
 
         .jump-from {
-            -webkit-transition : border 500ms ease-in-out;
-            -moz-transition : border 500ms ease-in-out;
-            -o-transition : border 500ms ease-in-out;
+            -webkit-transition: border 500ms ease-in-out;
+            -moz-transition: border 500ms ease-in-out;
+            -o-transition: border 500ms ease-in-out;
         }
 
         .jump-to:hover {
@@ -95,7 +119,7 @@
     <script>
         let jumpTo = (paketId) => {
             $(paketId).addClass('jump-from shadow-xl');
-            setTimeout(function () {
+            setTimeout(function() {
                 $(paketId).removeClass('jump-from shadow-xl');
             }, 500);
         };

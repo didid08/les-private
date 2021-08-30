@@ -15,9 +15,9 @@ class CreatePembayaransTable extends Migration
     {
         Schema::create('pembayaran', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('paket_pembelajaran_id');
-            $table->foreign('paket_pembelajaran_id')->references('id')->on('paket_pembelajaran');
+            $table->foreign('paket_pembelajaran_id')->references('id')->on('paket_pembelajaran')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

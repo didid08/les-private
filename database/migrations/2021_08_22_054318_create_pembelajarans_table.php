@@ -16,9 +16,9 @@ class CreatePembelajaransTable extends Migration
         Schema::create('pembelajaran', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('pembayaran_selesai_id');
-            $table->foreign('pembayaran_selesai_id')->references('id')->on('pembayaran_selesai');
-            $table->unsignedBigInteger('pendidik_id');
-            $table->foreign('pendidik_id')->references('id')->on('users');
+            $table->foreign('pembayaran_selesai_id')->references('id')->on('pembayaran_selesai')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('pendidik_id')->nullable();
+            $table->foreign('pendidik_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('set null');
             $table->date('waktu_mulai');
             $table->date('waktu_selesai');
             $table->date('absensi');

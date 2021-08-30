@@ -98,5 +98,15 @@ class PaketPembelajaranRelationshipsTableSeeder extends Seeder
             'dari' => 9,
             'ke' => 3
         ]);
+        // 3A ke 3B
+        DB::table('paket_pembelajaran_relationships')->insert([
+            'dari' => 8,
+            'ke' => 9
+        ]);
+        // 3B ke 3A
+        DB::table('paket_pembelajaran_relationships')->insert([
+            'dari' => 9,
+            'ke' => 8
+        ]);
     }
 }
