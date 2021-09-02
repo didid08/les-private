@@ -96,6 +96,91 @@ class PaketPembelajaranController extends Controller
         return redirect()->route('admin.paket-pembelajaran.daftar-paket-pembelajaran')->with('success', 'Berhasil menambah paket pembelajaran');
     }
 
+    public function editPaketPembelajaran($id)
+    {
+        $daftarRelationship = [];
+        $paketPembelajaranRelationship = PaketPembelajaranRelationship::where('dari', $id)->get();
+        foreach ($paketPembelajaranRelationship as $relationship) {
+            array_push($daftarRelationship, $relationship->ke);
+        }
+
+        return view('admin.paket-pembelajaran.edit-paket-pembelajaran', [
+            'pageInfo' => [
+                'title' => 'Paket Pembelajaran - Edit Paket Pembelajaran',
+                'id' => 'edit-paket-pembelajaran',
+                'group' => 'paket-pembelajaran'
+            ],
+            'paketPembelajaranSekarang' => PaketPembelajaran::where('id',$id)->first(),
+            'daftarRelationship' => $daftarRelationship,
+            'semuaPaketPembelajaran' => PaketPembelajaran::get()
+        ]);
+    }
+
+    public function editPaketPembelajaranProcess($id, Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'kode' => 'required|unique:paket_pembelajaran,kode,'.$id,
+            'nama' => 'required|max:100',
+            'keterangan' => 'required',
+            'harga' => 'required|numeric'
+        ], [
+            'required' => 'Harap masukkan :attribute',
+            'numeric' => ':attribute harus berbentuk angka',
+            'max' => 'Jumlah karakter :attribute tidak boleh melebihi 100',
+            'unique' => ':attribute yang anda masukkan sudah ada yang pakai'
+        ], [
+            'kode' => 'Kode Paket',
+            'nama' => 'Nama Paket',
+            'keterangan' => 'Keterangan',
+            'harga' => 'Harga Paket'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->route('admin.paket-pembelajaran.daftar-paket-pembelajaran')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $aktif = false;
+        if ($request->aktif) {
+            $aktif = true;
+        }
+
+        $validated = $validator->validated();
+
+        PaketPembelajaran::where('id', $id)->update([
+            'kode' => $validated['kode'],
+            'nama' => $validated['nama'],
+            'keterangan' => $validated['keterangan'],
+            'harga' => $validated['harga'],
+            'aktif' => $aktif
+        ]);
+
+        $paketPembelajaranId = PaketPembelajaran::where('kode', $validated['kode'])->first()->id;
+
+        PaketPembelajaranRelationship::where('dari', $paketPembelajaranId)->delete();
+        PaketPembelajaranRelationship::where('ke', $paketPembelajaranId)->delete();
+
+        if (!empty($request->daftar_relationship)) {
+
+            foreach (explode(',', $request->daftar_relationship) as $item) {
+                if (PaketPembelajaran::where('id', (int)$item)->exists()) {
+                    PaketPembelajaranRelationship::insert([
+                        'dari' => $paketPembelajaranId,
+                        'ke' => $item
+                    ]);
+                    PaketPembelajaranRelationship::insert([
+                        'dari' => $item,
+                        'ke' => $paketPembelajaranId
+                    ]);
+                }
+            }
+        }
+
+        return redirect()->route('admin.paket-pembelajaran.daftar-paket-pembelajaran')->with('success', 'Berhasil mengedit paket pembelajaran');
+    }
+
     public function hapusPaketPembelajaran($id)
     {
         $paketPembelajaran = PaketPembelajaran::where('id', $id);
