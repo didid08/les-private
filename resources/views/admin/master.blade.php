@@ -130,6 +130,12 @@
                         class="px-2 py-1 transition-colors duration-150 {{ $pageInfo['id'] == 'daftar-paket-pembelajaran' ? 'text-gray-800 dark:text-gray-200 ' : '' }}hover:text-gray-800 dark:hover:text-gray-200">
                         <a class="w-full" href="{{ route('admin.paket-pembelajaran.daftar-paket-pembelajaran') }}">Daftar Paket</a>
                     </li>
+                    @if ($pageInfo['id'] == 'edit-paket-pembelajaran')
+                        <li
+                            class="px-2 py-1 transition-colors duration-150 {{ $pageInfo['id'] == 'edit-paket-pembelajaran' ? 'text-gray-800 dark:text-gray-200 ' : '' }}hover:text-gray-800 dark:hover:text-gray-200">
+                            <a class="w-full" href="{{ route('admin.paket-pembelajaran.edit-paket-pembelajaran', ['id' => $paketPembelajaranSekarang->id]) }}">Edit Paket</a>
+                        </li>
+                    @endif
                     <li
                         class="px-2 py-1 transition-colors duration-150 {{ $pageInfo['id'] == 'tambah-paket-pembelajaran' ? 'text-gray-800 dark:text-gray-200 ' : '' }}hover:text-gray-800 dark:hover:text-gray-200">
                         <a class="w-full" href="{{ route('admin.paket-pembelajaran.tambah-paket-pembelajaran') }}">Tambah Paket</a>
