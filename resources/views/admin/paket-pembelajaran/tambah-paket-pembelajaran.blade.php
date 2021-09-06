@@ -58,7 +58,7 @@
                     </div>
                     <div class="flex mt-4 text-sm">
                         <label class="flex items-center dark:text-gray-400">
-                            <input type="checkbox" name="aktif" value="aktif" checked
+                            <input type="checkbox" name="aktif" value="aktif"
                                 class="text-purple-600 form-checkbox focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
                             <span class="ml-2" title="Memungkinkan paket bisa dibeli">Aktifkan Paket (Memungkinkan paket
                                 bisa dibeli)</span>

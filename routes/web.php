@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\PaketPembelajaranController as AdminPaketPembelaj
 use App\Http\Controllers\Admin\StatusPembayaranController as AdminStatusPembayaranController;
 
 use App\Http\Controllers\PesertaDidik\RosterPembelajaranController;
+use App\Http\Controllers\PesertaDidik\PaketPembelajaranController;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -82,6 +83,7 @@ Route::middleware(['auth', 'isPesertaDidik'])->group(function () {
         return redirect()->route('peserta-didik.roster-pembelajaran');
     });
     Route::get('/peserta-didik/roster-pembelajaran', RosterPembelajaranController::class)->name('peserta-didik.roster-pembelajaran');
+    Route::get('/peserta-didik/paket-pembelajaran', PaketPembelajaranController::class)->name('peserta-didik.paket-pembelajaran');
 });
 
 require __DIR__ . '/auth.php';
