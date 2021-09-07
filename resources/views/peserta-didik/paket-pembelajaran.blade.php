@@ -7,7 +7,7 @@
             </h2>
             <div class="w-full mb-8 overflow-hidden rounded-lg shadow-xs">
                 <div class="w-full overflow-x-auto">
-                    @if ($semuaPembayaran->exists())
+                    @if ($semuaPembayaranSaya->exists())
                         <table class="w-full whitespace-no-wrap">
                             <thead>
                                 <tr
@@ -18,31 +18,39 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                                @foreach ($semuaPembayaran->get() as $pembayaran)
+                                @foreach ($semuaPembayaranSaya->get() as $pembayaran)
                                     <tr class="text-gray-700 dark:text-gray-400">
                                         <td class="px-4 py-3">
                                             <div class="flex items-center text-sm">
-                                                {{ $pembayaran->paketPembelajaran->kode }} ({{ $pembayaran->paketPembelajaran->nama }})
+                                                {{ $pembayaran->paketPembelajaran->kode }}
+                                                ({{ $pembayaran->paketPembelajaran->nama }})
                                             </div>
                                         </td>
                                         <td class="px-4 py-3 text-xs text-center">
                                             @if ($pembayaran->pembayaranSelesai != null)
-                                                <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                                                <span
+                                                    class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
                                                     Aktif
                                                 </span>
                                             @else
-                                                <span class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:bg-orange-100 dark:text-orange-700">
+                                                <span
+                                                    class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:bg-orange-100 dark:text-orange-700">
                                                     Belum Bayar
                                                 </span>
                                             @endif
                                         </td>
                                         <td class="px-4 py-3 text-sm text-center">
-                                            <button class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-500 border border-transparent rounded-md active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
+                                            <button
+                                                class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-500 border border-transparent rounded-md active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
                                                 Lihat Info Pembayaran
                                             </button>
-                                            <button class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-md active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
-                                                Batalkan Paket
-                                            </button>
+                                            <form action="{{ route('peserta-didik.paket-pembelajaran.batalkan-paket', ['paketId' => $pembayaran->paket_pembelajaran_id]) }}" method="POST" style="display: inline">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-md active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
+                                                    Batalkan Paket
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -57,41 +65,49 @@
                 Tambah Paket
             </h4>
             <div class="grid gap-6 mb-8 md:grid-cols-2">
-                @foreach ($semuaPaketPembelajaran->sortBy('kode') as $paketPembelajaran)
-                    <div class="min-w-0 p-4 text-white bg-purple-600 rounded-lg shadow-xs" style="padding-left: 2em"
-                        id="paket-{{ $paketPembelajaran->kode }}">
-                        <h4 class="mb-4 font-semibold">
-                            [ {{ $paketPembelajaran->kode }} ({{ $paketPembelajaran->nama }}) ]
-                        </h4>
-                        <p class="mb-4">
-                        <div>
-                            <span>Keterangan:</span>
-                            <ul class="paket-detail-1">
-                                @foreach (explode(';', $paketPembelajaran->keterangan) as $keterangan)
-                                    <li>{{ $keterangan }}</li>
-                                @endforeach
-                            </ul>
-                            <div class="mt-2 mb-4">
-                                <span>Harga:
-                                    Rp{{ number_format($paketPembelajaran->harga, 2, ',', '.') }} / 12x Pertemuan</span>
+                @if (count($paketPembelajaranYangBisaDipilih) != 0)
+                    @foreach ($paketPembelajaranYangBisaDipilih as $paketPembelajaran)
+                        <div class="min-w-0 p-4 text-white bg-purple-600 rounded-lg shadow-xs" style="padding-left: 2em"
+                            id="paket-{{ $paketPembelajaran['kode'] }}">
+                            <h4 class="mb-4 font-semibold">
+                                {{ $paketPembelajaran['kode'] }} ({{ $paketPembelajaran['nama'] }})
+                            </h4>
+                            <p class="mb-4">
+                            <div>
+                                <span>Keterangan:</span>
+                                <ul class="paket-detail-1">
+                                    @foreach (explode(';', $paketPembelajaran['keterangan']) as $keterangan)
+                                        <li>{{ $keterangan }}</li>
+                                    @endforeach
+                                </ul>
+                                <div class="mt-2 mb-4">
+                                    <span>Harga:
+                                        Rp{{ number_format($paketPembelajaran['harga'], 2, ',', '.') }} / 12x
+                                        Pertemuan</span>
+                                </div>
                             </div>
+                            </p>
+                            <form
+                                action="{{ route('peserta-didik.paket-pembelajaran.tambah-paket', ['paketId' => $paketPembelajaran['id']]) }}"
+                                method="POST" style="display: inline;">
+                                @csrf
+                                <button type="submit" style="padding:0.6em 2em;"
+                                    class="font-medium leading-5 text-purple-600 transition-colors duration-150 bg-white border border-transparent rounded-lg focus:outline-none focus:shadow-outline-purple">
+                                    Tambah
+                                </button>
+                            </form>
+                            {{-- <div class="bg-white text-black rounded-lg" style="display: inline-block; padding: 0.5em 1em">
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="aktif" value="aktif" style="border-color: #7e3af2"
+                                        class="text-purple-600 form-checkbox focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                                    <span class="ml-2" title="Memungkinkan paket bisa dibeli">Tambahkan Ke Keranjang</span>
+                                </label>
+                            </div> --}}
                         </div>
-                        </p>
-                        <form action="{{ route('peserta-didik.paket-pembelajaran.tambah-paket', ['paketId' => $paketPembelajaran->id]) }}" method="POST" style="display: inline;">
-                            @csrf
-                            <button type="submit" style="padding:0.6em 2em;" class="font-medium leading-5 text-purple-600 transition-colors duration-150 bg-white border border-transparent rounded-lg focus:outline-none focus:shadow-outline-purple">
-                                Tambah
-                            </button>
-                        </form>
-                        {{-- <div class="bg-white text-black rounded-lg" style="display: inline-block; padding: 0.5em 1em">
-                            <label class="flex items-center">
-                                <input type="checkbox" name="aktif" value="aktif" style="border-color: #7e3af2"
-                                    class="text-purple-600 form-checkbox focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
-                                <span class="ml-2" title="Memungkinkan paket bisa dibeli">Tambahkan Ke Keranjang</span>
-                            </label>
-                        </div> --}}
-                    </div>
-                @endforeach
+                    @endforeach
+                @else
+                    Tidak ada paket pembelajaran yang bisa ditambah
+                @endif
             </div>
         </div>
     </main>
