@@ -28,14 +28,15 @@ class PaketPembelajaranController extends Controller
     public function tambahPaket($paketId)
     {
         if (PaketPembelajaran::where('id', $paketId)->exists()) {
-            if (User::where('id', Auth::id())->pembayaran->where('paket_pembelajaran_id', $paketId)->exists()) {
-                return redirect()->route('peserta-didik.paket-pembelajaran')->with('error', 'Gagal Menambah Paket#Paket yang anda pilih sudah ditambahkan sebelumnya');
+            if (!Pembayaran::where([['user_id', '=', Auth::id()], ['paket_pembelajaran_id', '=', $paketId]])->exists()) {
+                Pembayaran::insert([
+                    'kode_pembayaran' => Str::random(12),
+                    'user_id' => Auth::id(),
+                    'paket_pembelajaran_id' => $paketId
+                ]);
+                return redirect()->route('peserta-didik.paket-pembelajaran')->with('success', 'Sukses Menambah Paket');
             }
-            Pembayaran::insert([
-                'kode_pembayaran' => Str::random(12),
-                'user_id' => Auth::id(),
-                'paket_pembelajaran_id' => $paketId
-            ]);
+            return redirect()->route('peserta-didik.paket-pembelajaran')->with('error', 'Gagal Menambah Paket#Paket yang anda pilih sudah ditambahkan sebelumnya');
         }
         return redirect()->route('peserta-didik.paket-pembelajaran')->with('error', 'Gagal Menambah Paket#Paket tidak ditemukan');
     }
