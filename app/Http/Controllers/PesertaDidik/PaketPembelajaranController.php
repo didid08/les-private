@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\PesertaDidik;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\PaketPembelajaran;
+use App\Models\Pembayaran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PaketPembelajaranController extends Controller
 {
@@ -17,7 +20,23 @@ class PaketPembelajaranController extends Controller
                 'id' => 'paket-pembelajaran',
                 'group' => null
             ],
-            'semuaPaketPembelajaran' => PaketPembelajaran::where('aktif', true)->get()
+            'semuaPaketPembelajaran' => PaketPembelajaran::where('aktif', true)->get(),
+            'semuaPembayaran' => Pembayaran::where('user_id', Auth::id())
         ]);
+    }
+
+    public function tambahPaket($paketId)
+    {
+        if (PaketPembelajaran::where('id', $paketId)->exists()) {
+            if (User::where('id', Auth::id())->pembayaran->where('paket_pembelajaran_id', $paketId)->exists()) {
+                return redirect()->route('peserta-didik.paket-pembelajaran')->with('error', 'Gagal Menambah Paket#Paket yang anda pilih sudah ditambahkan sebelumnya');
+            }
+            Pembayaran::insert([
+                'kode_pembayaran' => Str::random(12),
+                'user_id' => Auth::id(),
+                'paket_pembelajaran_id' => $paketId
+            ]);
+        }
+        return redirect()->route('peserta-didik.paket-pembelajaran')->with('error', 'Gagal Menambah Paket#Paket tidak ditemukan');
     }
 }

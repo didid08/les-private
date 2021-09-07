@@ -17,14 +17,26 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @if(session()->has('success'))
-        <script type="module">
-            Swal.fire('', '{{ session()->get('success') }}', 'success');
-        </script>
+        @if (str_contains(session()->get('success'), '#'))
+            <script type="module">
+                Swal.fire('{{ explode('#', session()->get('success'))[0] }}', '{{ explode('#', session()->get('success'))[1] }}', 'success');
+            </script>
+        @else
+            <script type="module">
+                Swal.fire('', '{{ session()->get('success') }}', 'success');
+            </script>
+        @endif
     @endif
     @if(session()->has('error'))
-        <script type="module">
-            Swal.fire('', '{{ session()->get('error') }}', 'error');
-        </script>
+        @if (str_contains(session()->get('error'), '#'))
+            <script type="module">
+                Swal.fire('{{ explode('#', session()->get('error'))[0] }}', '{{ explode('#', session()->get('error'))[1] }}', 'error');
+            </script>
+        @else
+            <script type="module">
+                Swal.fire('', '{{ session()->get('error') }}', 'error');
+            </script>
+        @endif
     @endif
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>

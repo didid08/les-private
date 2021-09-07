@@ -5,56 +5,53 @@
             <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
                 Paket Pembelajaran
             </h2>
-            <h4 class="mb-6 text-lg font-semibold text-gray-600 dark:text-gray-300">
-                Paket Yang Sudah Dibeli
-            </h4>
             <div class="w-full mb-8 overflow-hidden rounded-lg shadow-xs">
                 <div class="w-full overflow-x-auto">
-                    <table class="w-full whitespace-no-wrap">
-                        <thead>
-                            <tr
-                                class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                                <th class="px-4 py-3">Nama Paket</th>
-                                <th class="px-4 py-3">Status</th>
-                                <th class="px-4 py-3">Sisa Pertemuan</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                            <tr class="text-gray-700 dark:text-gray-400">
-                                <td class="px-4 py-3">
-                                    <div class="flex items-center text-sm">
-                                        <!-- Avatar with inset shadow -->
-                                        <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                                            <img class="object-cover w-full h-full rounded-full"
-                                                src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                                                alt="" loading="lazy">
-                                            <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true">
-                                            </div>
+                    @if ($semuaPembayaran->exists())
+                        <table class="w-full whitespace-no-wrap">
+                            <thead>
+                                <tr
+                                    class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                                    <th class="px-4 py-3">Nama Paket</th>
+                                    <th class="px-4 py-3 text-center">Status</th>
+                                    <th class="px-4 py-3 text-center">Opsi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                                <tr class="text-gray-700 dark:text-gray-400">
+                                    <td class="px-4 py-3">
+                                        <div class="flex items-center text-sm">
+                                            1A (Private Class Iqra’ TK/SD)
                                         </div>
-                                        <div>
-                                            <p class="font-semibold">Hans Burger</p>
-                                            <p class="text-xs text-gray-600 dark:text-gray-400">
-                                                10x Developer
-                                            </p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-4 py-3 text-xs">
-                                    <span
-                                        class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-                                        Approved
-                                    </span>
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-                                    6/10/2020
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                    </td>
+                                    <td class="px-4 py-3 text-xs text-center">
+                                        {{-- <span
+                                            class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                                            Aktif
+                                        </span> --}}
+                                        <span
+                                            class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:bg-orange-100 dark:text-orange-700">
+                                            Belum Bayar
+                                        </span>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-center">
+                                        <button class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-500 border border-transparent rounded-md active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
+                                            Lihat Info Pembayaran
+                                        </button>
+                                        <button class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-md active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
+                                            Batalkan Paket
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    @else
+                        <div class="text-black dark:text-white">Belum ada paket. Silahkan lakukan penambahan paket.</div>
+                    @endif
                 </div>
             </div>
             <h4 class="mb-6 text-lg font-semibold text-gray-600 dark:text-gray-300">
-                Pembelian Paket
+                Tambah Paket
             </h4>
             <div class="grid gap-6 mb-8 md:grid-cols-2">
                 @foreach ($semuaPaketPembelajaran->sortBy('kode') as $paketPembelajaran)
@@ -77,10 +74,11 @@
                             </div>
                         </div>
                         </p>
-                        <button style="padding:0.6em 3em;"
-                            class="font-medium leading-5 text-purple-600 transition-colors duration-150 bg-white border border-transparent rounded-lg focus:outline-none focus:shadow-outline-purple">
-                            Beli
-                        </button>
+                        <form action="{{ route('peserta-didik.paket-pembelajaran.tambah-paket', ['paketId' => $paketPembelajaran->id]) }}" method="POST" style="display: inline;">
+                            <button type="submit" style="padding:0.6em 2em;" class="font-medium leading-5 text-purple-600 transition-colors duration-150 bg-white border border-transparent rounded-lg focus:outline-none focus:shadow-outline-purple">
+                                Tambah
+                            </button>
+                        </form>
                         {{-- <div class="bg-white text-black rounded-lg" style="display: inline-block; padding: 0.5em 1em">
                             <label class="flex items-center">
                                 <input type="checkbox" name="aktif" value="aktif" style="border-color: #7e3af2"

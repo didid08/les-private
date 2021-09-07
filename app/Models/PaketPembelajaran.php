@@ -15,4 +15,9 @@ class PaketPembelajaran extends Model
     {
         return $this->hasMany(PaketPembelajaranRelationship::class, 'dari');
     }
+
+    public function pembayaran()
+    {
+        return $this->hasMany(Pembayaran::class);
+    }
 }
