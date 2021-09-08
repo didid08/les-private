@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Models\PaketPembelajaran;
 use App\Models\PaketPembelajaranRelationship;
 use App\Models\Pembayaran;
+use App\Models\PembayaranSelesai;
+use App\Models\Pembelajaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -64,13 +66,27 @@ class PaketPembelajaranController extends Controller
             }
         }
 
+        $semuaPembayaranSaya = Pembayaran::where('user_id', Auth::id());
+
+        $totalPembayaranSelesai = 0;
+        $totalPembayaranBelumSelesai = 0;
+        foreach ($semuaPembayaranSaya->get() as $pembayaran) {
+            if ($pembayaran->pembayaranSelesai != null) {
+                $totalPembayaranSelesai += 1;
+            } else {
+                $totalPembayaranBelumSelesai += 1;
+            }
+        }
+
         return view('peserta-didik.paket-pembelajaran', [
             'pageInfo' => [
                 'title' => 'Paket Pembelajaran',
                 'id' => 'paket-pembelajaran',
                 'group' => null
             ],
-            'semuaPembayaranSaya' => Pembayaran::where('user_id', Auth::id()),
+            'semuaPembayaranSaya' => $semuaPembayaranSaya,
+            'totalPembayaranBelumSelesai' => $totalPembayaranBelumSelesai,
+            'totalPembayaranSelesai' => $totalPembayaranSelesai,
             'paketPembelajaranYangBisaDipilih' => $paketPembelajaranYangBisaDipilih
         ]);
     }
@@ -84,7 +100,7 @@ class PaketPembelajaranController extends Controller
                     'user_id' => Auth::id(),
                     'paket_pembelajaran_id' => $paketId
                 ]);
-                return redirect()->route('peserta-didik.paket-pembelajaran')->with('success', 'Sukses Menambah Paket');
+                return redirect()->route('peserta-didik.paket-pembelajaran')->with('success', 'Sukses Menambahkan Paket#<small>Untuk mengaktifkan paket, silahkan lakukan pembayaran ke rekening yang tercantum di opsi "Info Pembayaran"</small>');
             }
             return redirect()->route('peserta-didik.paket-pembelajaran')->with('error', 'Gagal Menambah Paket#Paket yang anda pilih sudah ditambahkan sebelumnya');
         }

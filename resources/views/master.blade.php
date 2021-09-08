@@ -19,7 +19,7 @@
     @if(session()->has('success'))
         @if (str_contains(session()->get('success'), '#'))
             <script type="module">
-                Swal.fire('{{ explode('#', session()->get('success'))[0] }}', '{{ explode('#', session()->get('success'))[1] }}', 'success');
+                Swal.fire('{!! explode('#', session()->get('success'))[0] !!}', '{!! explode('#', session()->get('success'))[1] !!}', 'success');
             </script>
         @else
             <script type="module">
@@ -30,7 +30,7 @@
     @if(session()->has('error'))
         @if (str_contains(session()->get('error'), '#'))
             <script type="module">
-                Swal.fire('{{ explode('#', session()->get('error'))[0] }}', '{{ explode('#', session()->get('error'))[1] }}', 'error');
+                Swal.fire('{!! explode('#', session()->get('error'))[0] !!}', '{!! explode('#', session()->get('error'))[1] !!}', 'error');
             </script>
         @else
             <script type="module">
@@ -63,6 +63,7 @@
 
 <body>
     <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
+        @yield('modal')
         <aside class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
             <div class="py-4 text-gray-500 dark:text-gray-400">
                 <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
