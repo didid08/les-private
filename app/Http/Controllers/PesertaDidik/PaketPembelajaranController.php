@@ -68,6 +68,8 @@ class PaketPembelajaranController extends Controller
 
         $semuaPembayaranSaya = Pembayaran::where('user_id', Auth::id());
 
+        //$pembayaranBelumSelesai = [];
+
         $totalPembayaranSelesai = 0;
         $totalPembayaranBelumSelesai = 0;
         foreach ($semuaPembayaranSaya->get() as $pembayaran) {

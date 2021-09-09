@@ -149,13 +149,33 @@
         <!-- Modal description -->
         <p class="text-sm text-gray-700 dark:text-gray-400 modal-description">
             <br>
-            <b>Kode Pembayaran :</b> <span class="text-purple-600" style="cursor: default;">akdjioeflmca-ancedktifdkw-fcaskemcwke</span> (<button>Salin Kode</button>)<br>
+            <b>Kode Pembayaran :</b>
+            <span class="text-purple-600" style="cursor: default;" id="kode-pembayaran-sekaligus">
+                @foreach ($semuaPembayaranSaya->get() as $pembayaran)
+                    @if ($pembayaran->pembayaranSelesai == null)
+                        {{ $pembayaran->kode_pembayaran }}-
+                    @endif
+                @endforeach
+            </span> (<button>Salin Kode</button>)<br>
             <b>Paket : </b><br>
-             - 1B (Private Class Al-Qur’an untuk SD Kelas 1-3)<br>
-             - 3A (Private Class Membaca dan Menulis untuk SD)<br>
-             - 3B (Private Class Mata Pelajaran SD)
-            <br><br>
-            <b>Total Bayar :</b> Rp1.800.000,00<br>
+            @foreach ($semuaPembayaranSaya->get() as $pembayaran)
+                @if ($pembayaran->pembayaranSelesai == null)
+                    - {{ $pembayaran->paketPembelajaran->kode }} ({{ $pembayaran->paketPembelajaran->nama }})<br>
+                @endif
+            @endforeach
+            <br>
+            <b>Total Bayar :</b>
+            @php
+                $totalBayar = 0;
+            @endphp
+            @foreach ($semuaPembayaranSaya->get() as $pembayaran)
+                @if ($pembayaran->pembayaranSelesai == null)
+                    @php
+                        $totalBayar += $pembayaran->paketPembelajaran->harga;
+                    @endphp
+                @endif
+            @endforeach
+            Rp{{ number_format($totalBayar, 2, ',', '.') }}<br>
             <b>Bayar Ke Rekening BRI:</b> 18128901002 (Ammar)
             <br><br>
             Setelah melakukan pembayaran, kirimkan bukti pembayaran berupa <b>Struk</b> serta <b>Kode Pembayaran</b> ke WA Admin (082274608973). <button class="px-3 py-1 mt-2 mb-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-md active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">Klik Disini Untuk Langsung Menuju WA Admin</button><br>
@@ -195,4 +215,9 @@
             overflow-y: auto;
         }
     </style>
+@endsection
+@section('more-script')
+    <script type="module">
+        $("#kode-pembayaran-sekaligus").html($("#kode-pembayaran-sekaligus").html().replace(/\s+/g, '').slice(0, -1));
+    </script>
 @endsection
