@@ -144,12 +144,22 @@
       <div class="mt-4 mb-6">
         <!-- Modal title -->
         <p class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">
-          Modal header
+          Info Pembayaran Sekaligus
         </p>
         <!-- Modal description -->
-        <p class="text-sm text-gray-700 dark:text-gray-400">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum et
-          eligendi repudiandae voluptatem tempore!
+        <p class="text-sm text-gray-700 dark:text-gray-400 modal-description">
+            <br>
+            <b>Kode Pembayaran :</b> <span class="text-purple-600" style="cursor: default;">akdjioeflmca-ancedktifdkw-fcaskemcwke</span> (<button>Salin Kode</button>)<br>
+            <b>Paket : </b><br>
+             - 1B (Private Class Al-Qur’an untuk SD Kelas 1-3)<br>
+             - 3A (Private Class Membaca dan Menulis untuk SD)<br>
+             - 3B (Private Class Mata Pelajaran SD)
+            <br><br>
+            <b>Total Bayar :</b> Rp1.800.000,00<br>
+            <b>Bayar Ke Rekening BRI:</b> 18128901002 (Ammar)
+            <br><br>
+            Setelah melakukan pembayaran, kirimkan bukti pembayaran berupa <b>Struk</b> serta <b>Kode Pembayaran</b> ke WA Admin (082274608973). <button class="px-3 py-1 mt-2 mb-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-md active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">Klik Disini Untuk Langsung Menuju WA Admin</button><br>
+            Setelah pembayaran di approve oleh admin, maka status paket anda menjadi aktif dan anda sudah bisa mengatur jadwal pembelajaran untuk paket tersebut.
         </p>
       </div>
       <footer class="flex flex-col items-center justify-end px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-gray-50 dark:bg-gray-800">
@@ -180,5 +190,9 @@
             padding-left: 1em;
         }
 
+        .modal-description {
+            max-height: 15em;
+            overflow-y: auto;
+        }
     </style>
 @endsection
