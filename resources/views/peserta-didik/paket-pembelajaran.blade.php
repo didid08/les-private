@@ -65,7 +65,7 @@
                 @if ($semuaPembayaranSaya->get()->count() != $totalPembayaranSelesai)
                     @if ($totalPembayaranBelumSelesai > 1)
                         <h4 class="mb-6 text-lg font-semibold text-gray-600 dark:text-gray-300">
-                            <button x-on:click="infoPembayaranSekaligusTerbuka = false; trapCleanup = focusTrap(document.querySelector('#infoPembayaranSekaligus'))" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                            <button x-on:click="infoPembayaranSekaligusTerbuka = true; trapCleanup = focusTrap(document.querySelector('#infoPembayaranSekaligus'))" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                                 Info Pembayaran Sekaligus
                             </button>
                         </h4>
