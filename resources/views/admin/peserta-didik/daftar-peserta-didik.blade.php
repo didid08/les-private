@@ -23,7 +23,7 @@
                             <tr
                                 class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                                 <th class="px-4 py-3">Nama</th>
-                                <th class="px-4 py-3 text-center">Status</th>
+                                <th class="px-4 py-3 text-center">Paket Pembelajaran</th>
                                 <th class="px-4 py-3 text-center">Opsi</th>
                             </tr>
                         </thead>
@@ -49,10 +49,7 @@
                                         </div>
                                     </td>
                                     <td class="px-4 py-3 text-xs text-center status">
-                                        <span
-                                            class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:bg-orange-100 dark:text-orange-700">
-                                            Sedang Mengikuti Pembelajaran
-                                        </span>
+                                        -
                                     </td>
 
                                     <td class="px-4 py-3 text-sm text-center">

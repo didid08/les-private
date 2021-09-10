@@ -147,14 +147,14 @@
 
     <ul class="mt-3">
         <li class="relative px-6 py-3">
-            @if ($pageInfo['id'] == 'status-pembayaran')
+            @if ($pageInfo['id'] == 'aktifkan-paket-peserta-didik')
                 <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
                     aria-hidden="true"></span>
             @endif
-            <a class="inline-flex items-center w-full text-sm font-semibold {{ $pageInfo['id'] == 'dashboard' ? 'text-gray-800 dark:text-gray-200 ' : 'text-gray-200 dark:text-gray-100' }}transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                href="{{ route('admin.status-pembayaran') }}">
+            <a class="inline-flex items-center w-full text-sm font-semibold {{ $pageInfo['id'] == 'aktifkan-paket-peserta-didik' ? 'text-gray-800 dark:text-gray-200 ' : 'text-gray-200 dark:text-gray-100' }}transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                href="{{ route('admin.aktifkan-paket-peserta-didik') }}">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                <span class="ml-4">Status Pembayaran</span>
+                <span class="ml-4">Aktifkan Paket Peserta Didik</span>
             </a>
         </li>
     </ul>
