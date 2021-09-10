@@ -13,7 +13,6 @@
                                 class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                                 <th class="px-4 py-3">Nama Peserta Didik</th>
                                 <th class="px-4 py-3">Paket Pembelajaran</th>
-                                <th class="px-4 py-3">Kode Pembayaran</th>
                                 <th class="px-4 py-3 text-center">Opsi</th>
                             </tr>
                         </thead>
@@ -27,7 +26,6 @@
                                     @if (array_key_exists($pembayaran->user->email, $listPembayaran))
                                         @php
                                             $listPembayaran[$pembayaran->user->email] = [
-                                                'kode_pembayaran' => $listPembayaran[$pembayaran->user->email]['kode_pembayaran'].'-'.$pembayaran->kode_pembayaran,
                                                 'paket_pembelajaran' => $listPembayaran[$pembayaran->user->email]['paket_pembelajaran'].'~'.$pembayaran->paketPembelajaran->nama,
                                                 'nama' => $pembayaran->user->nama
                                             ];
@@ -35,7 +33,6 @@
                                     @else
                                         @php
                                             $listPembayaran[$pembayaran->user->email] = [
-                                                'kode_pembayaran' => $pembayaran->kode_pembayaran,
                                                 'paket_pembelajaran' => $pembayaran->paketPembelajaran->nama,
                                                 'nama' => $pembayaran->user->nama
                                             ];
@@ -69,10 +66,6 @@
                                         @foreach (explode('~', $pembayaran['paket_pembelajaran']) as $paketPembelajaran)
                                             - {{ $paketPembelajaran }}<br>
                                         @endforeach
-                                    </td>
-
-                                    <td class="px-4 py-3 text-sm kode-pembayaran">
-                                        {{ $pembayaran['kode_pembayaran'] }}
                                     </td>
 
                                     {{-- <td class="px-4 py-3 text-xs text-center status">

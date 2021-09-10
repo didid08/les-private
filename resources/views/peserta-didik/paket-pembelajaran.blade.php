@@ -167,15 +167,6 @@
                 </p>
                 <!-- Modal description -->
                 <p class="text-sm text-gray-700 dark:text-gray-400 modal-description">
-                    <br>
-                    <b>Kode Pembayaran :</b>
-                    <span class="text-purple-600" style="cursor: default;" id="kode-pembayaran-sekaligus">
-                        @foreach ($semuaPembayaranSaya->get() as $pembayaran)
-                            @if ($pembayaran->pembayaranSelesai == null)
-                                {{ $pembayaran->kode_pembayaran }}-
-                            @endif
-                        @endforeach
-                    </span> (<button>Salin Kode</button>)<br>
                     <b>Paket : </b><br>
                     @foreach ($semuaPembayaranSaya->get() as $pembayaran)
                         @if ($pembayaran->pembayaranSelesai == null)
@@ -198,12 +189,10 @@
                     Rp{{ number_format($totalBayar, 2, ',', '.') }}<br>
                     <b>Bayar Ke Rekening BRI:</b> 18128901002 (Ammar)
                     <br><br>
-                    Setelah melakukan pembayaran, kirimkan bukti pembayaran berupa <b>Struk</b> serta <b>Kode Pembayaran</b>
-                    ke WA Admin (082274608973). <button
+                    Setelah melakukan pembayaran, kirimkan bukti pembayaran berupa <b>Struk</b></b>
+                    ke WA Admin (082274608973) <button
                         class="px-3 py-1 mt-2 mb-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-md active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">Klik
-                        Disini Untuk Langsung Menuju WA Admin</button><br>
-                    Setelah pembayaran di approve oleh admin, maka status paket anda menjadi aktif dan anda sudah bisa
-                    mengatur jadwal pembelajaran untuk paket tersebut.
+                        Disini Untuk Langsung Menuju WA Admin</button>
                 </p>
             </div>
             <footer
@@ -237,10 +226,10 @@
             padding-left: 1em;
         }
 
-        .modal-description {
-            max-height: 15em;
+        /* .modal-description {
+            max-height: 20em;
             overflow-y: auto;
-        }
+        } */
 
     </style>
 @endsection

@@ -98,7 +98,7 @@ class PaketPembelajaranController extends Controller
         if (PaketPembelajaran::where('id', $paketId)->exists()) {
             if (!Pembayaran::where([['user_id', '=', Auth::id()], ['paket_pembelajaran_id', '=', $paketId]])->exists()) {
                 Pembayaran::insert([
-                    'kode_pembayaran' => Str::random(12),
+                    //'kode_pembayaran' => Str::random(12),
                     'user_id' => Auth::id(),
                     'paket_pembelajaran_id' => $paketId
                 ]);
