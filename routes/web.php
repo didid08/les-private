@@ -4,7 +4,7 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\PendidikController as AdminPendidikController;
 use App\Http\Controllers\Admin\PesertaDidikController as AdminPesertaDidikController;
 use App\Http\Controllers\Admin\PaketPembelajaranController as AdminPaketPembelajaranController;
-use App\Http\Controllers\Admin\AktifkanPaketPesertaDidikController as AdminAktifkanPaketPesertaDidikController;
+use App\Http\Controllers\Admin\KonfirmasiPembayaranController as AdminKonfirmasiPembayaranController;
 
 use App\Http\Controllers\PesertaDidik\RosterPembelajaranController;
 use App\Http\Controllers\PesertaDidik\PaketPembelajaranController;
@@ -73,7 +73,7 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::post('/admin/paket-pembelajaran/edit-paket-pembelajaran/{id}', [AdminPaketPembelajaranController::class, 'editPaketPembelajaranProcess'])->name('admin.paket-pembelajaran.edit-paket-pembelajaran@process');
     Route::delete('/admin/paket-pembelajaran/hapus-paket-pembelajaran/{id}', [AdminPaketPembelajaranController::class, 'hapusPaketPembelajaran'])->name('admin.paket-pembelajaran.hapus-paket-pembelajaran');
 
-    Route::get('/admin/aktifkan-paket-peserta-didik', [AdminAktifkanPaketPesertaDidikController::class, 'index'])->name('admin.aktifkan-paket-peserta-didik');
+    Route::get('/admin/konfirmasi-pembayaran', [AdminKonfirmasiPembayaranController::class, 'index'])->name('admin.konfirmasi-pembayaran');
 });
 
 

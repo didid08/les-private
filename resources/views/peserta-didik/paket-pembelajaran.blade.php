@@ -190,9 +190,7 @@
                     <b>Bayar Ke Rekening BRI:</b> 18128901002 (Ammar)
                     <br><br>
                     Setelah melakukan pembayaran, kirimkan bukti pembayaran berupa <b>Struk</b></b>
-                    ke WA Admin (082274608973) <button
-                        class="px-3 py-1 mt-2 mb-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-md active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">Klik
-                        Disini Untuk Langsung Menuju WA Admin</button>
+                    ke WA Admin (082274608973)
                 </p>
             </div>
             <footer

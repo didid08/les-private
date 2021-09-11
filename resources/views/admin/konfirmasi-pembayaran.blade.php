@@ -3,7 +3,7 @@
     <main class="h-full overflow-y-auto">
         <div class="container px-6 mx-auto grid">
             <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-                Aktifkan Paket Peserta Didik
+                Konfirmasi Pembayaran
             </h2>
             <div class="w-full overflow-hidden rounded-lg shadow-xs mb-4" id="status-pembayaran">
                 <div class="w-full overflow-x-auto">
@@ -13,6 +13,7 @@
                                 class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                                 <th class="px-4 py-3">Nama Peserta Didik</th>
                                 <th class="px-4 py-3">Paket Pembelajaran</th>
+                                <th class="px-4 py-3">Total Bayar</th>
                                 <th class="px-4 py-3 text-center">Opsi</th>
                             </tr>
                         </thead>
@@ -26,15 +27,17 @@
                                     @if (array_key_exists($pembayaran->user->email, $listPembayaran))
                                         @php
                                             $listPembayaran[$pembayaran->user->email] = [
+                                                'nama' => $pembayaran->user->nama,
                                                 'paket_pembelajaran' => $listPembayaran[$pembayaran->user->email]['paket_pembelajaran'].'~'.$pembayaran->paketPembelajaran->nama,
-                                                'nama' => $pembayaran->user->nama
+                                                'harga' => $listPembayaran[$pembayaran->user->email]['harga'].'~'.$pembayaran->paketPembelajaran->harga
                                             ];
                                         @endphp
                                     @else
                                         @php
                                             $listPembayaran[$pembayaran->user->email] = [
+                                                'nama' => $pembayaran->user->nama,
                                                 'paket_pembelajaran' => $pembayaran->paketPembelajaran->nama,
-                                                'nama' => $pembayaran->user->nama
+                                                'harga' => $pembayaran->paketPembelajaran->harga
                                             ];
                                         @endphp
                                     @endif
@@ -68,6 +71,18 @@
                                         @endforeach
                                     </td>
 
+                                    <td class="px-4 py-3 text-sm harga">
+                                        @php
+                                            $totalBayar = 0;
+                                        @endphp
+                                        @foreach (explode('~', $pembayaran['harga']) as $harga)
+                                            @php
+                                                $totalBayar += $harga;
+                                            @endphp
+                                        @endforeach
+                                        Rp{{ number_format($totalBayar, 2, ',', '.') }}
+                                    </td>
+
                                     {{-- <td class="px-4 py-3 text-xs text-center status">
 
                                         <span class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:bg-orange-100 dark:text-orange-700">
@@ -76,7 +91,7 @@
                                     </td> --}}
                                     <td class="px-4 py-3 text-sm text-center">
                                         <button class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-md active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                                            Aktifkan
+                                            Konfirmasi
                                         </button>
                                     </td>
                                 </tr>
