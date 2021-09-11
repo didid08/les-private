@@ -8,7 +8,7 @@ use App\Http\Controllers\Admin\KonfirmasiPembayaranController as AdminKonfirmasi
 
 use App\Http\Controllers\PesertaDidik\RosterPembelajaranController;
 use App\Http\Controllers\PesertaDidik\PaketPembelajaranController;
-
+use App\Http\Controllers\PesertaDidik\PengaturanJadwalController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -74,6 +74,7 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::delete('/admin/paket-pembelajaran/hapus-paket-pembelajaran/{id}', [AdminPaketPembelajaranController::class, 'hapusPaketPembelajaran'])->name('admin.paket-pembelajaran.hapus-paket-pembelajaran');
 
     Route::get('/admin/konfirmasi-pembayaran', [AdminKonfirmasiPembayaranController::class, 'index'])->name('admin.konfirmasi-pembayaran');
+    Route::post('/admin/konfirmasi-pembayaran/{user_id}', [AdminKonfirmasiPembayaranController::class, 'process'])->name('admin.konfirmasi-pembayaran@process');
 });
 
 
@@ -83,6 +84,7 @@ Route::middleware(['auth', 'isPesertaDidik'])->group(function () {
         return redirect()->route('peserta-didik.roster-pembelajaran');
     });
     Route::get('/peserta-didik/roster-pembelajaran', RosterPembelajaranController::class)->name('peserta-didik.roster-pembelajaran');
+    Route::get('/peserta-didik/pengaturan-jadwal', PengaturanJadwalController::class)->name('peserta-didik.pengaturan-jadwal');
     Route::get('/peserta-didik/paket-pembelajaran', PaketPembelajaranController::class)->name('peserta-didik.paket-pembelajaran');
     Route::post('/peserta-didik/paket-pembelajaran/tambah-paket/{paketId}', [PaketPembelajaranController::class, 'tambahPaket'])->name('peserta-didik.paket-pembelajaran.tambah-paket');
     Route::delete('/peserta-didik/paket-pembelajaran/batalkan-paket/{paketId}', [PaketPembelajaranController::class, 'batalkanPaket'])->name('peserta-didik.paket-pembelajaran.batalkan-paket');

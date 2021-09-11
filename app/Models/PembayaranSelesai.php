@@ -11,6 +11,8 @@ class PembayaranSelesai extends Model
 
     protected $table = 'pembayaran_selesai';
 
+    protected $fillable = ['pembayaran_id'];
+
     public function pembayaran()
     {
         return $this->belongsTo(Pembayaran::class);

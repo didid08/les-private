@@ -11,6 +11,8 @@ class Pembayaran extends Model
 
     protected $table = 'pembayaran';
 
+    protected $fillable = ['user_id', 'paket_pembelajaran_id'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
