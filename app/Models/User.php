@@ -43,8 +43,33 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function pembayaran()
+    public function pendidikHasPaketPembelajaran()
     {
-        return $this->hasMany(Pembayaran::class);
+        return $this->hasMany(PendidikHasPaketPembelajaran::class);
+    }
+
+    public function pendidikHasJadwal()
+    {
+        return $this->hasMany(PendidikHasJadwal::class);
+    }
+
+    public function pembelianPaketPembelajaran()
+    {
+        return $this->hasMany(PembelianPaketPembelajaran::class);
+    }
+
+    public function pesertaDidikHasPaketPembelajaran()
+    {
+        return $this->hasMany(PesertaDidikHasPaketPembelajaran::class);
+    }
+
+    public function pesertaDidikHasJadwal()
+    {
+        return $this->hasMany(PesertaDidikHasJadwal::class);
+    }
+
+    public function pesertaDidikHasAbsensi()
+    {
+        return $this->hasMany(PesertaDidikHasAbsensi::class);
     }
 }

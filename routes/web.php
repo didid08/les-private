@@ -6,9 +6,10 @@ use App\Http\Controllers\Admin\PesertaDidikController as AdminPesertaDidikContro
 use App\Http\Controllers\Admin\PaketPembelajaranController as AdminPaketPembelajaranController;
 use App\Http\Controllers\Admin\KonfirmasiPembayaranController as AdminKonfirmasiPembayaranController;
 
-use App\Http\Controllers\PesertaDidik\RosterPembelajaranController;
+use App\Http\Controllers\PesertaDidik\AbsensiController;
+//use App\Http\Controllers\PesertaDidik\RosterPembelajaranController;
 use App\Http\Controllers\PesertaDidik\PaketPembelajaranController;
-use App\Http\Controllers\PesertaDidik\PengaturanJadwalController;
+//use App\Http\Controllers\PesertaDidik\PengaturanJadwalController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -32,7 +33,7 @@ Route::get('/', function () {
     } else if ($role == 'pendidik') {
         return abort(404);
     } else if ($role == 'peserta_didik') {
-        return redirect()->route('peserta-didik.roster-pembelajaran');
+        return redirect()->route('peserta-didik.absensi');
     }
 })->middleware(['auth']);
 
@@ -81,10 +82,11 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
 /* PESERTA DIDIK */
 Route::middleware(['auth', 'isPesertaDidik'])->group(function () {
     Route::get('/peserta-didik', function () {
-        return redirect()->route('peserta-didik.roster-pembelajaran');
+        return redirect()->route('peserta-didik.absensi');
     });
-    Route::get('/peserta-didik/roster-pembelajaran', RosterPembelajaranController::class)->name('peserta-didik.roster-pembelajaran');
-    Route::get('/peserta-didik/pengaturan-jadwal', PengaturanJadwalController::class)->name('peserta-didik.pengaturan-jadwal');
+    Route::get('/peserta-didik/absensi', AbsensiController::class)->name('peserta-didik.absensi');
+    //Route::get('/peserta-didik/roster-pembelajaran', RosterPembelajaranController::class)->name('peserta-didik.roster-pembelajaran');
+    //Route::get('/peserta-didik/pengaturan-jadwal', PengaturanJadwalController::class)->name('peserta-didik.pengaturan-jadwal');
     Route::get('/peserta-didik/paket-pembelajaran', PaketPembelajaranController::class)->name('peserta-didik.paket-pembelajaran');
     Route::post('/peserta-didik/paket-pembelajaran/tambah-paket/{paketId}', [PaketPembelajaranController::class, 'tambahPaket'])->name('peserta-didik.paket-pembelajaran.tambah-paket');
     Route::delete('/peserta-didik/paket-pembelajaran/batalkan-paket/{paketId}', [PaketPembelajaranController::class, 'batalkanPaket'])->name('peserta-didik.paket-pembelajaran.batalkan-paket');

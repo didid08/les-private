@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Pembayaran;
 use App\Models\PembayaranSelesai;
+use App\Models\Pembelajaran;
 
 class KonfirmasiPembayaranController extends Controller
 {
@@ -36,9 +37,14 @@ class KonfirmasiPembayaranController extends Controller
         if ($semuaPembayaranUser->exists()) {
             foreach ($semuaPembayaranUser->get() as $pembayaranUser) {
                 if ($pembayaranUser->PembayaranSelesai == null) {
-                    PembayaranSelesai::create([
+
+                    $pembayaranSelesai = PembayaranSelesai::create([
                         'pembayaran_id' => $pembayaranUser->id
                     ]);
+                    for ($i = 1; $i <= 12; $i++){
+                        $pembayaranSelesai->pembelajaran()->create();
+                    }
+
                 }
             }
             return redirect()->route('admin.konfirmasi-pembayaran')->with('success', 'Pembayaran Berhasil Dikonfirmasi');

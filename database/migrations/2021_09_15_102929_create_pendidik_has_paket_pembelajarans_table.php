@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePembayaransTable extends Migration
+class CreatePendidikHasPaketPembelajaransTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreatePembayaransTable extends Migration
      */
     public function up()
     {
-        Schema::create('pembayaran', function (Blueprint $table) {
+        Schema::create('pendidik_has_paket_pembelajaran', function (Blueprint $table) {
             $table->id();
-            //$table->string('kode_pembayaran')->unique();
-            $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('pendidik_id');
+            $table->foreign('pendidik_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('paket_pembelajaran_id');
             $table->foreign('paket_pembelajaran_id')->references('id')->on('paket_pembelajaran')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamp('created_at')->useCurrent();
@@ -31,6 +31,6 @@ class CreatePembayaransTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pembayaran');
+        Schema::dropIfExists('pendidik_has_paket_pembelajaran');
     }
 }

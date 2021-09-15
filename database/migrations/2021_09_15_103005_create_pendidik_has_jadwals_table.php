@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePembayaranSelesaisTable extends Migration
+class CreatePendidikHasJadwalsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreatePembayaranSelesaisTable extends Migration
      */
     public function up()
     {
-        Schema::create('pembayaran_selesai', function (Blueprint $table) {
+        Schema::create('pendidik_has_jadwal', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('pembayaran_id');
-            $table->foreign('pembayaran_id')->references('id')->on('pembayaran')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('pendidik_id');
+            $table->foreign('pendidik_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->date('hari');
+            $table->date('pukul_mulai');
+            $table->date('pukul_selesai');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
@@ -29,6 +32,6 @@ class CreatePembayaranSelesaisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pembayaran_selesai');
+        Schema::dropIfExists('pendidik_has_jadwal');
     }
 }

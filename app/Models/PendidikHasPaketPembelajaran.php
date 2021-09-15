@@ -5,15 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pembayaran extends Model
+class PendidikHasPaketPembelajaran extends Model
 {
     use HasFactory;
 
-    protected $table = 'pembayaran';
+    protected $table = 'pendidik_has_paket_pembelajaran';
+    protected $fillable = ['pendidik_id', 'paket_pembelajaran_id'];
 
-    protected $fillable = ['user_id', 'paket_pembelajaran_id'];
-
-    public function user()
+    public function pendidik()
     {
         return $this->belongsTo(User::class);
     }
@@ -21,10 +20,5 @@ class Pembayaran extends Model
     public function paketPembelajaran()
     {
         return $this->belongsTo(PaketPembelajaran::class);
-    }
-
-    public function pembayaranSelesai()
-    {
-        return $this->hasOne(PembayaranSelesai::class);
     }
 }
