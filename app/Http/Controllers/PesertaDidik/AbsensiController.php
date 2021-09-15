@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\PesertaDidik;
 
 use App\Http\Controllers\Controller;
-use App\Models\Pembayaran;
+use App\Models\PembelianPaketPembelajaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,18 +11,12 @@ class AbsensiController extends Controller
 {
     public function __invoke()
     {
-        $semuaPembayaranSaya = Pembayaran::where('user_id', Auth::id())->get();
+        $semuaPembelian = PembelianPaketPembelajaran::where('peserta_didik_id', Auth::id())->get();
 
         $totalSudahAbsen = [];
-        foreach ($semuaPembayaranSaya as $pembayaran) {
-            $totalSudahAbsen[$pembayaran->id] = 0;
-            if ($pembayaran->pembayaranSelesai != null) {
-                foreach ($pembayaran->pembayaranSelesai->pembelajaran as $pembelajaran) {
-                    if ($pembelajaran->absensi != null) {
-                        $totalSudahAbsen[$pembayaran->id] += 1;
-                    }
-                }
-            }
+        foreach ($semuaPembelian as $pembelian) {
+            $totalSudahAbsen[$pembelian->id] = 0;
+
         }
 
         return view('peserta-didik.absensi', [
@@ -31,7 +25,7 @@ class AbsensiController extends Controller
                 'id' => 'absensi',
                 'group' => null
             ],
-            'semuaPembayaranSaya' => $semuaPembayaranSaya,
+            'semuaPembelian' => $semuaPembelian,
             'totalSudahAbsen' => $totalSudahAbsen
         ]);
     }

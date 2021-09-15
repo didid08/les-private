@@ -55,7 +55,7 @@ class User extends Authenticatable
 
     public function pembelianPaketPembelajaran()
     {
-        return $this->hasMany(PembelianPaketPembelajaran::class);
+        return $this->hasMany(PembelianPaketPembelajaran::class, 'peserta_didik_id');
     }
 
     public function pesertaDidikHasPaketPembelajaran()
