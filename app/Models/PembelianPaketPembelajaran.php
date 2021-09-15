@@ -12,9 +12,9 @@ class PembelianPaketPembelajaran extends Model
     protected $table = 'pembelian_paket_pembelajaran';
     protected $fillable = ['peserta_didik_id', 'paket_pembelajaran_id'];
 
-    public function user()
+    public function pesertaDidik()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'peserta_didik_id');
     }
 
     public function paketPembelajaran()
@@ -24,6 +24,6 @@ class PembelianPaketPembelajaran extends Model
 
     public function pesertaDidikHasPaketPembelajaran()
     {
-        return $this->hasMany(PesertaDidikHasPaketPembelajaran::class);
+        return $this->hasOne(PesertaDidikHasPaketPembelajaran::class);
     }
 }

@@ -71,7 +71,7 @@ class PaketPembelajaranController extends Controller
         $totalPembayaranSelesai = 0;
         $totalPembayaranBelumSelesai = 0;
         foreach ($semuaPembelian->get() as $pembelian) {
-            if ($pembelian->pembayaranSelesai != null) {
+            if ($pembelian->pesertaDidikHasPaketPembelajaran != null) {
                 $totalPembayaranSelesai += 1;
             } else {
                 $totalPembayaranBelumSelesai += 1;
@@ -109,7 +109,7 @@ class PaketPembelajaranController extends Controller
 
     public function batalkanPaket($paketId)
     {
-        $paket = PembelianPaketPembelajaran::where([['pesertaDidik_id', '=', Auth::id()], ['paket_pembelajaran_id', '=', $paketId]]);
+        $paket = PembelianPaketPembelajaran::where([['peserta_didik_id', '=', Auth::id()], ['paket_pembelajaran_id', '=', $paketId]]);
 
         if ($paket->exists()) {
             if ($paket->first()->pesertaDidikHasPaketPembelajaran == null) {

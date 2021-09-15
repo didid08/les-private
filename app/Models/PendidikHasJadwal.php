@@ -19,6 +19,6 @@ class PendidikHasJadwal extends Model
 
     public function pesertaDidikHasJadwal()
     {
-        return $this->hasMany(PesertaDidikHasJadwal::class);
+        return $this->hasOne(PesertaDidikHasJadwal::class);
     }
 }
