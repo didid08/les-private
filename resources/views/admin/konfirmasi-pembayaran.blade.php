@@ -21,26 +21,26 @@
                             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800 list">
                                 {{-- Gabungkan kode pembayaran jika lebih dari 1 --}}
                                 @php
-                                    $listPembayaran = [];
+                                    $listPembelian = [];
                                 @endphp
-                                @foreach ($semuaPembayaran->sortBy('created_at') as $index => $pembayaran)
-                                    @if ($pembayaran->pembayaranSelesai == null)
-                                        @if (array_key_exists($pembayaran->user->email, $listPembayaran))
+                                @foreach ($semuaPembelian->sortBy('created_at') as $index => $pembelian)
+                                    @if ($pembelian->pesertaDidikHasPaketPembelajaran == null)
+                                        @if (array_key_exists($pembelian->pesertaDidik->email, $listPembelian))
                                             @php
-                                                $listPembayaran[$pembayaran->user->email] = [
-                                                    'user_id' => $pembayaran->user_id,
-                                                    'nama' => $pembayaran->user->nama,
-                                                    'paket_pembelajaran' => $listPembayaran[$pembayaran->user->email]['paket_pembelajaran'].'~'.$pembayaran->paketPembelajaran->nama,
-                                                    'harga' => $listPembayaran[$pembayaran->user->email]['harga'].'~'.$pembayaran->paketPembelajaran->harga
+                                                $listPembelian[$pembelian->pesertaDidik->email] = [
+                                                    'user_id' => $pembelian->peserta_didik_id,
+                                                    'nama' => $pembelian->pesertaDidik->nama,
+                                                    'paket_pembelajaran' => $listPembelian[$pembelian->pesertaDidik->email]['paket_pembelajaran'].'~'.$pembelian->paketPembelajaran->nama,
+                                                    'harga' => $listPembelian[$pembelian->pesertaDidik->email]['harga'].'~'.$pembelian->paketPembelajaran->harga
                                                 ];
                                             @endphp
                                         @else
                                             @php
-                                                $listPembayaran[$pembayaran->user->email] = [
-                                                    'user_id' => $pembayaran->user_id,
-                                                    'nama' => $pembayaran->user->nama,
-                                                    'paket_pembelajaran' => $pembayaran->paketPembelajaran->nama,
-                                                    'harga' => $pembayaran->paketPembelajaran->harga
+                                                $listPembelian[$pembelian->pesertaDidik->email] = [
+                                                    'user_id' => $pembelian->peserta_didik_id,
+                                                    'nama' => $pembelian->pesertaDidik->nama,
+                                                    'paket_pembelajaran' => $pembelian->paketPembelajaran->nama,
+                                                    'harga' => $pembelian->paketPembelajaran->harga
                                                 ];
                                             @endphp
                                         @endif
@@ -48,7 +48,7 @@
                                 @endforeach
 
                                 {{-- Kemudian, iterate kan --}}
-                                @foreach ($listPembayaran as $email => $pembayaran)
+                                @foreach ($listPembelian as $email => $pembelian)
                                     <tr class="text-gray-700 dark:text-gray-400">
                                         <td class="px-4 py-3 text-sm nama">
                                             <div class="flex items-center text-sm">
@@ -60,7 +60,7 @@
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <p class="font-semibold">{{ $pembayaran['nama'] }}</p>
+                                                    <p class="font-semibold">{{ $pembelian['nama'] }}</p>
                                                     <p class="text-xs text-gray-600 dark:text-gray-400">
                                                         <a href="mailto:{{ $email }}">{{ $email }}</a>
                                                     </p>
@@ -69,7 +69,7 @@
                                         </td>
 
                                         <td class="px-4 py-3 text-sm paket-pembelajaran">
-                                            @foreach (explode('~', $pembayaran['paket_pembelajaran']) as $paketPembelajaran)
+                                            @foreach (explode('~', $pembelian['paket_pembelajaran']) as $paketPembelajaran)
                                                 - {{ $paketPembelajaran }}<br>
                                             @endforeach
                                         </td>
@@ -78,7 +78,7 @@
                                             @php
                                                 $totalBayar = 0;
                                             @endphp
-                                            @foreach (explode('~', $pembayaran['harga']) as $harga)
+                                            @foreach (explode('~', $pembelian['harga']) as $harga)
                                                 @php
                                                     $totalBayar += $harga;
                                                 @endphp
@@ -89,11 +89,11 @@
                                         {{-- <td class="px-4 py-3 text-xs text-center status">
 
                                             <span class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:bg-orange-100 dark:text-orange-700">
-                                                {{ $pembayaran['status'] }}
+                                                {{ $pembelian['status'] }}
                                             </span>
                                         </td> --}}
                                         <td class="px-4 py-3 text-sm text-center">
-                                            <form action="{{ route('admin.konfirmasi-pembayaran@process', ['user_id' => $pembayaran['user_id']]) }}" method="POST" style="display: inline">
+                                            <form action="{{ route('admin.konfirmasi-pembayaran@process', ['user_id' => $pembelian['user_id']]) }}" method="POST" style="display: inline">
                                                 @csrf
                                                 <button type="submit" class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-md active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                                                     Konfirmasi

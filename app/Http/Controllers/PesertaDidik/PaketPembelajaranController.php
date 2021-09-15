@@ -7,9 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\PaketPembelajaran;
 use App\Models\PaketPembelajaranRelationship;
-use App\Models\Pembayaran;
-use App\Models\PembayaranSelesai;
-use App\Models\Pembelajaran;
+use App\Models\PembelianPaketPembelajaran;
+use App\Models\PesertaDidikHasPaketPembelajaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -19,8 +18,8 @@ class PaketPembelajaranController extends Controller
     {
         $paketPembelajaranSaya = [];
 
-        foreach (User::find(Auth::id())->pembayaran as $pembayaran) {
-            array_push($paketPembelajaranSaya, $pembayaran->paket_pembelajaran_id);
+        foreach (User::find(Auth::id())->pembelianPaketPembelajaran as $pembelian) {
+            array_push($paketPembelajaranSaya, $pembelian->paket_pembelajaran_id);
         }
 
         $paketPembelajaranYangBisaDipilih = [];
@@ -66,14 +65,14 @@ class PaketPembelajaranController extends Controller
             }
         }
 
-        $semuaPembayaranSaya = Pembayaran::where('user_id', Auth::id());
+        $semuaPembelian = PembelianPaketPembelajaran::where('peserta_didik_id', Auth::id());
 
-        //$pembayaranBelumSelesai = [];
+        //$pembelianBelumSelesai = [];
 
         $totalPembayaranSelesai = 0;
         $totalPembayaranBelumSelesai = 0;
-        foreach ($semuaPembayaranSaya->get() as $pembayaran) {
-            if ($pembayaran->pembayaranSelesai != null) {
+        foreach ($semuaPembelian->get() as $pembelian) {
+            if ($pembelian->pembayaranSelesai != null) {
                 $totalPembayaranSelesai += 1;
             } else {
                 $totalPembayaranBelumSelesai += 1;
@@ -86,7 +85,7 @@ class PaketPembelajaranController extends Controller
                 'id' => 'paket-pembelajaran',
                 'group' => null
             ],
-            'semuaPembayaranSaya' => $semuaPembayaranSaya,
+            'semuaPembelian' => $semuaPembelian,
             'totalPembayaranBelumSelesai' => $totalPembayaranBelumSelesai,
             'totalPembayaranSelesai' => $totalPembayaranSelesai,
             'paketPembelajaranYangBisaDipilih' => $paketPembelajaranYangBisaDipilih
@@ -96,10 +95,10 @@ class PaketPembelajaranController extends Controller
     public function tambahPaket($paketId)
     {
         if (PaketPembelajaran::where('id', $paketId)->exists()) {
-            if (!Pembayaran::where([['user_id', '=', Auth::id()], ['paket_pembelajaran_id', '=', $paketId]])->exists()) {
-                Pembayaran::insert([
+            if (!PembelianPaketPembelajaran::where([['peserta_didik_id', '=', Auth::id()], ['paket_pembelajaran_id', '=', $paketId]])->exists()) {
+                PembelianPaketPembelajaran::insert([
                     //'kode_pembayaran' => Str::random(12),
-                    'user_id' => Auth::id(),
+                    'peserta_didik_id' => Auth::id(),
                     'paket_pembelajaran_id' => $paketId
                 ]);
                 return redirect()->route('peserta-didik.paket-pembelajaran')->with('success', 'Sukses Menambahkan Paket#<small>Untuk mengaktifkan paket, silahkan lakukan pembayaran ke rekening yang tercantum di opsi "Info Pembayaran"</small>');
@@ -111,10 +110,10 @@ class PaketPembelajaranController extends Controller
 
     public function batalkanPaket($paketId)
     {
-        $paket = Pembayaran::where([['user_id', '=', Auth::id()], ['paket_pembelajaran_id', '=', $paketId]]);
+        $paket = PembelianPaketPembelajaran::where([['pesertaDidik_id', '=', Auth::id()], ['paket_pembelajaran_id', '=', $paketId]]);
 
         if ($paket->exists()) {
-            if ($paket->first()->pembayaranSelesai == null) {
+            if ($paket->first()->pesertaDidikHasPaketPembelajaran == null) {
                 $paket->delete();
                 return redirect()->route('peserta-didik.paket-pembelajaran')->with('success', 'Berhasil membatalkan paket');
             }

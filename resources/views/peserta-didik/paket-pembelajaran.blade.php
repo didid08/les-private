@@ -8,7 +8,7 @@
             </h2>
             <div class="w-full mb-8 overflow-hidden rounded-lg shadow-xs">
                 <div class="w-full overflow-x-auto">
-                    @if ($semuaPembayaranSaya->exists())
+                    @if ($semuaPembelian->exists())
                         <table class="w-full whitespace-no-wrap">
                             <thead>
                                 <tr
@@ -19,16 +19,16 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                                @foreach ($semuaPembayaranSaya->get() as $pembayaran)
+                                @foreach ($semuaPembelian->get() as $pembelian)
                                     <tr class="text-gray-700 dark:text-gray-400">
                                         <td class="px-4 py-3">
                                             <div class="flex items-center text-sm">
-                                                {{ $pembayaran->paketPembelajaran->kode }}
-                                                ({{ $pembayaran->paketPembelajaran->nama }})
+                                                {{ $pembelian->paketPembelajaran->kode }}
+                                                ({{ $pembelian->paketPembelajaran->nama }})
                                             </div>
                                         </td>
                                         <td class="px-4 py-3 text-xs text-center">
-                                            @if ($pembayaran->pembayaranSelesai != null)
+                                            @if ($pembelian->pesertaDidikHasPaketPembelajaran != null)
                                                 <span
                                                     class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
                                                     Aktif
@@ -41,9 +41,9 @@
                                             @endif
                                         </td>
                                         <td class="px-4 py-3 text-sm text-center">
-                                            @if ($pembayaran->pembayaranSelesai == null)
+                                            @if ($pembelian->pesertaDidikHasPaketPembelajaran == null)
                                                 <form
-                                                    action="{{ route('peserta-didik.paket-pembelajaran.batalkan-paket', ['paketId' => $pembayaran->paket_pembelajaran_id]) }}"
+                                                    action="{{ route('peserta-didik.paket-pembelajaran.batalkan-paket', ['paketId' => $pembelian->paket_pembelajaran_id]) }}"
                                                     method="POST" style="display: inline">
                                                     @method('DELETE')
                                                     @csrf
@@ -65,8 +65,8 @@
                     @endif
                 </div>
             </div>
-            @if ($semuaPembayaranSaya->exists())
-                @if ($semuaPembayaranSaya->get()->count() != $totalPembayaranSelesai)
+            @if ($semuaPembelian->exists())
+                @if ($semuaPembelian->get()->count() != $totalPembayaranSelesai)
                     <h4 class="mb-6 text-lg font-semibold text-gray-600 dark:text-gray-300">
                         <button style="display: inline"
                             x-on:click="infoPembayaranSekaligusTerbuka = true; trapCleanup = focusTrap(document.querySelector('#infoPembayaranSekaligus'))"
@@ -168,10 +168,10 @@
                 <!-- Modal description -->
                 <p class="text-sm text-gray-700 dark:text-gray-400 modal-description">
                     <b>Paket : </b><br>
-                    @foreach ($semuaPembayaranSaya->get() as $pembayaran)
-                        @if ($pembayaran->pembayaranSelesai == null)
-                            - {{ $pembayaran->paketPembelajaran->kode }}
-                            ({{ $pembayaran->paketPembelajaran->nama }})<br>
+                    @foreach ($semuaPembelian->get() as $pembelian)
+                        @if ($pembelian->pesertaDidikHasPaketPembelajaran == null)
+                            - {{ $pembelian->paketPembelajaran->kode }}
+                            ({{ $pembelian->paketPembelajaran->nama }})<br>
                         @endif
                     @endforeach
                     <br>
@@ -179,10 +179,10 @@
                     @php
                         $totalBayar = 0;
                     @endphp
-                    @foreach ($semuaPembayaranSaya->get() as $pembayaran)
-                        @if ($pembayaran->pembayaranSelesai == null)
+                    @foreach ($semuaPembelian->get() as $pembelian)
+                        @if ($pembelian->pesertaDidikHasPaketPembelajaran == null)
                             @php
-                                $totalBayar += $pembayaran->paketPembelajaran->harga;
+                                $totalBayar += $pembelian->paketPembelajaran->harga;
                             @endphp
                         @endif
                     @endforeach

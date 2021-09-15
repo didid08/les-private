@@ -4,17 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Pembayaran;
-use App\Models\PembayaranSelesai;
-use App\Models\Pembelajaran;
+use App\Models\PembelianPaketPembelajaran;
+use App\Models\PesertaDidikHasPaketPembelajaran;
 
 class KonfirmasiPembayaranController extends Controller
 {
     public function index()
     {
         $totalPembayaranBelumSelesai = 0;
-        foreach (Pembayaran::get() as $pembayaran) {
-            if ($pembayaran->pembayaranSelesai == null) {
+        foreach (PembelianPaketPembelajaran::get() as $pembelian) {
+            if ($pembelian->pesertaDidikHasPaketPembelajaran == null) {
                 $totalPembayaranBelumSelesai += 1;
             }
         }
@@ -25,25 +24,24 @@ class KonfirmasiPembayaranController extends Controller
                 'id' => 'konfirmasi-pembayaran',
                 'group' => null
             ],
-            'semuaPembayaran' => Pembayaran::get(),
+            'semuaPembelian' => PembelianPaketPembelajaran::get(),
             'totalPembayaranBelumSelesai' => $totalPembayaranBelumSelesai
         ]);
     }
 
-    public function process($user_id)
+    public function process($peserta_didik_id)
     {
-        $semuaPembayaranUser = Pembayaran::where('user_id', $user_id);
+        $semuaPembelianPesertaDidik = PembelianPaketPembelajaran::where('peserta_didik_id', $peserta_didik_id);
 
-        if ($semuaPembayaranUser->exists()) {
-            foreach ($semuaPembayaranUser->get() as $pembayaranUser) {
-                if ($pembayaranUser->PembayaranSelesai == null) {
+        if ($semuaPembelianPesertaDidik->exists()) {
+            foreach ($semuaPembelianPesertaDidik->get() as $pembelian) {
+                if ($pembelian->pesertaDidikHasPaketPembelajaran == null) {
 
-                    $pembayaranSelesai = PembayaranSelesai::create([
-                        'pembayaran_id' => $pembayaranUser->id
+                    PesertaDidikHasPaketPembelajaran::create([
+                        'peserta_didik_id' => $pembelian->pesertaDidik->id,
+                        'paket_pembelajaran_id' => $pembelian->paketPembelajaran->id,
+                        'pembelian_paket_pembelajaran_id' => $pembelian->id
                     ]);
-                    for ($i = 1; $i <= 12; $i++){
-                        $pembayaranSelesai->pembelajaran()->create();
-                    }
 
                 }
             }
