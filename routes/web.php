@@ -5,7 +5,8 @@ use App\Http\Controllers\Admin\PendidikController as AdminPendidikController;
 use App\Http\Controllers\Admin\PesertaDidikController as AdminPesertaDidikController;
 use App\Http\Controllers\Admin\PaketPembelajaranController as AdminPaketPembelajaranController;
 use App\Http\Controllers\Admin\KonfirmasiPembayaranController as AdminKonfirmasiPembayaranController;
-
+use App\Http\Controllers\Pendidik\JadwalDanKeahlianController;
+use App\Http\Controllers\Pendidik\RosterMengajarController;
 use App\Http\Controllers\PesertaDidik\AbsensiController;
 use App\Http\Controllers\PesertaDidik\RosterPembelajaranController;
 use App\Http\Controllers\PesertaDidik\PaketPembelajaranController;
@@ -31,7 +32,7 @@ Route::get('/', function () {
     if ($role == 'admin') {
         return redirect()->route('admin.dashboard');
     } else if ($role == 'pendidik') {
-        return abort(404);
+        return redirect()->route('pendidik.roster-mengajar');
     } else if ($role == 'peserta_didik') {
         return redirect()->route('peserta-didik.absensi');
     }
@@ -81,9 +82,10 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
 /* PENDIDIK */
 Route::middleware(['auth', 'isPendidik'])->group(function () {
     Route::get('/pendidik', function () {
-        return redirect()->route('peserta-didik.absensi');
+        return redirect()->route('pendidik.roster-mengajar');
     });
-    Route::get('/peserta-didik/absensi', AbsensiController::class)->name('peserta-didik.absensi');
+    Route::get('/pendidik/roster-mengajar', RosterMengajarController::class)->name('pendidik.roster-mengajar');
+    Route::get('/pendidik/jadwal-dan-keahlian', JadwalDanKeahlianController::class)->name('pendidik.jadwal-dan-keahlian');
 });
 
 /* PESERTA DIDIK */
