@@ -86,7 +86,7 @@ Route::middleware(['auth', 'isPendidik'])->group(function () {
     });
     Route::get('/pendidik/roster-mengajar', RosterMengajarController::class)->name('pendidik.roster-mengajar');
     Route::get('/pendidik/jadwal-dan-keahlian', JadwalDanKeahlianController::class)->name('pendidik.jadwal-dan-keahlian');
-    Route::post('/pendidik/jadwal-dan-keahlian/jadwal', [JadwalDanKeahlianController::class, 'simpanJadwal'])->name('pendidik.jadwal-dan-keahlian.simpan-jadwal');
+    Route::patch('/pendidik/jadwal-dan-keahlian/jadwal/{id}', [JadwalDanKeahlianController::class, 'editJadwal'])->name('pendidik.jadwal-dan-keahlian.edit-jadwal');
 });
 
 /* PESERTA DIDIK */

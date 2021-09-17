@@ -21,11 +21,12 @@ class JadwalDanKeahlianController extends Controller
                 'id' => 'jadwal-dan-keahlian',
                 'group' => null
             ],
-            'authId' => Auth::id()
+            'authId' => Auth::id(),
+            'semuaJadwalSaya' => PendidikHasJadwal::get()
         ]);
     }
 
-    public function simpanJadwal(Request $request)
+    public function editJadwal($id, Request $request)
     {
         $validator = Validator::make($request->all(), [
             'hari' => 'required|in:Senin,Selasa,Rabu,Kamis,Jumat,Sabtu,Minggu',
@@ -50,28 +51,20 @@ class JadwalDanKeahlianController extends Controller
 
         $validated = $validator->validated();
 
-        // $hariToEnglish = [
-        //     'Senin' => 'Monday',
-        //     'Selasa' => 'Tuesday',
-        //     'Rabu' => 'Wednesday',
-        //     'Kamis' => 'Thursday',
-        //     'Jumat' => 'Friday',
-        //     'Sabtu' => 'Saturday',
-        //     'Minggu' => 'Sunday'
-        // ];
-
         if (new Carbon($validated['pukul_mulai']) < new Carbon($validated['pukul_selesai'])) {
 
-            PendidikHasJadwal::updateOrCreate([
-                'pendidik_id' => Auth::id(),
-                'hari' => $validated['hari']
-            ], [
-                'pukul_mulai' => new Carbon($validated['pukul_mulai']),
-                'pukul_selesai' => new Carbon($validated['pukul_selesai'])
-            ]);
+            $jadwal = PendidikHasJadwal::where([['id', '=', $id], ['pendidik_id', '=', Auth::id()]]);
 
-            return redirect()->route('pendidik.jadwal-dan-keahlian')->with('success', 'Berhasil menyimpan jadwal untuk hari '.$validated['hari']);
+            if ($jadwal->exists()) {
+                $jadwal->update([
+                    'hari' => $validated['hari'],
+                    'pukul_mulai' => new Carbon($validated['pukul_mulai']),
+                    'pukul_selesai' => new Carbon($validated['pukul_selesai'])
+                ]);
+                return redirect()->route('pendidik.jadwal-dan-keahlian')->with('success', 'Berhasil mengubah jadwal');
+            }
+            return redirect()->route('pendidik.jadwal-dan-keahlian')->with('error', 'Jadwal tidak ditemukan');
         }
-        return redirect()->route('pendidik.jadwal-dan-keahlian')->with('error', 'Kesalahan dalam menyimpan jadwal#Pukul Selesai mendahului Pukul Mulai');
+        return redirect()->route('pendidik.jadwal-dan-keahlian')->with('error', 'Kesalahan dalam mengubah jadwal#Pukul Selesai mendahului Pukul Mulai');
     }
 }
