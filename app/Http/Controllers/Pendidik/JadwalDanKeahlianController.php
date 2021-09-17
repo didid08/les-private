@@ -20,7 +20,8 @@ class JadwalDanKeahlianController extends Controller
                 'title' => 'Jadwal dan Keahlian',
                 'id' => 'jadwal-dan-keahlian',
                 'group' => null
-            ]
+            ],
+            'authId' => Auth::id()
         ]);
     }
 
