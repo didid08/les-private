@@ -28,11 +28,11 @@ class JadwalDanKeahlianController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'hari' => 'required|in:Senin,Selasa,Rabu,Kamis,Jumat,Sabtu,Minggu',
-            'pukul_mulai' => 'required|date',
-            'pukul_selesai' => 'required|date'
+            'pukul_mulai' => 'required|date_format:H:i',
+            'pukul_selesai' => 'required|date_format:H:i'
         ], [
             'required' => 'Harap masukkan :attribute',
-            'date' => ':attribute harus berbentuk tanggal/waktu',
+            'date_format' => ':attribute harus berbentuk jam',
             'in' => ':attribute tidak valid'
         ], [
             'hari' => 'Hari',
@@ -48,5 +48,29 @@ class JadwalDanKeahlianController extends Controller
         }
 
         $validated = $validator->validated();
+
+        // $hariToEnglish = [
+        //     'Senin' => 'Monday',
+        //     'Selasa' => 'Tuesday',
+        //     'Rabu' => 'Wednesday',
+        //     'Kamis' => 'Thursday',
+        //     'Jumat' => 'Friday',
+        //     'Sabtu' => 'Saturday',
+        //     'Minggu' => 'Sunday'
+        // ];
+
+        if (new Carbon($validated['pukul_mulai']) < new Carbon($validated['pukul_selesai'])) {
+
+            PendidikHasJadwal::updateOrCreate([
+                'pendidik_id' => Auth::id(),
+                'hari' => $validated['hari']
+            ], [
+                'pukul_mulai' => new Carbon($validated['pukul_mulai']),
+                'pukul_selesai' => new Carbon($validated['pukul_selesai'])
+            ]);
+
+            return redirect()->route('pendidik.jadwal-dan-keahlian')->with('success', 'Berhasil menyimpan jadwal untuk hari '.$validated['hari']);
+        }
+        return redirect()->route('pendidik.jadwal-dan-keahlian')->with('error', 'Kesalahan dalam menyimpan jadwal#Pukul Selesai mendahului Pukul Mulai');
     }
 }

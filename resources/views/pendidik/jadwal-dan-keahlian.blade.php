@@ -26,7 +26,7 @@
                         </thead>
                         <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                             @foreach (['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'] as $hari)
-                                <form action="" method="POST">
+                                <form action="{{ route('pendidik.jadwal-dan-keahlian.simpan-jadwal') }}" method="POST">
                                     <tr class="text-gray-700 dark:text-gray-400">
                                         <td class="px-4 py-3 text-sm text-center text-green-600">
                                             <svg class="w-4 h-4" style="display: inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -38,11 +38,11 @@
                                         <td class="px-4 py-3 text-sm text-center">
                                             <input type="time"
                                                 class="mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
-                                                id="pukul-mulai" name="pukul-mulai">
+                                                id="pukul-mulai" name="pukul_mulai">
                                             &nbsp;&nbsp;s/d&nbsp;&nbsp;
                                             <input type="time"
                                                 class="mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
-                                                id="pukul-selesai" name="pukul-selesai">
+                                                id="pukul-selesai" name="pukul_selesai">
                                         </td>
                                         <td class="px-4 py-3 text-sm text-center">
                                             @csrf
