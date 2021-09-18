@@ -26,6 +26,43 @@ class JadwalDanKeahlianController extends Controller
         ]);
     }
 
+    public function tambahJadwal(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'hari' => 'required|in:Senin,Selasa,Rabu,Kamis,Jumat,Sabtu,Minggu',
+            'pukul_mulai' => 'required|date_format:H:i',
+            'pukul_selesai' => 'required|date_format:H:i'
+        ], [
+            'required' => 'Harap masukkan :attribute',
+            'date_format' => ':attribute harus berbentuk jam',
+            'in' => ':attribute tidak valid'
+        ], [
+            'hari' => 'Hari',
+            'pukul_mulai' => 'Pukul Mulai',
+            'pukul_selesai' => 'Pukul Selesai'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->route('pendidik.jadwal-dan-keahlian')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $validated = $validator->validated();
+
+        if (new Carbon($validated['pukul_mulai']) < new Carbon($validated['pukul_selesai'])) {
+            PendidikHasJadwal::create([
+                'pendidik_id' => Auth::id(),
+                'hari' => $validated['hari'],
+                'pukul_mulai' => new Carbon($validated['pukul_mulai']),
+                'pukul_selesai' => new Carbon($validated['pukul_selesai'])
+            ]);
+            return redirect()->route('pendidik.jadwal-dan-keahlian')->with('success', 'Berhasil menambah jadwal');
+        }
+        return redirect()->route('pendidik.jadwal-dan-keahlian')->with('error', 'Kesalahan dalam menambah jadwal#Pukul Selesai mendahului Pukul Mulai');
+    }
+
     public function editJadwal($id, Request $request)
     {
         $validator = Validator::make($request->all(), [
