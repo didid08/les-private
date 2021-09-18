@@ -38,65 +38,79 @@
                         </thead>
                         <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                             @foreach ($semuaJadwalSaya as $jadwal)
-                                    <tr class="text-gray-700 dark:text-gray-400">
-                                        <form action="{{ route('pendidik.jadwal-dan-keahlian.edit-jadwal', ['id' => $jadwal->id]) }}" method="POST">
-                                            <td class="px-4 py-3 text-sm text-center">
-                                                @if ($jadwal->pesertaDidikHasJadwal != null)
-                                                    <i class="far fa-check-circle text-green-600"></i>
-                                                @else
-                                                    <i class="far fa-circle text-green-600"></i>
-                                                @endif
-                                            </td>
-                                            <td class="px-4 py-3 text-sm text-center">
-                                                <select
-                                                    class="mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="hari">
-                                                    <option value="1Senin"{{ $jadwal->hari == '1Senin' ? ' selected' : '' }}>Senin</option>
-                                                    <option value="2Selasa"{{ $jadwal->hari == '2Selasa' ? ' selected' : '' }}>Selasa</option>
-                                                    <option value="3Rabu"{{ $jadwal->hari == '3Rabu' ? ' selected' : '' }}>Rabu</option>
-                                                    <option value="4Kamis"{{ $jadwal->hari == '4Kamis' ? ' selected' : '' }}>Kamis</option>
-                                                    <option value="5Jumat"{{ $jadwal->hari == '5Jumat' ? ' selected' : '' }}>Jumat</option>
-                                                    <option value="6Sabtu"{{ $jadwal->hari == '6Sabtu' ? ' selected' : '' }}>Sabtu</option>
-                                                    <option value="7Minggu"{{ $jadwal->hari == '7Minggu' ? ' selected' : '' }}>Minggu</option>
-                                                </select>
-                                            </td>
-                                            <td class="px-4 py-3 text-sm text-center">
-                                                <input type="time"
-                                                    class="mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
-                                                    id="pukul-mulai" name="pukul_mulai" value="{{ date('H:i', strtotime($jadwal->pukul_mulai)) }}">
-                                                &nbsp;&nbsp;s/d&nbsp;&nbsp;
-                                                <input type="time"
-                                                    class="mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
-                                                    id="pukul-selesai" name="pukul_selesai" value="{{ date('H:i', strtotime($jadwal->pukul_selesai)) }}">
-                                            </td>
-                                            <td class="px-4 py-3 text-sm text-right">
-                                                @method('PATCH')
-                                                @csrf
-                                                @if ($jadwal->pesertaDidikHasJadwal != null)
-                                                    Lihat Detail Jadwal
-                                                @else
-                                                    <button type="submit"
-                                                        class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                                                        Simpan Perubahan
-                                                    </button>
-                                                @endif
-                                            </td>
-                                        </form>
-                                        <form action="{{ route('pendidik.jadwal-dan-keahlian.hapus-jadwal', ['id' => $jadwal->id]) }}" method="POST">
-                                            <td class="px-4 py-3 text-left">
-                                                @method('DELETE')
-                                                @csrf
-                                                @if ($jadwal->pesertaDidikHasJadwal != null)
-                                                    Lihat Detail Jadwal
-                                                @else
-                                                    <button type="submit"
-                                                        class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red"
-                                                        onclick="return confirm('Apakah anda yakin?')">
-                                                        Hapus
-                                                    </button>
-                                                @endif
-                                            </td>
-                                        </form>
-                                    </tr>
+                                <tr class="text-gray-700 dark:text-gray-400">
+                                    <form
+                                        action="{{ route('pendidik.jadwal-dan-keahlian.edit-jadwal', ['id' => $jadwal->id]) }}"
+                                        method="POST">
+                                        <td class="px-4 py-3 text-sm text-center">
+                                            @if ($jadwal->pesertaDidikHasJadwal != null)
+                                                <i class="far fa-check-circle text-green-600"></i>
+                                            @else
+                                                <i class="far fa-circle text-green-600"></i>
+                                            @endif
+                                        </td>
+                                        <td class="px-4 py-3 text-sm text-center">
+                                            <select
+                                                class="mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+                                                name="hari">
+                                                <option value="1Senin" {{ $jadwal->hari == '1Senin' ? ' selected' : '' }}>
+                                                    Senin</option>
+                                                <option value="2Selasa"
+                                                    {{ $jadwal->hari == '2Selasa' ? ' selected' : '' }}>Selasa</option>
+                                                <option value="3Rabu" {{ $jadwal->hari == '3Rabu' ? ' selected' : '' }}>
+                                                    Rabu</option>
+                                                <option value="4Kamis" {{ $jadwal->hari == '4Kamis' ? ' selected' : '' }}>
+                                                    Kamis</option>
+                                                <option value="5Jumat" {{ $jadwal->hari == '5Jumat' ? ' selected' : '' }}>
+                                                    Jumat</option>
+                                                <option value="6Sabtu" {{ $jadwal->hari == '6Sabtu' ? ' selected' : '' }}>
+                                                    Sabtu</option>
+                                                <option value="7Minggu"
+                                                    {{ $jadwal->hari == '7Minggu' ? ' selected' : '' }}>Minggu</option>
+                                            </select>
+                                        </td>
+                                        <td class="px-4 py-3 text-sm text-center">
+                                            <input type="time"
+                                                class="mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
+                                                id="pukul-mulai" name="pukul_mulai"
+                                                value="{{ date('H:i', strtotime($jadwal->pukul_mulai)) }}">
+                                            &nbsp;&nbsp;s/d&nbsp;&nbsp;
+                                            <input type="time"
+                                                class="mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
+                                                id="pukul-selesai" name="pukul_selesai"
+                                                value="{{ date('H:i', strtotime($jadwal->pukul_selesai)) }}">
+                                        </td>
+                                        <td class="px-4 py-3 text-sm text-right">
+                                            @method('PATCH')
+                                            @csrf
+                                            @if ($jadwal->pesertaDidikHasJadwal != null)
+                                                Lihat Detail Jadwal
+                                            @else
+                                                <button type="submit"
+                                                    class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                                                    Simpan Perubahan
+                                                </button>
+                                            @endif
+                                        </td>
+                                    </form>
+                                    <form
+                                        action="{{ route('pendidik.jadwal-dan-keahlian.hapus-jadwal', ['id' => $jadwal->id]) }}"
+                                        method="POST">
+                                        <td class="px-4 py-3 text-left">
+                                            @method('DELETE')
+                                            @csrf
+                                            @if ($jadwal->pesertaDidikHasJadwal != null)
+                                                Lihat Detail Jadwal
+                                            @else
+                                                <button type="submit"
+                                                    class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red"
+                                                    onclick="return confirm('Apakah anda yakin?')">
+                                                    Hapus
+                                                </button>
+                                            @endif
+                                        </td>
+                                    </form>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
@@ -107,6 +121,38 @@
             </h4>
             <div class="w-full mb-8 overflow-hidden rounded-lg shadow-xs">
                 <div class="w-full overflow-x-auto">
+                    <table class="w-full whitespace-no-wrap">
+                        <thead>
+                            <tr
+                                class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                                <th class="px-4 py-3 text-center"></th>
+                                <th class="px-4 py-3">Paket</th>
+                                <th class="px-4 py-3">Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                            @foreach ($semuaPaketPembelajaran as $paket)
+                                <tr class="text-gray-700 dark:text-gray-400">
+                                    <td class="px-4 py-3 text-sm text-center">
+                                        <label class="flex items-center dark:text-gray-400">
+                                            <input type="checkbox"
+                                                class="text-purple-600 form-checkbox focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" value="{{ $paket->id }}">
+                                        </label>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm">
+                                        {{ $paket->nama }}
+                                    </td>
+                                    <td class="px-4 py-3 text-sm">
+                                        <ul class="paket-detail-1 text-gray-600 dark:text-gray-400" style="list-style-type: circle">
+                                            @foreach (explode(';', $paket->keterangan) as $keterangan)
+                                                <li>{{ $keterangan }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -155,7 +201,9 @@
                     <p class="py-2 text-sm text-gray-700 dark:text-gray-400 modal-description">
                         @csrf
                         <span class="block text-gray-700 dark:text-gray-400">Hari</span>
-                        <select class="block w-full mt-2 mb-4 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="hari">
+                        <select
+                            class="block w-full mt-2 mb-4 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+                            name="hari">
                             <option value="1Senin">Senin</option>
                             <option value="2Selasa">Selasa</option>
                             <option value="3Rabu">Rabu</option>
@@ -165,9 +213,13 @@
                             <option value="7Minggu">Minggu</option>
                         </select>
                         <span class="block text-gray-700 dark:text-gray-400">Pukul</span>
-                        <input type="time" class="mt-2 mb-4 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input" id="pukul-mulai" name="pukul_mulai">
+                        <input type="time"
+                            class="mt-2 mb-4 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
+                            id="pukul-mulai" name="pukul_mulai">
                         &nbsp;&nbsp;s/d&nbsp;&nbsp;
-                        <input type="time" class="mt-2 mb-4 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input" id="pukul-selesai" name="pukul_selesai">
+                        <input type="time"
+                            class="mt-2 mb-4 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
+                            id="pukul-selesai" name="pukul_selesai">
                     </p>
                 </div>
                 <footer
