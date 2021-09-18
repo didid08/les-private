@@ -22,14 +22,14 @@ class JadwalDanKeahlianController extends Controller
                 'group' => null
             ],
             'authId' => Auth::id(),
-            'semuaJadwalSaya' => PendidikHasJadwal::get()
+            'semuaJadwalSaya' => PendidikHasJadwal::where('pendidik_id', Auth::id())->orderBy('hari')->orderBy('pukul_mulai')->get()
         ]);
     }
 
     public function tambahJadwal(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'hari' => 'required|in:Senin,Selasa,Rabu,Kamis,Jumat,Sabtu,Minggu',
+            'hari' => 'required|in:1Senin,2Selasa,3Rabu,4Kamis,5Jumat,6Sabtu,7Minggu',
             'pukul_mulai' => 'required|date_format:H:i',
             'pukul_selesai' => 'required|date_format:H:i'
         ], [
@@ -66,7 +66,7 @@ class JadwalDanKeahlianController extends Controller
     public function editJadwal($id, Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'hari' => 'required|in:Senin,Selasa,Rabu,Kamis,Jumat,Sabtu,Minggu',
+            'hari' => 'required|in:1Senin,2Selasa,3Rabu,4Kamis,5Jumat,6Sabtu,7Minggu',
             'pukul_mulai' => 'required|date_format:H:i',
             'pukul_selesai' => 'required|date_format:H:i'
         ], [
@@ -103,5 +103,19 @@ class JadwalDanKeahlianController extends Controller
             return redirect()->route('pendidik.jadwal-dan-keahlian')->with('error', 'Jadwal tidak ditemukan');
         }
         return redirect()->route('pendidik.jadwal-dan-keahlian')->with('error', 'Kesalahan dalam mengubah jadwal#Pukul Selesai mendahului Pukul Mulai');
+    }
+
+    public function hapusJadwal($id)
+    {
+        $jadwal = PendidikHasJadwal::where([['id', '=', $id], ['pendidik_id', '=', Auth::id()]]);
+
+        if ($jadwal->exists()) {
+            if ($jadwal->first()->pesertaDidikHasJadwal == null) {
+                $jadwal->delete();
+                return redirect()->route('pendidik.jadwal-dan-keahlian')->with('success', 'Berhasil Menghapus Jadwal');
+            }
+            return redirect()->route('pendidik.jadwal-dan-keahlian')->with('error', 'Gagal Menghapus Jadwal#Jadwal sudah diambil oleh Peserta Didik');
+        }
+        return redirect()->route('pendidik.jadwal-dan-keahlian')->with('error', 'Gagal Menghapus Jadwal#Jadwal tersebut tidak ada dalam daftar jadwal anda');
     }
 }

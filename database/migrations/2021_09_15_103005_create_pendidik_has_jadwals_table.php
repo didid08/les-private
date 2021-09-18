@@ -17,7 +17,7 @@ class CreatePendidikHasJadwalsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('pendidik_id');
             $table->foreign('pendidik_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->enum('hari', ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu']);
+            $table->enum('hari', ['1Senin', '2Selasa', '3Rabu', '4Kamis', '5Jumat', '6Sabtu', '7Minggu']);
             $table->time('pukul_mulai');
             $table->time('pukul_selesai');
             $table->timestamp('created_at')->useCurrent();

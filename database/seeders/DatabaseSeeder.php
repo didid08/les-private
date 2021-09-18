@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UsersTableSeeder::class,
             PaketPembelajaranTableSeeder::class,
-            PaketPembelajaranRelationshipsTableSeeder::class
+            PaketPembelajaranRelationshipsTableSeeder::class,
+            PendidikHasJadwalTableSeeder::class
         ]);
     }
 }

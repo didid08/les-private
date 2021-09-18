@@ -33,59 +33,70 @@
                                 <th class="px-4 py-3 text-center"></th>
                                 <th class="px-4 py-3 text-center">Hari</th>
                                 <th class="px-4 py-3 text-center">Pukul</th>
-                                <th class="px-4 py-3 text-center">Opsi</th>
+                                <th class="px-4 py-3 text-center" colspan="2">Opsi</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                            @foreach ($semuaJadwalSaya->sortBy('hari')->sortBy('pukul_mulai') as $jadwal)
-                                <form action="{{ route('pendidik.jadwal-dan-keahlian.edit-jadwal', ['id' => $jadwal->id]) }}" method="POST">
+                            @foreach ($semuaJadwalSaya as $jadwal)
                                     <tr class="text-gray-700 dark:text-gray-400">
-                                        <td class="px-4 py-3 text-sm text-center">
-                                            @if ($jadwal->pesertaDidikHasJadwal != null)
-                                                <i class="far fa-check-circle text-green-600"></i>
-                                            @else
-                                                <i class="far fa-circle text-green-600"></i>
-                                            @endif
-                                        </td>
-                                        <td class="px-4 py-3 text-sm text-center">
-                                            <select
-                                                class="mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="hari">
-                                                <option value="Senin"{{ $jadwal->hari == 'Senin' ? ' selected' : '' }}>Senin</option>
-                                                <option value="Selasa"{{ $jadwal->hari == 'Selasa' ? ' selected' : '' }}>Selasa</option>
-                                                <option value="Rabu"{{ $jadwal->hari == 'Rabu' ? ' selected' : '' }}>Rabu</option>
-                                                <option value="Kamis"{{ $jadwal->hari == 'Kamis' ? ' selected' : '' }}>Kamis</option>
-                                                <option value="Jumat"{{ $jadwal->hari == 'Jumat' ? ' selected' : '' }}>Jumat</option>
-                                                <option value="Sabtu"{{ $jadwal->hari == 'Sabtu' ? ' selected' : '' }}>Sabtu</option>
-                                                <option value="Minggu"{{ $jadwal->hari == 'Minggu' ? ' selected' : '' }}>Minggu</option>
-                                            </select>
-                                        </td>
-                                        <td class="px-4 py-3 text-sm text-center">
-                                            <input type="time"
-                                                class="mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
-                                                id="pukul-mulai" name="pukul_mulai" value="{{ date('H:i', strtotime($jadwal->pukul_mulai)) }}">
-                                            &nbsp;&nbsp;s/d&nbsp;&nbsp;
-                                            <input type="time"
-                                                class="mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
-                                                id="pukul-selesai" name="pukul_selesai" value="{{ date('H:i', strtotime($jadwal->pukul_selesai)) }}">
-                                        </td>
-                                        <td class="px-4 py-3 text-sm text-center">
-                                            @method('PATCH')
-                                            @csrf
-                                            @if ($jadwal->pesertaDidikHasJadwal != null)
-                                                -
-                                            @else
-                                                <button type="submit"
-                                                    class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                                                    Simpan Perubahan
-                                                </button>
-                                                <button type="submit"
-                                                    class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
-                                                    Hapus
-                                                </button>
-                                            @endif
-                                        </td>
+                                        <form action="{{ route('pendidik.jadwal-dan-keahlian.edit-jadwal', ['id' => $jadwal->id]) }}" method="POST">
+                                            <td class="px-4 py-3 text-sm text-center">
+                                                @if ($jadwal->pesertaDidikHasJadwal != null)
+                                                    <i class="far fa-check-circle text-green-600"></i>
+                                                @else
+                                                    <i class="far fa-circle text-green-600"></i>
+                                                @endif
+                                            </td>
+                                            <td class="px-4 py-3 text-sm text-center">
+                                                <select
+                                                    class="mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="hari">
+                                                    <option value="1Senin"{{ $jadwal->hari == '1Senin' ? ' selected' : '' }}>Senin</option>
+                                                    <option value="2Selasa"{{ $jadwal->hari == '2Selasa' ? ' selected' : '' }}>Selasa</option>
+                                                    <option value="3Rabu"{{ $jadwal->hari == '3Rabu' ? ' selected' : '' }}>Rabu</option>
+                                                    <option value="4Kamis"{{ $jadwal->hari == '4Kamis' ? ' selected' : '' }}>Kamis</option>
+                                                    <option value="5Jumat"{{ $jadwal->hari == '5Jumat' ? ' selected' : '' }}>Jumat</option>
+                                                    <option value="6Sabtu"{{ $jadwal->hari == '6Sabtu' ? ' selected' : '' }}>Sabtu</option>
+                                                    <option value="7Minggu"{{ $jadwal->hari == '7Minggu' ? ' selected' : '' }}>Minggu</option>
+                                                </select>
+                                            </td>
+                                            <td class="px-4 py-3 text-sm text-center">
+                                                <input type="time"
+                                                    class="mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
+                                                    id="pukul-mulai" name="pukul_mulai" value="{{ date('H:i', strtotime($jadwal->pukul_mulai)) }}">
+                                                &nbsp;&nbsp;s/d&nbsp;&nbsp;
+                                                <input type="time"
+                                                    class="mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input"
+                                                    id="pukul-selesai" name="pukul_selesai" value="{{ date('H:i', strtotime($jadwal->pukul_selesai)) }}">
+                                            </td>
+                                            <td class="px-4 py-3 text-sm text-right">
+                                                @method('PATCH')
+                                                @csrf
+                                                @if ($jadwal->pesertaDidikHasJadwal != null)
+                                                    -
+                                                @else
+                                                    <button type="submit"
+                                                        class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                                                        Simpan Perubahan
+                                                    </button>
+                                                @endif
+                                            </td>
+                                        </form>
+                                        <form action="{{ route('pendidik.jadwal-dan-keahlian.hapus-jadwal', ['id' => $jadwal->id]) }}" method="POST">
+                                            <td class="px-4 py-3 text-left">
+                                                @method('DELETE')
+                                                @csrf
+                                                @if ($jadwal->pesertaDidikHasJadwal != null)
+                                                    -
+                                                @else
+                                                    <button type="submit"
+                                                        class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red"
+                                                        onclick="return confirm('Apakah anda yakin?')">
+                                                        Hapus
+                                                    </button>
+                                                @endif
+                                            </td>
+                                        </form>
                                     </tr>
-                                </form>
                             @endforeach
                         </tbody>
                     </table>
@@ -145,13 +156,13 @@
                         @csrf
                         <span class="block text-gray-700 dark:text-gray-400">Hari</span>
                         <select class="block w-full mt-2 mb-4 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="hari">
-                            <option value="Senin">Senin</option>
-                            <option value="Selasa">Selasa</option>
-                            <option value="Rabu">Rabu</option>
-                            <option value="Kamis" selected="">Kamis</option>
-                            <option value="Jumat">Jumat</option>
-                            <option value="Sabtu">Sabtu</option>
-                            <option value="Minggu">Minggu</option>
+                            <option value="1Senin">Senin</option>
+                            <option value="2Selasa">Selasa</option>
+                            <option value="3Rabu">Rabu</option>
+                            <option value="4Kamis" selected="">Kamis</option>
+                            <option value="5Jumat">Jumat</option>
+                            <option value="6Sabtu">Sabtu</option>
+                            <option value="7Minggu">Minggu</option>
                         </select>
                         <span class="block text-gray-700 dark:text-gray-400">Pukul</span>
                         <input type="time" class="mt-2 mb-4 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input" id="pukul-mulai" name="pukul_mulai">
