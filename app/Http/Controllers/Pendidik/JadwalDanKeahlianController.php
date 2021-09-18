@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Pendidik;
 use App\Http\Controllers\Controller;
 use App\Models\PaketPembelajaran;
 use App\Models\PendidikHasJadwal;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +21,8 @@ class JadwalDanKeahlianController extends Controller
                 'group' => null
             ],
             'authId' => Auth::id(),
-            'semuaJadwalSaya' => PendidikHasJadwal::where('pendidik_id', Auth::id())->orderBy('hari')->orderBy('pukul_mulai')->get()
+            'semuaJadwalSaya' => PendidikHasJadwal::where('pendidik_id', Auth::id())->orderBy('hari')->orderBy('pukul_mulai')->get(),
+            'semuaPaketPembelajaran' => PaketPembelajaran::orderBy('kode')->get()
         ]);
     }
 
