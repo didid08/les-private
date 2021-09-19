@@ -331,38 +331,61 @@
                                     <td class="px-4 py-3 text-sm">
                                         @if ($paket->pendidikHasPaketPembelajaran->firstWhere('pendidik_id', $authId) != null)
                                             @php
-                                                $terikat = false;
+                                                $status = 'tidak_diambil';
                                             @endphp
                                             @foreach ($semuaJadwalSaya as $jadwal)
                                                 @if ($jadwal->pesertaDidikHasJadwal != null)
-                                                    @if ($jadwal->pesertaDidikHasJadwal->pesertaDidikHasPaketPembelajaran->paketPembelajaran->id == $paket->id && $jadwal->pesertaDidikHasJadwal->pesertaDidikHasAbsensi->count() < 12)
-                                                        @php
-                                                            $terikat = true;
-                                                            break;
-                                                        @endphp
+                                                    @if ($jadwal->pesertaDidikHasJadwal->pesertaDidikHasPaketPembelajaran->paketPembelajaran->id == $paket->id)
+                                                        @if ($jadwal->pesertaDidikHasJadwal->pesertaDidikHasAbsensi->count() < 12)
+                                                            @php
+                                                                $status = 'diambil';
+                                                                break;
+                                                            @endphp
+                                                        @elseif($jadwal->pesertaDidikHasJadwal->pesertaDidikHasAbsensi->count() == 12)
+                                                            @php
+                                                                $status = 'diambil_tapi_pertemuan_sudah_mencapai_12x';
+                                                                break;
+                                                            @endphp
+                                                        @endif
                                                     @endif
                                                 @endif
                                             @endforeach
-                                            @if ($terikat == true)
-                                                @if ($paket->pendidikHasPaketPembelajaran->firstWhere('pendidik_id', $authId)->expired == false)
+
+                                            @if ($status == 'diambil')
+                                                -
+                                            @elseif ($status == 'diambil_tapi_pertemuan_sudah_mencapai_12x')
+                                                @if ($paket->pendidikHasPaketPembelajaran->firstWhere('pendidik_id', $authId)->expired == true)
+                                                    <form
+                                                        action="{{ route('pendidik.jadwal-dan-keahlian.pilih-keahlian', ['id' => $paket->id]) }}"
+                                                        method="POST" style="display: inline">
+                                                        @csrf
+                                                        <button type="submit"
+                                                            class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                                                            Pilih
+                                                        </button>
+                                                    </form>
+                                                @else
                                                     <button
                                                         class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
                                                         Batalkan
                                                     </button>
-                                                @else
-                                                    -
                                                 @endif
-                                            @else
+                                            @elseif ($status == 'tidak_diambil')
                                                 <button
                                                     class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
                                                     Batalkan
                                                 </button>
                                             @endif
                                         @else
-                                            <button
-                                                class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                                                Pilih
-                                            </button>
+                                            <form
+                                                action="{{ route('pendidik.jadwal-dan-keahlian.pilih-keahlian', ['id' => $paket->id]) }}"
+                                                method="POST" style="display: inline">
+                                                @csrf
+                                                <button type="submit"
+                                                    class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                                                    Pilih
+                                                </button>
+                                            </form>
                                         @endif
                                     </td>
                                 </tr>

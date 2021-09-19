@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Pendidik;
 use App\Http\Controllers\Controller;
 use App\Models\PaketPembelajaran;
 use App\Models\PendidikHasJadwal;
+use App\Models\PendidikHasPaketPembelajaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -122,5 +123,25 @@ class JadwalDanKeahlianController extends Controller
             }
         }
         return redirect()->route('pendidik.jadwal-dan-keahlian')->with('error', 'Gagal Menghapus Jadwal#Jadwal tersebut tidak ada dalam daftar jadwal anda');
+    }
+
+    public function pilihKeahlian($id)
+    {
+        $paketPembelajaran = PaketPembelajaran::where('id', $id);
+        if ($paketPembelajaran->exists()) {
+            PendidikHasPaketPembelajaran::updateOrCreate([
+                'pendidik_id' => Auth::id(),
+                'paket_pembelajaran_id' => $paketPembelajaran->first()->id
+            ], [
+                'expired' => false
+            ]);
+            return redirect()->route('pendidik.jadwal-dan-keahlian')->with('success', 'Berhasil memilih keahlian');
+        }
+        return redirect()->route('pendidik.jadwal-dan-keahlian')->with('error', 'Gagal memilih keahlian#Paket Pembelajaran tidak ditemukan');
+    }
+
+    public function batalkanKeahlian($id)
+    {
+
     }
 }
