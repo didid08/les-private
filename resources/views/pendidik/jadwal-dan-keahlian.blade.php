@@ -341,7 +341,8 @@
                                                                 $status = 'diambil';
                                                                 break;
                                                             @endphp
-                                                        @elseif($jadwal->pesertaDidikHasJadwal->pesertaDidikHasAbsensi->count() == 12)
+                                                        @elseif($jadwal->pesertaDidikHasJadwal->pesertaDidikHasAbsensi->count()
+                                                            == 12)
                                                             @php
                                                                 $status = 'diambil_tapi_pertemuan_sudah_mencapai_12x';
                                                                 break;
@@ -365,16 +366,28 @@
                                                         </button>
                                                     </form>
                                                 @else
-                                                    <button
+                                                    <form
+                                                        action="{{ route('pendidik.jadwal-dan-keahlian.batalkan-keahlian', ['id' => $paket->id]) }}"
+                                                        method="POST" style="display: inline">
+                                                        @method('DELETE')
+                                                        @csrf
+                                                        <button type="submit"
+                                                            class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
+                                                            Batalkan
+                                                        </button>
+                                                    </form>
+                                                @endif
+                                            @elseif ($status == 'tidak_diambil')
+                                                <form
+                                                    action="{{ route('pendidik.jadwal-dan-keahlian.batalkan-keahlian', ['id' => $paket->id]) }}"
+                                                    method="POST" style="display: inline">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button type="submit"
                                                         class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
                                                         Batalkan
                                                     </button>
-                                                @endif
-                                            @elseif ($status == 'tidak_diambil')
-                                                <button
-                                                    class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
-                                                    Batalkan
-                                                </button>
+                                                </form>
                                             @endif
                                         @else
                                             <form
