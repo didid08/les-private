@@ -142,7 +142,7 @@ class JadwalDanKeahlianController extends Controller
 
     public function batalkanKeahlian($id)
     {
-        $paket = PaketPembelajaran::where('id', $id);
+        /*$paket = PaketPembelajaran::where('id', $id);
         $semuaJadwalSaya = PendidikHasJadwal::where('pendidik_id', Auth::id())->get();
 
         if ($paket->exists()) {
@@ -154,12 +154,12 @@ class JadwalDanKeahlianController extends Controller
                             if ($jadwal->pesertaDidikHasJadwal->pesertaDidikHasAbsensi->count() < 12) {
                                 return redirect()->route('pendidik.jadwal-dan-keahlian')->with('error', 'Gagal Membatalkan Keahlian');
                             } else if ($jadwal->pesertaDidikHasJadwal->pesertaDidikHasAbsensi->count() == 12) {
-                                $paket->update(['expired' => true]);
+                                $paket->first()->pendidikHasPaketPembelajaran->where('pendidik_id', Auth::id())->update(['expired' => true]);
                                 return redirect()->route('pendidik.jadwal-dan-keahlian')->with('success', 'Berhasil Membatalkan Keahlian');
                             }
                         }
                     } else {
-                        $paket->delete();
+                        $paket->first()->pendidikHasPaketPembelajaran->where('pendidik_id', Auth::id())->delete();
                         return redirect()->route('pendidik.jadwal-dan-keahlian')->with('success', 'Berhasil Membatalkan Keahlian');
                     }
                 }
@@ -168,6 +168,6 @@ class JadwalDanKeahlianController extends Controller
             }
 
         }
-        return redirect()->route('pendidik.jadwal-dan-keahlian')->with('error', 'Gagal Membatalkan Keahlian');
+        return redirect()->route('pendidik.jadwal-dan-keahlian')->with('error', 'Gagal Membatalkan Keahlian');*/
     }
 }

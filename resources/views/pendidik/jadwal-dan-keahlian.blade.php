@@ -280,43 +280,14 @@
                         <thead>
                             <tr
                                 class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                                <th class="px-4 py-3 text-center"></th>
                                 <th class="px-4 py-3">Paket</th>
                                 <th class="px-4 py-3">Keterangan</th>
-                                <th class="px-4 py-3">Opsi</th>
+                                <th class="px-4 py-3">Status/Opsi</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                             @foreach ($semuaPaketPembelajaran as $paket)
                                 <tr class="text-gray-700 dark:text-gray-400">
-                                    <td class="px-4 py-3 text-sm text-center">
-                                        @if ($paket->pendidikHasPaketPembelajaran->firstWhere('pendidik_id', $authId) != null)
-                                            @php
-                                                $terikat = false;
-                                            @endphp
-                                            @foreach ($semuaJadwalSaya as $jadwal)
-                                                @if ($jadwal->pesertaDidikHasJadwal != null)
-                                                    @if ($jadwal->pesertaDidikHasJadwal->pesertaDidikHasPaketPembelajaran->paketPembelajaran->id == $paket->id && $jadwal->pesertaDidikHasJadwal->pesertaDidikHasAbsensi->count() < 12)
-                                                        @php
-                                                            $terikat = true;
-                                                            break;
-                                                        @endphp
-                                                    @endif
-                                                @endif
-                                            @endforeach
-                                            @if ($terikat == true)
-                                                @if ($paket->pendidikHasPaketPembelajaran->firstWhere('pendidik_id', $authId)->expired == false)
-                                                    <i class="far fa-check-circle text-green-600"></i>
-                                                @else
-                                                    <i class="far fa-circle text-orange-500"></i>
-                                                @endif
-                                            @else
-                                                <i class="far fa-circle text-green-500"></i>
-                                            @endif
-                                        @else
-                                            <i class="far fa-circle text-orange-500"></i>
-                                        @endif
-                                    </td>
                                     <td class="px-4 py-3 text-sm">
                                         {{ $paket->nama }}
                                     </td>
@@ -329,67 +300,7 @@
                                         </ul>
                                     </td>
                                     <td class="px-4 py-3 text-sm">
-                                        @if ($paket->pendidikHasPaketPembelajaran->firstWhere('pendidik_id', $authId) != null)
-                                            @php
-                                                $status = 'tidak_diambil';
-                                            @endphp
-                                            @foreach ($semuaJadwalSaya as $jadwal)
-                                                @if ($jadwal->pesertaDidikHasJadwal != null)
-                                                    @if ($jadwal->pesertaDidikHasJadwal->pesertaDidikHasPaketPembelajaran->paketPembelajaran->id == $paket->id)
-                                                        @if ($jadwal->pesertaDidikHasJadwal->pesertaDidikHasAbsensi->count() < 12)
-                                                            @php
-                                                                $status = 'diambil';
-                                                                break;
-                                                            @endphp
-                                                        @elseif($jadwal->pesertaDidikHasJadwal->pesertaDidikHasAbsensi->count()
-                                                            == 12)
-                                                            @php
-                                                                $status = 'diambil_tapi_pertemuan_sudah_mencapai_12x';
-                                                                break;
-                                                            @endphp
-                                                        @endif
-                                                    @endif
-                                                @endif
-                                            @endforeach
-
-                                            @if ($status == 'diambil')
-                                                -
-                                            @elseif ($status == 'diambil_tapi_pertemuan_sudah_mencapai_12x')
-                                                @if ($paket->pendidikHasPaketPembelajaran->firstWhere('pendidik_id', $authId)->expired == true)
-                                                    <form
-                                                        action="{{ route('pendidik.jadwal-dan-keahlian.pilih-keahlian', ['id' => $paket->id]) }}"
-                                                        method="POST" style="display: inline">
-                                                        @csrf
-                                                        <button type="submit"
-                                                            class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                                                            Pilih
-                                                        </button>
-                                                    </form>
-                                                @else
-                                                    <form
-                                                        action="{{ route('pendidik.jadwal-dan-keahlian.batalkan-keahlian', ['id' => $paket->id]) }}"
-                                                        method="POST" style="display: inline">
-                                                        @method('DELETE')
-                                                        @csrf
-                                                        <button type="submit"
-                                                            class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
-                                                            Batalkan
-                                                        </button>
-                                                    </form>
-                                                @endif
-                                            @elseif ($status == 'tidak_diambil')
-                                                <form
-                                                    action="{{ route('pendidik.jadwal-dan-keahlian.batalkan-keahlian', ['id' => $paket->id]) }}"
-                                                    method="POST" style="display: inline">
-                                                    @method('DELETE')
-                                                    @csrf
-                                                    <button type="submit"
-                                                        class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
-                                                        Batalkan
-                                                    </button>
-                                                </form>
-                                            @endif
-                                        @else
+                                        @if ($paket->pendidikHasPaketPembelajaran->firstWhere('pendidik_id', Auth::id()) == null)
                                             <form
                                                 action="{{ route('pendidik.jadwal-dan-keahlian.pilih-keahlian', ['id' => $paket->id]) }}"
                                                 method="POST" style="display: inline">
@@ -399,6 +310,8 @@
                                                     Pilih
                                                 </button>
                                             </form>
+                                        @else
+                                            <span class="text-green-600">Dipilih</span>
                                         @endif
                                     </td>
                                 </tr>
