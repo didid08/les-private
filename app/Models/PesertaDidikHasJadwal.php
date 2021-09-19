@@ -26,4 +26,9 @@ class PesertaDidikHasJadwal extends Model
     {
         return $this->belongsTo(PendidikHasJadwal::class);
     }
+
+    public function pesertaDidikHasAbsensi()
+    {
+        return $this->hasMany(PesertaDidikHasAbsensi::class);
+    }
 }

@@ -15,10 +15,16 @@ class CreatePesertaDidikHasAbsensisTable extends Migration
     {
         Schema::create('peserta_didik_has_absensi', function (Blueprint $table) {
             $table->id();
+
             $table->unsignedBigInteger('peserta_didik_id');
             $table->foreign('peserta_didik_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+
+            $table->unsignedBigInteger('peserta_didik_has_jadwal_id');
+            $table->foreign('peserta_didik_has_jadwal_id')->references('id')->on('peserta_didik_has_jadwal')->onUpdate('cascade')->onDelete('cascade');
+
             $table->unsignedBigInteger('peserta_didik_has_paket_pembelajaran_id');
             $table->foreign('peserta_didik_has_paket_pembelajaran_id')->references('id')->on('paket_pembelajaran')->onUpdate('cascade')->onDelete('cascade');
+
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

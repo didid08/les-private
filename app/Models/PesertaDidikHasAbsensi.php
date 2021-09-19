@@ -21,4 +21,9 @@ class PesertaDidikHasAbsensi extends Model
     {
         return $this->belongsTo(PesertaDidikHasPaketPembelajaran::class);
     }
+
+    public function pesertaDidikHasJadwal()
+    {
+        return $this->belongsTo(PesertaDidikHasJadwal::class);
+    }
 }
