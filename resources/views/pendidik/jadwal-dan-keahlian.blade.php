@@ -291,7 +291,6 @@
                                 <tr class="text-gray-700 dark:text-gray-400">
                                     <td class="px-4 py-3 text-sm text-center">
                                         @if ($paket->pendidikHasPaketPembelajaran->firstWhere('pendidik_id', $authId) != null)
-
                                             @php
                                                 $terikat = false;
                                             @endphp
@@ -305,13 +304,15 @@
                                                     @endif
                                                 @endif
                                             @endforeach
-
-                                            @if ($terikat == false)
-                                                <i class="far fa-circle text-green-500"></i>
+                                            @if ($terikat == true)
+                                                @if ($paket->pendidikHasPaketPembelajaran->firstWhere('pendidik_id', $authId)->expired == false)
+                                                    <i class="far fa-check-circle text-green-600"></i>
+                                                @else
+                                                    <i class="far fa-circle text-orange-500"></i>
+                                                @endif
                                             @else
-                                                <i class="far fa-check-circle text-green-600"></i>
+                                                <i class="far fa-circle text-green-500"></i>
                                             @endif
-
                                         @else
                                             <i class="far fa-circle text-orange-500"></i>
                                         @endif
@@ -329,7 +330,6 @@
                                     </td>
                                     <td class="px-4 py-3 text-sm">
                                         @if ($paket->pendidikHasPaketPembelajaran->firstWhere('pendidik_id', $authId) != null)
-
                                             @php
                                                 $terikat = false;
                                             @endphp
@@ -343,16 +343,21 @@
                                                     @endif
                                                 @endif
                                             @endforeach
-
-                                            @if ($terikat == false)
+                                            @if ($terikat == true)
+                                                @if ($paket->pendidikHasPaketPembelajaran->firstWhere('pendidik_id', $authId)->expired == false)
+                                                    <button
+                                                        class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
+                                                        Batalkan
+                                                    </button>
+                                                @else
+                                                    -
+                                                @endif
+                                            @else
                                                 <button
                                                     class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
                                                     Batalkan
                                                 </button>
-                                            @else
-                                                -
                                             @endif
-
                                         @else
                                             <button
                                                 class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">

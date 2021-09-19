@@ -19,6 +19,7 @@ class CreatePendidikHasPaketPembelajaransTable extends Migration
             $table->foreign('pendidik_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('paket_pembelajaran_id');
             $table->foreign('paket_pembelajaran_id')->references('id')->on('paket_pembelajaran')->onUpdate('cascade')->onDelete('cascade');
+            $table->boolean('expired')->default(false);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

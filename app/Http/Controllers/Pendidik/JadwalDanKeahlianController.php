@@ -113,8 +113,13 @@ class JadwalDanKeahlianController extends Controller
             if ($jadwal->first()->pesertaDidikHasJadwal == null) {
                 $jadwal->delete();
                 return redirect()->route('pendidik.jadwal-dan-keahlian')->with('success', 'Berhasil Menghapus Jadwal');
+            } else {
+                if ($jadwal->first()->pesertaDidikHasJadwal->pesertaDidikHasAbsensi->count() == 12) {
+                    $jadwal->update(['expired' => true]);
+                    return redirect()->route('pendidik.jadwal-dan-keahlian')->with('success', 'Berhasil Menghapus Jadwal');
+                }
+                return redirect()->route('pendidik.jadwal-dan-keahlian')->with('error', 'Gagal Menghapus Jadwal#Jadwal sudah diambil oleh Peserta Didik');
             }
-            return redirect()->route('pendidik.jadwal-dan-keahlian')->with('error', 'Gagal Menghapus Jadwal#Jadwal sudah diambil oleh Peserta Didik');
         }
         return redirect()->route('pendidik.jadwal-dan-keahlian')->with('error', 'Gagal Menghapus Jadwal#Jadwal tersebut tidak ada dalam daftar jadwal anda');
     }
