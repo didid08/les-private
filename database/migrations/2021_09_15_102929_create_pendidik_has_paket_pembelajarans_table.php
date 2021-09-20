@@ -15,11 +15,13 @@ class CreatePendidikHasPaketPembelajaransTable extends Migration
     {
         Schema::create('pendidik_has_paket_pembelajaran', function (Blueprint $table) {
             $table->id();
+
             $table->unsignedBigInteger('pendidik_id');
             $table->foreign('pendidik_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+
             $table->unsignedBigInteger('paket_pembelajaran_id');
             $table->foreign('paket_pembelajaran_id')->references('id')->on('paket_pembelajaran')->onUpdate('cascade')->onDelete('cascade');
-            $table->boolean('expired')->default(false);
+
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

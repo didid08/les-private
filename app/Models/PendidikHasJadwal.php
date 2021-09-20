@@ -21,4 +21,9 @@ class PendidikHasJadwal extends Model
     {
         return $this->hasOne(PesertaDidikHasJadwal::class);
     }
+
+    public function paketPembelajaran()
+    {
+        return $this->belongsTo(PaketPembelajaran::class);
+    }
 }

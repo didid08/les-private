@@ -16,6 +16,11 @@ class PaketPembelajaran extends Model
         return $this->hasMany(PaketPembelajaranRelationship::class, 'dari');
     }
 
+    public function pendidikHasJadwal()
+    {
+        return $this->hasMany(PendidikHasJadwal::class);
+    }
+
     public function pendidikHasPaketPembelajaran()
     {
         return $this->hasMany(PendidikHasPaketPembelajaran::class);
