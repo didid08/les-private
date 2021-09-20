@@ -89,8 +89,8 @@ Route::middleware(['auth', 'isPendidik'])->group(function () {
     Route::post('/pendidik/jadwal-dan-keahlian/jadwal/', [JadwalDanKeahlianController::class, 'tambahJadwal'])->name('pendidik.jadwal-dan-keahlian.tambah-jadwal');
     Route::patch('/pendidik/jadwal-dan-keahlian/jadwal/{id}', [JadwalDanKeahlianController::class, 'editJadwal'])->name('pendidik.jadwal-dan-keahlian.edit-jadwal');
     Route::delete('/pendidik/jadwal-dan-keahlian/jadwal/{id}', [JadwalDanKeahlianController::class, 'hapusJadwal'])->name('pendidik.jadwal-dan-keahlian.hapus-jadwal');
-    Route::post('/pendidik/jadwal-dan-keahlian/keahlian/{id}', [JadwalDanKeahlianController::class, 'pilihKeahlian'])->name('pendidik.jadwal-dan-keahlian.pilih-keahlian');
-    Route::delete('/pendidik/jadwal-dan-keahlian/keahlian/{id}', [JadwalDanKeahlianController::class, 'batalkanKeahlian'])->name('pendidik.jadwal-dan-keahlian.batalkan-keahlian');
+    Route::post('/pendidik/jadwal-dan-keahlian/keahlian/{paketID}', [JadwalDanKeahlianController::class, 'pilihKeahlian'])->name('pendidik.jadwal-dan-keahlian.pilih-keahlian');
+    Route::delete('/pendidik/jadwal-dan-keahlian/keahlian/{pendidikHasPaketID}', [JadwalDanKeahlianController::class, 'batalkanKeahlian'])->name('pendidik.jadwal-dan-keahlian.batalkan-keahlian');
 });
 
 /* PESERTA DIDIK */

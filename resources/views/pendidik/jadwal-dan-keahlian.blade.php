@@ -5,9 +5,9 @@
             <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
                 Jadwal & Keahlian
             </h2>
-            {{-- <h4 class="mb-6 text-lg font-semibold text-gray-600 dark:text-gray-300">
+            <h4 class="mb-6 text-lg font-semibold text-gray-600 dark:text-gray-300">
                 Jadwal
-            </h4> --}}
+            </h4>
             <span class="text-sm text-gray mb-2">
                 Keterangan:
             </span>
@@ -260,10 +260,10 @@
                     </table>
                 </div>
             </div>
-            {{-- <h4 class="mb-6 text-lg font-semibold text-gray-600 dark:text-gray-300">
+            <h4 class="mb-6 text-lg font-semibold text-gray-600 dark:text-gray-300">
                 Keahlian
             </h4>
-            <span class="text-sm text-gray mb-2">
+            {{-- <span class="text-sm text-gray mb-2">
                 Keterangan:
             </span>
             <span class="text-sm text-gray mb-6 px-2">
@@ -273,7 +273,7 @@
                 <i class="far fa-check-circle text-green-600"></i>&nbsp;&nbsp;=&nbsp;&nbsp;Keahlian sudah dipilih dan tidak
                 bisa dibatalkan karena peserta didik yang memiliki paket pembelajaran tsb sudah mengambil jadwal anda untuk
                 paket pembelajaran tersebut dan total pertemuan belum mencapai 12X
-            </span>
+            </span> --}}
             <div class="w-full mb-8 overflow-hidden rounded-lg shadow-xs">
                 <div class="w-full overflow-x-auto">
                     <table class="w-full whitespace-no-wrap">
@@ -282,7 +282,7 @@
                                 class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                                 <th class="px-4 py-3">Paket</th>
                                 <th class="px-4 py-3">Keterangan</th>
-                                <th class="px-4 py-3">Status/Opsi</th>
+                                <th class="px-4 py-3">Opsi</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
@@ -302,7 +302,7 @@
                                     <td class="px-4 py-3 text-sm">
                                         @if ($paket->pendidikHasPaketPembelajaran->firstWhere('pendidik_id', Auth::id()) == null)
                                             <form
-                                                action="{{ route('pendidik.jadwal-dan-keahlian.pilih-keahlian', ['id' => $paket->id]) }}"
+                                                action="{{ route('pendidik.jadwal-dan-keahlian.pilih-keahlian', ['paketID' => $paket->id]) }}"
                                                 method="POST" style="display: inline">
                                                 @csrf
                                                 <button type="submit"
@@ -311,7 +311,16 @@
                                                 </button>
                                             </form>
                                         @else
-                                            <span class="text-green-600">Dipilih</span>
+                                            <form
+                                                action="{{ route('pendidik.jadwal-dan-keahlian.batalkan-keahlian', ['pendidikHasPaketID' => $paket->id]) }}"
+                                                method="POST" style="display: inline">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit"
+                                                    class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-purple">
+                                                    Hapus
+                                                </button>
+                                            </form>
                                         @endif
                                     </td>
                                 </tr>
@@ -319,7 +328,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div> --}}
+            </div>
         </div>
     </main>
 @endsection

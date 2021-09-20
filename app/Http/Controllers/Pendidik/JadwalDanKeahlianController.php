@@ -143,7 +143,7 @@ class JadwalDanKeahlianController extends Controller
         return redirect()->route('pendidik.jadwal-dan-keahlian')->with('error', 'Gagal Menambah Keahlian#Paket Pembelajaran Tidak Ditemukan');
     }
 
-    public function hapusKeahlian($pendidikHasPaketID)
+    public function batalkanKeahlian($pendidikHasPaketID)
     {
         $pendidikHasPaket = PendidikHasPaketPembelajaran::where([['pendidik_id', '=', Auth::id()], ['paket_pembelajaran_id', '=', $pendidikHasPaketID]]);
 
