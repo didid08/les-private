@@ -3,11 +3,11 @@
     <main class="h-full overflow-y-auto">
         <div class="container px-6 mx-auto grid">
             <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-                Jadwal & Keahlian
-            </h2>
-            <h4 class="mb-6 text-lg font-semibold text-gray-600 dark:text-gray-300">
                 Jadwal
-            </h4>
+            </h2>
+            {{-- <h4 class="mb-6 text-lg font-semibold text-gray-600 dark:text-gray-300">
+                Jadwal
+            </h4> --}}
             <span class="text-sm text-gray mb-2">
                 Keterangan:
             </span>
@@ -260,9 +260,9 @@
                     </table>
                 </div>
             </div>
-            <h4 class="mb-6 text-lg font-semibold text-gray-600 dark:text-gray-300">
+            {{-- <h4 class="mb-6 text-lg font-semibold text-gray-600 dark:text-gray-300">
                 Keahlian
-            </h4>
+            </h4> --}}
             {{-- <span class="text-sm text-gray mb-2">
                 Keterangan:
             </span>
@@ -274,7 +274,7 @@
                 bisa dibatalkan karena peserta didik yang memiliki paket pembelajaran tsb sudah mengambil jadwal anda untuk
                 paket pembelajaran tersebut dan total pertemuan belum mencapai 12X
             </span> --}}
-            <div class="w-full mb-8 overflow-hidden rounded-lg shadow-xs">
+            {{-- <div class="w-full mb-8 overflow-hidden rounded-lg shadow-xs">
                 <div class="w-full overflow-x-auto">
                     <table class="w-full whitespace-no-wrap">
                         <thead>
@@ -328,7 +328,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </main>
 @endsection
