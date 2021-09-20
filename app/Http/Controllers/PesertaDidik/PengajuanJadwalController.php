@@ -26,17 +26,17 @@ class PengajuanJadwalController extends Controller
         ]);
     }
 
-    public function ajukanJadwal(Request $request)
+    public function process(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'pesertaDidikHasPaketPembelajaranID' => 'required|number',
-            'pendidikHasJadwalD' => 'required|number'
+            'pesertaDidikHasPaketPembelajaranID' => 'required|numeric',
+            'pendidikHasJadwalID' => 'required|numeric'
         ], [
-            'required' => ':attribute kosong',
-            'number' => ':attribute salah'
+            'required' => ':attribute tidak boleh kosong',
+            'numeric' => ':attribute salah'
         ], [
             'pesertaDidikHasPaketPembelajaranID' => 'Paket Pembelajaran',
-            'pendidikHasJadwalD' => 'Jadwal'
+            'pendidikHasJadwalID' => 'Jadwal'
         ]);
 
         if ($validator->fails()) {
@@ -52,7 +52,7 @@ class PengajuanJadwalController extends Controller
         $pendidikHasJadwal = PendidikHasJadwal::where([['id', '=', $validated['pendidikHasJadwalID']], ['expired', '=', false]]);
 
         if ($pendidikHasJadwal->exists()) {
-            if ($pendidikHasJadwal->pesertaDidikHasJadwal == null) {
+            if ($pendidikHasJadwal->first()->pesertaDidikHasJadwal == null) {
                 $pesertaDidikHasJadwalBefore = PesertaDidikHasJadwal::where([['peserta_didik_id', '=', Auth::id()], ['pendidik_has_jadwal_id', '=', $validated['pendidikHasJadwalID']]]);
                 if (!$pesertaDidikHasJadwalBefore->exists()) {
                     if ($pesertaDidikHasPaketPembelajaran->exists()) {

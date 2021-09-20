@@ -101,6 +101,7 @@ Route::middleware(['auth', 'isPesertaDidik'])->group(function () {
     Route::get('/peserta-didik/absensi', AbsensiController::class)->name('peserta-didik.absensi');
     Route::get('/peserta-didik/roster-pembelajaran', RosterPembelajaranController::class)->name('peserta-didik.roster-pembelajaran');
     Route::get('/peserta-didik/pengajuan-jadwal', PengajuanJadwalController::class)->name('peserta-didik.pengajuan-jadwal');
+    Route::post('/peserta-didik/pengajuan-jadwal', [PengajuanJadwalController::class, 'process'])->name('peserta-didik.pengajuan-jadwal@process');
     Route::get('/peserta-didik/paket-pembelajaran', PaketPembelajaranController::class)->name('peserta-didik.paket-pembelajaran');
     Route::post('/peserta-didik/paket-pembelajaran/tambah-paket/{paketId}', [PaketPembelajaranController::class, 'tambahPaket'])->name('peserta-didik.paket-pembelajaran.tambah-paket');
     Route::delete('/peserta-didik/paket-pembelajaran/batalkan-paket/{paketId}', [PaketPembelajaranController::class, 'batalkanPaket'])->name('peserta-didik.paket-pembelajaran.batalkan-paket');
