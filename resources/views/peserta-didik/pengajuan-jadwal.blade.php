@@ -59,21 +59,21 @@
                                             </td>
                                         </tr>
                                     </form>
-                                    @if ($kosong == true)
-                                        <tr class="text-gray-700 dark:text-gray-400">
-                                            <td class="px-4 py-3 text-sm">
-                                                -
-                                            </td>
-                                            <td class="px-4 py-3 text-sm text-center">
-                                                -
-                                            </td>
-                                            <td class="px-4 py-3 text-sm text-center">
-                                                -
-                                            </td>
-                                        </tr>
-                                    @endif
                                 @endif
                             @endforeach
+                            @if ($kosong == true)
+                                <tr class="text-gray-700 dark:text-gray-400">
+                                    <td class="px-4 py-3 text-sm">
+                                        -
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-center">
+                                        -
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-center">
+                                        -
+                                    </td>
+                                </tr>
+                            @endif
                         </tbody>
                     </table>
                 </div>

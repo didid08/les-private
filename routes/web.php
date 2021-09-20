@@ -99,6 +99,7 @@ Route::middleware(['auth', 'isPesertaDidik'])->group(function () {
         return redirect()->route('peserta-didik.absensi');
     });
     Route::get('/peserta-didik/absensi', AbsensiController::class)->name('peserta-didik.absensi');
+    Route::post('/peserta-didik/absensi/{jadwalID}', [AbsensiController::class, 'process'])->name('peserta-didik.absensi@process');
     Route::get('/peserta-didik/roster-pembelajaran', RosterPembelajaranController::class)->name('peserta-didik.roster-pembelajaran');
     Route::get('/peserta-didik/pengajuan-jadwal', PengajuanJadwalController::class)->name('peserta-didik.pengajuan-jadwal');
     Route::post('/peserta-didik/pengajuan-jadwal', [PengajuanJadwalController::class, 'process'])->name('peserta-didik.pengajuan-jadwal@process');

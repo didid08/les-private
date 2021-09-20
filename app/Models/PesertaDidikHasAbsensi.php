@@ -10,7 +10,7 @@ class PesertaDidikHasAbsensi extends Model
     use HasFactory;
 
     protected $table = 'peserta_didik_has_absensi';
-    protected $fillable = ['peserta_didik_id', 'peserta_didik_has_paket_pembelajaran_id'];
+    protected $fillable = ['peserta_didik_id', 'peserta_didik_has_jadwal_id', 'peserta_didik_has_paket_pembelajaran_id'];
 
     public function pesertaDidik()
     {
