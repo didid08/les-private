@@ -23,7 +23,6 @@
                             <tr
                                 class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                                 <th class="px-4 py-3">Nama</th>
-                                <th class="px-4 py-3 text-center">Paket Pembelajaran</th>
                                 <th class="px-4 py-3 text-center">Opsi</th>
                             </tr>
                         </thead>
@@ -48,9 +47,6 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="px-4 py-3 text-xs text-center status">
-                                        -
-                                    </td>
 
                                     <td class="px-4 py-3 text-sm text-center">
                                         <a href="{{ route('admin.peserta-didik.edit-peserta-didik', ['id' => $pesertaDidik->id]) }}"
@@ -58,11 +54,15 @@
                                             aria-label="Edit">
                                             <i class="fa fa-edit mr-2"></i>Edit
                                         </a>
-                                        <button
-                                            class="items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-orange-500 rounded-lg dark:text-yellow-400 focus:outline-none focus:shadow-outline-gray"
-                                            aria-label="Reset Password">
-                                            <i class="fa fa-history mr-2"></i>Reset Pass
-                                        </button>
+                                        <form action="{{ route('reset-password', ['userID' => $pesertaDidik->id]) }}" method="POST" style="display: inline">
+                                            @method('PATCH')
+                                            @csrf
+                                            <button type="submit" onclick="return confirm('Apakah anda yakin?')"
+                                                class="items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-orange-500 rounded-lg dark:text-yellow-400 focus:outline-none focus:shadow-outline-gray"
+                                                aria-label="Reset Password">
+                                                <i class="fa fa-history mr-2"></i>Reset Password
+                                            </button>
+                                        </form>
                                         <form
                                             action="{{ route('admin.peserta-didik.hapus-peserta-didik', ['id' => $pesertaDidik->id]) }}"
                                             method="POST" style="display: inline">

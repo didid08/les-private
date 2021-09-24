@@ -61,11 +61,15 @@
                                             aria-label="Edit">
                                             <i class="fa fa-edit mr-2"></i>Edit
                                         </a>
-                                        <button
-                                            class="items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-orange-500 rounded-lg dark:text-yellow-400 focus:outline-none focus:shadow-outline-gray"
-                                            aria-label="Reset Password">
-                                            <i class="fa fa-history mr-2"></i>Reset Pass
-                                        </button>
+                                        <form action="{{ route('reset-password', ['userID' => $pendidik->id]) }}" method="POST" style="display: inline">
+                                            @method('PATCH')
+                                            @csrf
+                                            <button type="submit" onclick="return confirm('Apakah anda yakin?')"
+                                                class="items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-orange-500 rounded-lg dark:text-yellow-400 focus:outline-none focus:shadow-outline-gray"
+                                                aria-label="Reset Password">
+                                                <i class="fa fa-history mr-2"></i>Reset Password
+                                            </button>
+                                        </form>
                                         <form
                                             action="{{ route('admin.pendidik.hapus-pendidik', ['id' => $pendidik->id]) }}"
                                             method="POST" style="display: inline">

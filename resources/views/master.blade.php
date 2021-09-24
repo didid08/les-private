@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html :class="{ 'theme-dark': dark }" x-data="{...data(), ...{@yield('more-x-data')}}" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html :class="{ 'theme-dark': dark }" x-data="{...data(), ...{ ubahPasswordTerbuka: false }, ...{@yield('more-x-data')}}" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="UTF-8" />
@@ -64,6 +64,7 @@
 
 <body>
     <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
+        @include('ubah-password')
         @yield('modal')
         <aside class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
             <div class="py-4 text-gray-500 dark:text-gray-400">
@@ -145,7 +146,7 @@
                                     @click.away="closeProfileMenu" @keydown.escape="closeProfileMenu"
                                     class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700"
                                     aria-label="submenu">
-                                    <li class="flex">
+                                    {{-- <li class="flex">
                                         <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
                                             href="profile.php">
                                             <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
@@ -157,10 +158,10 @@
                                             </svg>
                                             <span>Profile</span>
                                         </a>
-                                    </li>
+                                    </li> --}}
                                     <li class="flex">
                                         <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                                            href="ubahpassword.php">
+                                            href="javascript:void(0)" x-on:click="ubahPasswordTerbuka = true; trapCleanup = focusTrap(document.querySelector('#ubah-password'))">
                                             <i class="fab fa-keycdn"></i>
                                             <span>&nbsp;&nbsp;&nbsp;&nbsp;Ubah Password</span>
                                         </a>

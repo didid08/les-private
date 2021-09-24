@@ -135,15 +135,4 @@ class PesertaDidikController extends Controller
 
         return redirect()->route('admin.peserta-didik.daftar-peserta-didik')->with('success', 'Berhasil menghapus peserta didik');
     }
-
-    public function rosterPesertaDidik()
-    {
-        return view('admin.peserta-didik.roster-peserta-didik', [
-            'pageInfo' => [
-                'title' => 'Pendidik - Roster Pendidik',
-                'id' => 'roster-peserta-didik',
-                'group' => 'peserta-didik'
-            ]
-        ]);
-    }
 }
