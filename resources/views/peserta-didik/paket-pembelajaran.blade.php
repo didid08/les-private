@@ -121,7 +121,7 @@
                         </div>
                     @endforeach
                 @else
-                    Tidak ada paket pembelajaran yang bisa ditambah
+                    <span class="text-black dark:text-white">Tidak ada paket pembelajaran yang bisa ditambah</span>
                 @endif
             </div>
         </div>

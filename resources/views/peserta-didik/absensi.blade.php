@@ -51,7 +51,7 @@
                         @endif
                     @endforeach
                     @if ($kosong == true)
-                        Tidak ada absensi untuk sekarang
+                        <span class="text-black dark:text-white">Tidak ada absensi untuk sekarang</span>
                     @endif
                 </div>
             </div>

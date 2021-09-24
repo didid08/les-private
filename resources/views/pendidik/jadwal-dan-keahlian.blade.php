@@ -8,10 +8,10 @@
             {{-- <h4 class="mb-6 text-lg font-semibold text-gray-600 dark:text-gray-300">
                 Jadwal
             </h4> --}}
-            <span class="text-sm text-gray mb-2">
+            <span class="text-sm text-gray mb-2 text-black dark:text-white">
                 Keterangan:
             </span>
-            <span class="text-sm text-gray mb-6 px-2">
+            <span class="text-sm text-gray mb-6 px-2 text-black dark:text-white">
                 <i class="far fa-circle text-green-600"></i>&nbsp;&nbsp;=&nbsp;&nbsp;Jadwal belum diambil oleh peserta didik
                 dan masih bisa diubah/dihapus <br>
                 <i class="far fa-check-circle text-green-600"></i>&nbsp;&nbsp;=&nbsp;&nbsp;Jadwal sudah diambil oleh peserta

@@ -105,7 +105,7 @@
                             </tbody>
                         </table>
                     @else
-                        Tidak ada pembayaran yang perlu dikonfirmasi
+                        <span class="text-black dark:text-white">Tidak ada pembayaran yang perlu dikonfirmasi</span>
                     @endif
                 </div>
             </div>
