@@ -158,7 +158,6 @@
             </a>
         </li>
     </ul>
-
 @endsection
 @section('side-menu-mobile')
     <aside class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white dark:bg-gray-800 md:hidden"
@@ -169,9 +168,8 @@
         @keydown.escape="closeSideMenu">
         <div class="py-4 text-gray-500 dark:text-gray-400">
             <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
-                Jak U Rumoh
+                Jak-U-Rumoh
             </a>
-
             <ul class="mt-6">
                 <li class="relative px-6 py-3">
                     @if ($pageInfo['id'] == 'dashboard')
@@ -218,13 +216,15 @@
                                 class="px-2 py-1 transition-colors duration-150 {{ $pageInfo['id'] == 'daftar-pendidik' ? 'text-gray-800 dark:text-gray-200 ' : '' }}hover:text-gray-800 dark:hover:text-gray-200">
                                 <a class="w-full" href="{{ route('admin.pendidik.daftar-pendidik') }}">Daftar Pendidik</a>
                             </li>
+                            @if ($pageInfo['id'] == 'edit-pendidik')
+                                <li
+                                    class="px-2 py-1 transition-colors duration-150 {{ $pageInfo['id'] == 'edit-pendidik' ? 'text-gray-800 dark:text-gray-200 ' : '' }}hover:text-gray-800 dark:hover:text-gray-200">
+                                    <a class="w-full" href="{{ route('admin.pendidik.edit-pendidik', ['id' => $id]) }}">Edit Pendidik</a>
+                                </li>
+                            @endif
                             <li
                                 class="px-2 py-1 transition-colors duration-150 {{ $pageInfo['id'] == 'tambah-pendidik' ? 'text-gray-800 dark:text-gray-200 ' : '' }}hover:text-gray-800 dark:hover:text-gray-200">
-                                <a class="w-full" href="requestpendidik.php">Tambah Pendidik</a>
-                            </li>
-                            <li
-                                class="px-2 py-1 transition-colors duration-150 {{ $pageInfo['id'] == 'roster-pendidik' ? 'text-gray-800 dark:text-gray-200 ' : '' }}hover:text-gray-800 dark:hover:text-gray-200">
-                                <a class="w-full" href="requestpendidik.php">Roster Pendidik</a>
+                                <a class="w-full" href="{{ route('admin.pendidik.tambah-pendidik') }}">Tambah Pendidik</a>
                             </li>
                         </ul>
                     </template>
@@ -256,15 +256,17 @@
                             aria-label="submenu">
                             <li
                                 class="px-2 py-1 transition-colors duration-150 {{ $pageInfo['id'] == 'daftar-peserta-didik' ? 'text-gray-800 dark:text-gray-200 ' : '' }}hover:text-gray-800 dark:hover:text-gray-200">
-                                <a class="w-full" href="daftarpesertadidik.php">Daftar Peserta Didik</a>
+                                <a class="w-full" href="{{ route('admin.peserta-didik.daftar-peserta-didik') }}">Daftar Peserta Didik</a>
                             </li>
+                            @if ($pageInfo['id'] == 'edit-peserta-didik')
+                                <li
+                                    class="px-2 py-1 transition-colors duration-150 {{ $pageInfo['id'] == 'edit-peserta-didik' ? 'text-gray-800 dark:text-gray-200 ' : '' }}hover:text-gray-800 dark:hover:text-gray-200">
+                                    <a class="w-full" href="{{ route('admin.peserta-didik.edit-peserta-didik', ['id' => $id]) }}">Edit Peserta Didik</a>
+                                </li>
+                            @endif
                             <li
                                 class="px-2 py-1 transition-colors duration-150 {{ $pageInfo['id'] == 'tambah-peserta-didik' ? 'text-gray-800 dark:text-gray-200 ' : '' }}hover:text-gray-800 dark:hover:text-gray-200">
-                                <a class="w-full" href="requestpesertadidik.php">Tambah Peserta Didik</a>
-                            </li>
-                            <li
-                                class="px-2 py-1 transition-colors duration-150 {{ $pageInfo['id'] == 'roster-peserta-didik' ? 'text-gray-800 dark:text-gray-200 ' : '' }}hover:text-gray-800 dark:hover:text-gray-200">
-                                <a class="w-full" href="requestpesertadidik.php">Roster Peserta Didik</a>
+                                <a class="w-full" href="{{ route('admin.peserta-didik.tambah-peserta-didik') }}">Tambah Peserta Didik</a>
                             </li>
                         </ul>
                     </template>
@@ -295,18 +297,37 @@
                             class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900"
                             aria-label="submenu">
                             <li
-                                class="px-2 py-1 transition-colors duration-150 {{ $pageInfo['id'] == 'daftar-paket' ? 'text-gray-800 dark:text-gray-200 ' : '' }}hover:text-gray-800 dark:hover:text-gray-200">
-                                <a class="w-full" href="daftarpendidik.php">Daftar Paket</a>
+                                class="px-2 py-1 transition-colors duration-150 {{ $pageInfo['id'] == 'daftar-paket-pembelajaran' ? 'text-gray-800 dark:text-gray-200 ' : '' }}hover:text-gray-800 dark:hover:text-gray-200">
+                                <a class="w-full" href="{{ route('admin.paket-pembelajaran.daftar-paket-pembelajaran') }}">Daftar Paket</a>
                             </li>
+                            @if ($pageInfo['id'] == 'edit-paket-pembelajaran')
+                                <li
+                                    class="px-2 py-1 transition-colors duration-150 {{ $pageInfo['id'] == 'edit-paket-pembelajaran' ? 'text-gray-800 dark:text-gray-200 ' : '' }}hover:text-gray-800 dark:hover:text-gray-200">
+                                    <a class="w-full" href="{{ route('admin.paket-pembelajaran.edit-paket-pembelajaran', ['id' => $paketPembelajaranSekarang->id]) }}">Edit Paket</a>
+                                </li>
+                            @endif
                             <li
-                                class="px-2 py-1 transition-colors duration-150 {{ $pageInfo['id'] == 'tambah-paket' ? 'text-gray-800 dark:text-gray-200 ' : '' }}hover:text-gray-800 dark:hover:text-gray-200">
-                                <a class="w-full" href="requestpendidik.php">Tambah Paket</a>
+                                class="px-2 py-1 transition-colors duration-150 {{ $pageInfo['id'] == 'tambah-paket-pembelajaran' ? 'text-gray-800 dark:text-gray-200 ' : '' }}hover:text-gray-800 dark:hover:text-gray-200">
+                                <a class="w-full" href="{{ route('admin.paket-pembelajaran.tambah-paket-pembelajaran') }}">Tambah Paket</a>
                             </li>
                         </ul>
                     </template>
                 </li>
             </ul>
 
+            <ul class="mt-3">
+                <li class="relative px-6 py-3">
+                    @if ($pageInfo['id'] == 'aktifkan-paket-peserta-didik')
+                        <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                            aria-hidden="true"></span>
+                    @endif
+                    <a class="inline-flex items-center w-full text-sm font-semibold {{ $pageInfo['id'] == 'aktifkan-paket-peserta-didik' ? 'text-gray-800 dark:text-gray-200 ' : 'text-gray-200 dark:text-gray-100' }}transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                        href="{{ route('admin.konfirmasi-pembayaran') }}">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        <span class="ml-4">Konfirmasi Pembayaran</span>
+                    </a>
+                </li>
+            </ul>
         </div>
     </aside>
 @endsection

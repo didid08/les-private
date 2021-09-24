@@ -20,8 +20,14 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                            @php
+                                $kosong = true;
+                            @endphp
                             @foreach ($semuaJadwalSaya as $jadwal)
                                 @if ($jadwal->pesertaDidikHasAbsensi->count() < 12)
+                                    @php
+                                        $kosong = false;
+                                    @endphp
                                     <tr class="text-gray-700 dark:text-gray-400">
                                         <td class="px-4 py-3 text-sm text-center">
                                             {{ substr($jadwal->pendidikHasJadwal->hari, 1) }}
@@ -42,6 +48,25 @@
                                     </tr>
                                 @endif
                             @endforeach
+                            @if ($kosong == true)
+                                <tr class="text-gray-700 dark:text-gray-400">
+                                    <td class="px-4 py-3 text-sm text-center">
+                                        -
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-center">
+                                        -
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-center">
+                                        -
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-center">
+                                        -
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-center">
+                                        -
+                                    </td>
+                                </tr>
+                            @endif
                         </tbody>
                     </table>
                 </div>
