@@ -10,6 +10,24 @@
     <link rel="stylesheet" href="{{ asset('assets/css/tailwind.output.css') }}" />
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="{{ asset('assets/js/init-alpine.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    @if ($errors->any())
+        @php
+            $toastrTimeout = 0;
+        @endphp
+        @foreach ($errors->all() as $message)
+            <script type="module">
+                setTimeout(function () {
+                    toastr.error('{{ $message }}');
+                }, {{ $toastrTimeout }});
+            </script>
+            @php
+                $toastrTimeout += 300;
+            @endphp
+        @endforeach
+    @endif
 </head>
 
 <body>
@@ -18,9 +36,9 @@
             <div class="flex flex-col overflow-y-auto md:flex-row">
                 <div class="h-32 md:h-auto md:w-1/2">
                     <img aria-hidden="true" class="object-cover w-full h-full dark:hidden"
-                        src="{{ asset('assets/img/quran.jpg') }}" alt="Office" />
+                        src="{{ asset('assets/img/quran.jpg') }}" alt="Al-Quran" />
                     <img aria-hidden="true" class="hidden object-cover w-full h-full dark:block"
-                        src="../assets/img/login-office-dark.jpeg" alt="Office" />
+                        src="{{ asset('assets/img/quran.jpg') }}" alt="Al-Quran" />
                 </div>
                 <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
                     <div class="w-full">
