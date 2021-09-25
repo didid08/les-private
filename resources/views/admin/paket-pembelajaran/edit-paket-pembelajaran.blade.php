@@ -41,7 +41,7 @@
                     </label>
                     <div class="mt-4 text-sm">
                         <span class="text-gray-700 dark:text-gray-400">
-                            Bisa dengan diambil secara bersamaan dengan paket :
+                            Bisa diambil secara bersamaan dengan paket :
                         </span>
                         <div class="mt-2 mb-4 min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 dark:border-gray-600"
                             style="max-height: 20em; overflow-y: auto">

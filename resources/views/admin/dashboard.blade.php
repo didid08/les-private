@@ -2,11 +2,13 @@
 @section('main')
     <main class="h-full overflow-y-auto">
         <div class="container px-6 mx-auto grid">
-            <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+            {{-- <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
                 Dashboard
-            </h2>
-
-            <!-- Cards -->
+            </h2> --}}
+            <span class="my-6 text-md font-semibold text-gray-700 dark:text-gray-200">
+                Selamat Datang Di Jak-U-Rumoh Admin
+            </span>
+            {{-- <!-- Cards -->
             <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
                 <!-- Card -->
                 <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
@@ -126,13 +128,13 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </main>
 @endsection
 @section('more-script')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
     <script src="{{ asset('assets/js/charts-lines.js') }}" defer></script>
-    <script src="{{ asset('assets/js/charts-pie.js') }}" defer></script>
+    <script src="{{ asset('assets/js/charts-pie.js') }}" defer></script> --}}
 @endsection
