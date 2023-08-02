@@ -1,6 +1,5 @@
-# Jak-U-Rumoh
-(Indonesia: Pergi Ke Rumah)
+# Les Private
 
-Jak-U-Rumoh merupakan website untuk keperluan usaha les private bertema islami.
+Les Private merupakan website untuk keperluan usaha les private.
 
 Note: Masih dalam tahap perkembangan
